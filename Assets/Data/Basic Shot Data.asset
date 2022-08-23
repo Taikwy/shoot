@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc275c93f064c14fa906f6e01e1b594, type: 3}
+  m_Name: Basic Shot Data
+  m_EditorClassIdentifier: 
+  name: Basic Shot
+  defaultSprite: {fileID: -7592357483586913841, guid: c18a250d048b6a54ebcbe64bbce01de2, type: 3}
+  colliderXOffset: 0
+  colliderYOffset: -0.09
+  colliderWidth: 0.57
+  colliderHeight: 0.33
+  controller: {fileID: 9100000, guid: d5596ced29cf51d43888d428f6630901, type: 2}
+  bulletType: default
+  health: 1
+  damage: 1
+  movementSpeed: 0.25
+  ammoCost: 5
+  cooldown: 0.2

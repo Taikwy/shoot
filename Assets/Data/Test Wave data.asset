@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39355618544beb8448ac9ffada754dbb, type: 3}
+  m_Name: Test Wave data
+  m_EditorClassIdentifier: 
+  waveName: testibnng wave
+  enemyPrefab: {fileID: 6509700084629815319, guid: 5a04835f9c9f4964996cc22a73f49f3b, type: 3}
+  gapBetween: 4
+  spawnInterval: 0.3
+  numEnemies: 5
+  numRespawns: 2
+  respawnDelay: 1

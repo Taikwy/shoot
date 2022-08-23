@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551be29b5e271334abe24c83f21579fb, type: 3}
+  m_Name: New Line Stop Data
+  m_EditorClassIdentifier: 
+  lineData: {fileID: 11400000, guid: b2255bf7904c74b4da6ad75afa8d6a36, type: 2}
+  lineConditionType: distance
+  lineCondition: 12
+  stopCondition: 1

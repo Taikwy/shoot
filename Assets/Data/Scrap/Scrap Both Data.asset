@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc486bfba7ca3f498fcd505ec623491, type: 3}
+  m_Name: Scrap Both Data
+  m_EditorClassIdentifier: 
+  name: Scrap Both
+  defaultSprite: {fileID: 4651472796450862913, guid: 4e953b5a1318ec14f93eb85997bc0854, type: 3}
+  colliderXOffset: 0
+  colliderYOffset: 0
+  colliderWidth: 0
+  colliderHeight: 0
+  ammoType: both
+  defaultAmount: 100
+  skillAmount: 50
+  activeTimer: 7
