@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class AttackPattern : MonoBehaviour
 {
-    public Transform firingPoint;
-    public Shoot shoot;
-    // public bool conditional = false;
-    public bool shooting = false;
-
+    [HideInInspector]
     public enum AttackSequence{
         Primary,
         Conditional,
@@ -16,18 +12,14 @@ public class AttackPattern : MonoBehaviour
     }
 
     public AttackSequence currentSequence;
+    [HideInInspector]
+    public bool canAttack = true;
 
-    public virtual void Reset(){
-        ChangeSequence(AttackSequence.Primary);
-    }
+    // public virtual void Reset(){
+    //     ChangeSequence(AttackSequence.Primary);
+    // }
 
     protected virtual void Update(){
-        // if(conditional){
-        //     ChangeSequence(AttackSequence.Conditional);
-        //     conditional = false;
-        // }
-        if(!shooting)
-            return;
         switch(currentSequence){
             case AttackSequence.Primary:
                 PrimarySequence();

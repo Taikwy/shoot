@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class MovementPattern : MonoBehaviour
 {
-    [SerializeField]
-    public Rigidbody2D rb;
-    public MovementPieces movementPieces;
+    protected Rigidbody2D rb;
+    [HideInInspector]
     public enum MovementSequence{
         // Spawn,
         Enter,
         Main,
         Exit
     }
-
-    [HideInInspector] 
     public MovementSequence currentSequence;
 
     protected Vector2 movePosition;
     protected float movementSpeed, maxMovementSpeed, acceleration;
 
     public virtual void Setup(){
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate(){
@@ -31,9 +29,6 @@ public class MovementPattern : MonoBehaviour
         }
 
         switch(currentSequence){
-            // case MovementSequence.Spawn:
-            //     SpawnSequence();
-            //     break;
             case MovementSequence.Enter:
                 EnterSequence();
                 break;
@@ -44,7 +39,6 @@ public class MovementPattern : MonoBehaviour
                 ExitSequence();
                 break;
         }
-        // Debug.Log(currentSequence);
         rb.MovePosition(movePosition);
     }
 
@@ -54,13 +48,9 @@ public class MovementPattern : MonoBehaviour
         acceleration = accel;
     }
 
-    protected virtual void ChangeSequence(MovementSequence newSequence){
+    public virtual void ChangeSequence(MovementSequence newSequence){
         currentSequence = newSequence;
     }
-
-    // //How enemy gets in position after spawning
-    // protected virtual void SpawnSequence(){
-    // }
 
     //How enemy enteres the screen
     protected virtual void EnterSequence(){
