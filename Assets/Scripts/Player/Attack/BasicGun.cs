@@ -19,18 +19,18 @@ public class BasicGun : Gun
     // Update is called once per frame
     void Update()
     {
-        base.RechargeAmmo();
+        // base.RechargeAmmo();
     }
 
     public override void Shoot(){
         // Debug.Log(bulletScript.ammoCost + " " + currentAmmo + " " + timeSinceShot + " " + bulletScript.cooldown);
-        if(bulletScript.ammoCost > currentAmmo || timeSinceShot < bulletScript.cooldown){
+        if(ammoCost > currentAmmo || timeSinceShot < cooldown){
             return;
         }
         GameObject bullet = PoolManager.Instance.ReuseObject(bulletPrefab, firingPoint.position, firingPoint.rotation);
         bullet.GetComponent<BulletScript>().SetData(false, firingPoint.up);
         
-        currentAmmo -= bulletScript.ammoCost;
+        currentAmmo -= ammoCost;
         isRecharging = false;
         timeSinceShot = 0;
         

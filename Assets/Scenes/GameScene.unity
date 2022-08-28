@@ -370,6 +370,38 @@ PrefabInstance:
       propertyPath: basicPrefab
       value: 
       objectReference: {fileID: 8149963307627320079, guid: a24707c0c2bc03c48a1256e357859c2b, type: 3}
+    - target: {fileID: 7705575479252175147, guid: 29869fee8996a5a428744a749d082eb4, type: 3}
+      propertyPath: specialGuns.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7705575479252175147, guid: 29869fee8996a5a428744a749d082eb4, type: 3}
+      propertyPath: specialAttacks.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7705575479252175147, guid: 29869fee8996a5a428744a749d082eb4, type: 3}
+      propertyPath: specialGuns.Array.data[0]
+      value: 
+      objectReference: {fileID: 937901147}
+    - target: {fileID: 7705575479252175147, guid: 29869fee8996a5a428744a749d082eb4, type: 3}
+      propertyPath: specialGuns.Array.data[1]
+      value: 
+      objectReference: {fileID: 1705365382}
+    - target: {fileID: 7705575479252175147, guid: 29869fee8996a5a428744a749d082eb4, type: 3}
+      propertyPath: specialGuns.Array.data[2]
+      value: 
+      objectReference: {fileID: 1098172155}
+    - target: {fileID: 7705575479252175147, guid: 29869fee8996a5a428744a749d082eb4, type: 3}
+      propertyPath: specialScripts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7705575479252175147, guid: 29869fee8996a5a428744a749d082eb4, type: 3}
+      propertyPath: specialAttacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 1705365382}
+    - target: {fileID: 7705575479252175147, guid: 29869fee8996a5a428744a749d082eb4, type: 3}
+      propertyPath: specialAttacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 937901147}
     - target: {fileID: 7705575479252175148, guid: 29869fee8996a5a428744a749d082eb4, type: 3}
       propertyPath: maxHealth
       value: 50
@@ -778,8 +810,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1177734275}
-  m_RootOrder: 2
+  m_Father: {fileID: 1272500995}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &937901149
 MonoBehaviour:
@@ -801,6 +833,10 @@ MonoBehaviour:
   ammoRechargePause: 0
   ammoRechargeRate: 0
   ammoRechargeAmount: 0
+  maxHealth: 0
+  currentHealth: 0
+  ammoCost: 15
+  cooldown: 0.6
   isRecharging: 0
   timeSinceShot: 0
   numShots: 3
@@ -955,6 +991,10 @@ MonoBehaviour:
   ammoRechargePause: 0
   ammoRechargeRate: 0
   ammoRechargeAmount: 0
+  maxHealth: 0
+  currentHealth: 0
+  ammoCost: 5
+  cooldown: 0.2
   isRecharging: 0
   timeSinceShot: 0
 --- !u!4 &1098172157
@@ -969,8 +1009,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1177734275}
-  m_RootOrder: 1
+  m_Father: {fileID: 1272500995}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1177734274 stripped
 MonoBehaviour:
@@ -1141,6 +1181,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1272500994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1272500995}
+  m_Layer: 0
+  m_Name: Weapons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1272500995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272500994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1098172157}
+  - {fileID: 937901148}
+  - {fileID: 1705365383}
+  m_Father: {fileID: 1177734275}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1328630536 stripped
 Transform:
@@ -1929,8 +2003,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1177734275}
-  m_RootOrder: 3
+  m_Father: {fileID: 1272500995}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1705365384
 MonoBehaviour:
@@ -1952,6 +2026,10 @@ MonoBehaviour:
   ammoRechargePause: 0
   ammoRechargeRate: 0
   ammoRechargeAmount: 0
+  maxHealth: 0
+  currentHealth: 0
+  ammoCost: 15
+  cooldown: 0.8
   isRecharging: 0
   timeSinceShot: 0
   sizeIncreaseRate: 0.1

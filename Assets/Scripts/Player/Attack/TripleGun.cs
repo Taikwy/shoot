@@ -23,11 +23,11 @@ public class TripleGun : Gun
     // Update is called once per frame
     void Update()
     {
-        base.RechargeAmmo();
+        // base.RechargeAmmo();
     }
 
     public override void Shoot(){
-        if(bulletScript.ammoCost > currentAmmo || timeSinceShot < bulletScript.cooldown){
+        if(ammoCost > currentAmmo || timeSinceShot < cooldown){
             return;
         }
 
@@ -44,7 +44,7 @@ public class TripleGun : Gun
 
             currentAngle += gapBetween;
         }
-        currentAmmo -= bulletScript.ammoCost;
+        currentAmmo -= ammoCost;
         isRecharging = false;
         timeSinceShot = 0;
     }

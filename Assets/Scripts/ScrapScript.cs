@@ -11,7 +11,7 @@ public class ScrapScript : PoolObject
     public CircleCollider2D cd;
     public Animator animator;
     string ammoType;
-    // float amount;
+    float amount;
     float defaultAmount;
     float skillAmount;
 
@@ -51,7 +51,8 @@ public class ScrapScript : PoolObject
     }
 
     void Pickup(Collider2D playerCollider){
-        playerCollider.gameObject.GetComponent<PlayerShooting>().RechargeAmmo(ammoType, defaultAmount, skillAmount);
+        // playerCollider.gameObject.GetComponent<PlayerShooting>().RechargeAmmo(ammoType, defaultAmount, skillAmount);
+        playerCollider.gameObject.GetComponent<PlayerShooting>().PickupAmmo(ammoType, amount);
         Destroy(gameObject);
     }
 }
