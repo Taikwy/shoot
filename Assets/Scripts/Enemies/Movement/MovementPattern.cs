@@ -5,6 +5,10 @@ using UnityEngine;
 public class MovementPattern : MonoBehaviour
 {
     protected Rigidbody2D rb;
+    
+    protected Vector2 movePosition;
+    protected float currentSpeed, maxSpeed, acceleration;
+    
     [HideInInspector]
     public enum MovementSequence{
         // Spawn,
@@ -14,18 +18,15 @@ public class MovementPattern : MonoBehaviour
     }
     public MovementSequence currentSequence;
 
-    protected Vector2 movePosition;
-    protected float movementSpeed, maxMovementSpeed, acceleration;
-
     public virtual void Setup(){
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate(){
-        if(movementSpeed < maxMovementSpeed){
-            movementSpeed += acceleration * Time.deltaTime;
-            if(movementSpeed > maxMovementSpeed)
-                movementSpeed = maxMovementSpeed;
+        if(currentSpeed < maxSpeed){
+            currentSpeed += acceleration * Time.deltaTime;
+            if(currentSpeed > maxSpeed)
+                currentSpeed = maxSpeed;
         }
 
         switch(currentSequence){
@@ -42,10 +43,13 @@ public class MovementPattern : MonoBehaviour
         rb.MovePosition(movePosition);
     }
 
-    protected virtual void SetSpeedAndAccel(float max, float spd, float accel){
-        maxMovementSpeed = max;
-        movementSpeed = spd;
-        acceleration = accel;
+    protected virtual void SetSpeedAndAccel(float newMax, float newSpeed, float newAccel){
+        maxSpeed = newMax;
+        if(newSpeed > newMax)
+            currentSpeed = newMax;
+        else
+            currentSpeed = newSpeed;
+        acceleration = newAccel;
     }
 
     public virtual void ChangeSequence(MovementSequence newSequence){

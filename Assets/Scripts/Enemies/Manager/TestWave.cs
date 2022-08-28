@@ -9,13 +9,15 @@ public class TestWave : MonoBehaviour
     public GameObject waveHolderPrefab;
 
     [Header("Wave Info")]
-    public int numOfEnemiesInWave;
     public GameObject enemyPrefab;
     // public GameObject enemyPrefab2;
-    // public Vector2 centerSpawnPoint;
+    [HideInInspector]
+    public int numOfEnemiesInWave;
+    
+    [Header("Spawning Info")]
+    public int numEnemies;
     [Tooltip("horizontal, vertical, diagonal, vertical stream, diagonal stream")]
     public string spawnType;
-    public int numEnemies;
     public float xGap;
     public float yGap;
     public float spawnInterval;

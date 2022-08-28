@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NewMovementPattern : MovementPattern
 {
+    public AttackPattern attackPattern;
     bool mirrored;
     string currentPiece;
 
@@ -16,11 +17,14 @@ public class NewMovementPattern : MovementPattern
     [Header("Enter Sequence")]
     public LineMovement.LineData enter_line;
     public StopMovement.StopData enter_stop;
+    public float enterMaxSpeed, enterSpeed, enterAcceleration;
     [Header("Main Sequence")]
     public SinMovement.SinData main_sin;
+    public float mainMaxSpeed, mainSpeed, mainAcceleration;
     [Header("Exit Sequence")]
     public CurveMovement.CurveData exit_curve;
     public LineMovement.LineData exit_line;
+    public float exitMaxSpeed, exitSpeed, exitAcceleration;
 
     public void Setup(bool m = false){
         Debug.Log("setting up m pattern");
@@ -30,9 +34,6 @@ public class NewMovementPattern : MovementPattern
         curveMovement = gameObject.GetComponent<CurveMovement>();
 
         mirrored = m;
-        maxMovementSpeed = 3f;
-        movementSpeed = maxMovementSpeed;
-        acceleration = 4f;
 
         base.Setup();
         ChangeSequence(MovementSequence.Enter);
@@ -43,16 +44,19 @@ public class NewMovementPattern : MovementPattern
         switch(newSequence){
             case MovementSequence.Enter:
                 lineMovement.Setup(enter_line);
+                SetSpeedAndAccel(enterMaxSpeed, enterSpeed, enterAcceleration);
                 EnterSequence();
                 break;
             case MovementSequence.Main:
                 sinMovement.Setup(main_sin);
+                SetSpeedAndAccel(mainMaxSpeed, mainSpeed, mainAcceleration);
                 MainSequence();
                 break;
             case MovementSequence.Exit:
-                SetSpeedAndAccel(60f, 2f, 15f);
-                curveMovement.Setup(exit_curve);
+                attackPattern.canAttack = false;
                 currentPiece = "curve";
+                curveMovement.Setup(exit_curve);
+                SetSpeedAndAccel(exitMaxSpeed, exitSpeed, exitAcceleration);
                 ExitSequence();
                 break;
         }
@@ -64,7 +68,7 @@ public class NewMovementPattern : MovementPattern
             ChangeSequence(MovementSequence.Main);
             return;
         }
-        movePosition = lineMovement.Movement(movementSpeed);
+        movePosition = lineMovement.Movement(currentSpeed);
     }
 
     //sin downwards
@@ -74,7 +78,7 @@ public class NewMovementPattern : MovementPattern
             ChangeSequence(MovementSequence.Exit);
             return;
         }
-        movePosition = sinMovement.MovementX(movementSpeed);
+        movePosition = sinMovement.MovementX(currentSpeed);
     }
 
     //curves and goes away
@@ -82,16 +86,16 @@ public class NewMovementPattern : MovementPattern
         
         switch(currentPiece){
             case "curve":
-                movePosition = curveMovement.Movement(movementSpeed);
+                movePosition = curveMovement.Movement(currentSpeed);
                 curveMovement.CurveRotate();
                 if(Mathf.Abs(curveMovement.deltaAngle) >= exit_curve.distanceToCurve){
                     currentPiece = "line";
                     lineMovement.Setup(exit_line, mirrored);
-                    SetSpeedAndAccel(900f, movementSpeed, 15f);
+                    SetSpeedAndAccel(900f, currentSpeed, 15f);
                 }
                 break;
             case "line":
-                movePosition = lineMovement.Movement(movementSpeed);
+                movePosition = lineMovement.Movement(currentSpeed);
                 break;
         }            
     }

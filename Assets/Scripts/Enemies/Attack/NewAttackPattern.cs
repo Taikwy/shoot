@@ -28,12 +28,12 @@ public class NewAttackPattern : AttackPattern
         spreadShot = gameObject.GetComponent<SpreadShot>();
         circleShot = gameObject.GetComponent<CircleShot>();
 
-        PoolManager.Instance.CreatePool(primary_straight.bulletPrefab, 100, "enemy bullets");
-        PoolManager.Instance.CreatePool(primary_toward.bulletPrefab, 100, "enemy bullets");
-        PoolManager.Instance.CreatePool(primary_spread.bulletPrefab, 100, "enemy bullets");
-        PoolManager.Instance.CreatePool(primary_circle.bulletPrefab, 100, "enemy bullets");
-        PoolManager.Instance.CreatePool(conditional_circle.bulletPrefab, 100, "enemy bullets");
-        PoolManager.Instance.CreatePool(impared_straight.bulletPrefab, 100, "enemy bullets");
+        PoolManager.Instance.CreatePool(primary_straight.bulletPrefab, 100, "bullet");
+        PoolManager.Instance.CreatePool(primary_toward.bulletPrefab, 100, "bullet");
+        PoolManager.Instance.CreatePool(primary_spread.bulletPrefab, 100, "bullet");
+        PoolManager.Instance.CreatePool(primary_circle.bulletPrefab, 100, "bullet");
+        PoolManager.Instance.CreatePool(conditional_circle.bulletPrefab, 100, "bullet");
+        PoolManager.Instance.CreatePool(impared_straight.bulletPrefab, 100, "bullet");
 
         canAttack = true;
         ChangeSequence(AttackSequence.Primary);

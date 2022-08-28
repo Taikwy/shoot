@@ -7,27 +7,49 @@ public class PlayerShooting : MonoBehaviour
     
     [Header("Reference stuff")]
     public PlayerScript playerScript;
+    public GameObject basicGun;
+    public GameObject tripleGun;
+    public GameObject laserGun;
+    public Gun basicGunScript, tripleGunScript, laserGunScript;
+
+    [Header("ammo info")]
+    public float maxDefaultAmmo;
+    public float currentDefaultAmmo;
+    public float defaultAmmoRechargePause;
+    public float defaultAmmoRechargeRate;
+    public float defaultAmmoRechargeAmount;
+    public float maxSkillAmmo;
+    public float currentSkillAmmo;
+    public float skillAmmoRechargePause;
+    public float skillAmmoRechargeRate;
+    public float skillAmmoRechargeAmount;
+
+    
+    [Header("bullet info")]
     public Transform firingPoint;
-    public GameObject bulletPrefab;
-
+    public GameObject basicPrefab, laserPrefab, triplePrefab;
+    BulletScript basicScript, laserScript, tripleScript;
     
-    [Header("bullet prefabs")]
-    public GameObject defaultPrefab;
-    public GameObject skillPrefab;
+    enum ShotType{
+        Basic,
+        Skill
+    }
+    [Header("current skill shot")]
+    public SkillType currentSkillType = SkillType.Laser;
+    public enum SkillType{
+        Laser,
+        Triple
+    }
+    delegate void ShotDelegate();
+    ShotDelegate currentSkillShot;
 
-    public GameObject testPrefab;
-    public GameObject basicPrefab;
-    public GameObject laserPrefab;
-    public GameObject triplePrefab;
-
+    [Header("laser shot data")]
+    public float sizeIncreaseRate = .1f;
     
-    [Header("bullet data")]
-    public GameObject defaultData;
-    public GameObject skillData;
-    // public GameObject emptyShot;
-    public BulletData basicData;
-    public BulletData laserData;
-    public BulletData tripleData;
+    [Header("triple shot data")]
+    public int numShots = 3;
+    public float gapBetween = 10;
+    public float maxDistance = 10;
 
     [Header("player shooting info")]
     bool isRechargingDefault = false;
@@ -37,162 +59,209 @@ public class PlayerShooting : MonoBehaviour
 
 
     void Start(){
-        // PoolManager.instance.CreatePool(bulletPrefab, 10);
-        // PoolManager.instance.CreatePool(emptyShot, 20);
 
-        // PoolManager.instance.CreatePool(testPrefab, 20);
-        PoolManager.Instance.CreatePool(basicPrefab, 20, "bullet");
-        PoolManager.Instance.CreatePool(laserPrefab, 10, "bullet");
-        PoolManager.Instance.CreatePool(triplePrefab,20, "bullet");
+        basicGunScript = basicGun.GetComponent<Gun>();
+        tripleGunScript = tripleGun.GetComponent<Gun>();
+        laserGunScript = laserGun.GetComponent<Gun>();
+
+        maxDefaultAmmo = 100;
+        currentDefaultAmmo = maxDefaultAmmo;
+        defaultAmmoRechargePause = 0.25f;
+        defaultAmmoRechargeRate = 20;
+        defaultAmmoRechargeAmount = 20;
+
+        maxSkillAmmo = 100;
+        currentSkillAmmo = maxSkillAmmo;
+        skillAmmoRechargePause = 1;
+        skillAmmoRechargeRate = 10;
+        skillAmmoRechargeAmount = 15;
+
+        PoolManager.Instance.CreatePool(basicPrefab, 50, "bullet");
+        PoolManager.Instance.CreatePool(laserPrefab, 20, "bullet");
+        PoolManager.Instance.CreatePool(triplePrefab, 30, "bullet");
+
+        basicScript = basicPrefab.GetComponent<BulletScript>();
+        laserScript = laserPrefab.GetComponent<BulletScript>();
+        tripleScript = triplePrefab.GetComponent<BulletScript>();
+
+        currentSkillShot = laserGunScript.Shoot;
+        // currentSkillShot = ShootLaser;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if (Input.GetKeyDown("k"))
-        // {
-        //     Shoot(bulletPrefab);
-        // }
-        if (Input.GetKeyDown("j"))
-        {
-            //Shoot(bulletPrefab);
+        RechargeAmmo();
+
+        if (Input.GetKey("k")){
+            basicGunScript.Shoot();
         }
-        if (Input.GetKeyDown("k"))
-        {
-            //Shoot(basicData);
+        if (Input.GetKey("j")){
+            currentSkillShot();
         }
 
-        RechargeAmmo();
+        if (Input.GetKey("u")){
+            basicGunScript.Shoot();
+        }
+        if (Input.GetKey("i")){
+            tripleGunScript.Shoot();
+        }
+        if (Input.GetKey("o")){
+            laserGunScript.Shoot();
+        }
+        if (Input.GetKey("p")){
+            if(currentSkillType == SkillType.Laser){
+                currentSkillType = SkillType.Triple;
+                currentSkillShot = tripleGunScript.Shoot;
+            }
+            else if(currentSkillType == SkillType.Triple){
+                currentSkillType = SkillType.Laser;
+                currentSkillShot = laserGunScript.Shoot;
+            }
+        }
+        return;
 
         if (Input.GetKey("k"))
         {
-            if(basicData.ammoCost <= playerScript.currentDefaultAmmo && timeSinceDefaultShot >= basicData.cooldown){
-                Shoot("test");
-                playerScript.currentDefaultAmmo -= basicData.ammoCost;
+            if(basicScript.ammoCost <= currentDefaultAmmo && timeSinceDefaultShot >= basicScript.cooldown){
+                ShootStraight();
+                currentDefaultAmmo -= basicScript.ammoCost;
                 isRechargingDefault = false;
                 timeSinceDefaultShot = 0;
             }
         }
 
+        if (Input.GetKey("j"))
+        {
+            currentSkillShot();
+        }
+
+
         if (Input.GetKeyDown("u"))
         {
-            if(basicData.ammoCost <= playerScript.currentDefaultAmmo && timeSinceDefaultShot >= basicData.cooldown){
-                Shoot("basic");
-                playerScript.currentDefaultAmmo -= basicData.ammoCost;
+            if(basicScript.ammoCost <= currentDefaultAmmo && timeSinceDefaultShot >= basicScript.cooldown){
+                ShootStraight();
+                currentDefaultAmmo -= basicScript.ammoCost;
                 isRechargingDefault = false;
                 timeSinceDefaultShot = 0;
             }
         }
         if (Input.GetKeyDown("i"))
         {
-            if(laserData.ammoCost <= playerScript.currentSkillAmmo){
-                Shoot("laser");
-                playerScript.currentSkillAmmo -= laserData.ammoCost;
-                isRechargingSkill = false;
-                timeSinceSkillShot = 0;
-            }
+            if(CheckSkill(SkillType.Triple))
+                ShootTriple();
+            
         }
         if (Input.GetKeyDown("o"))
         {
-            if(tripleData.ammoCost <= playerScript.currentSkillAmmo){
-                Shoot("triple");
-                playerScript.currentSkillAmmo -= tripleData.ammoCost;
-                isRechargingSkill = false;
-                timeSinceSkillShot = 0;
+            if(CheckSkill(SkillType.Triple))
+                ShootTriple();
+        }
+
+        if (Input.GetKeyDown("p"))
+        {
+            if(currentSkillType == SkillType.Laser){
+                currentSkillType = SkillType.Triple;
+                currentSkillShot = ShootTriple;
+            }
+            else if(currentSkillType == SkillType.Triple){
+                currentSkillType = SkillType.Laser;
+                currentSkillShot = ShootLaser;
             }
         }
 
     }
 
+    bool CheckSkill(SkillType skillType){
+        switch(skillType){
+            case SkillType.Laser:
+                if(laserScript.ammoCost <= currentSkillAmmo){
+                    currentSkillAmmo -= laserScript.ammoCost;
+                    isRechargingSkill = false;
+                    timeSinceSkillShot = 0;
+                    return true;
+                }
+                break;
+            case SkillType.Triple:
+                if(tripleScript.ammoCost <= currentSkillAmmo){
+                    currentSkillAmmo -= tripleScript.ammoCost;
+                    isRechargingSkill = false;
+                    timeSinceSkillShot = 0;
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
     void RechargeAmmo(){
-        if(isRechargingDefault && playerScript.currentDefaultAmmo < playerScript.maxDefaultAmmo){
-            playerScript.currentDefaultAmmo += playerScript.defaultAmmoRechargeRate*Time.deltaTime;
-            if(playerScript.currentDefaultAmmo > playerScript.maxDefaultAmmo)
-                playerScript.currentDefaultAmmo = playerScript.maxDefaultAmmo;
+        if(isRechargingDefault && currentDefaultAmmo < maxDefaultAmmo){
+            currentDefaultAmmo += defaultAmmoRechargeRate*Time.deltaTime;
+            if(currentDefaultAmmo > maxDefaultAmmo)
+                currentDefaultAmmo = maxDefaultAmmo;
         }
         timeSinceDefaultShot += Time.deltaTime;
-            if(timeSinceDefaultShot >= playerScript.defaultAmmoRechargePause)
+            if(timeSinceDefaultShot >= defaultAmmoRechargePause)
                 isRechargingDefault = true;
 
-        if(isRechargingSkill && playerScript.currentSkillAmmo < playerScript.maxSkillAmmo){
-            playerScript.currentSkillAmmo += playerScript.skillAmmoRechargeAmount*Time.deltaTime;
-            if(playerScript.currentSkillAmmo > playerScript.maxSkillAmmo)
-                playerScript.currentSkillAmmo = playerScript.maxSkillAmmo;
+        if(isRechargingSkill && currentSkillAmmo < maxSkillAmmo){
+            currentSkillAmmo += skillAmmoRechargeAmount*Time.deltaTime;
+            if(currentSkillAmmo > maxSkillAmmo)
+                currentSkillAmmo = maxSkillAmmo;
         }
         else{
             timeSinceSkillShot += Time.deltaTime;
-            if(timeSinceSkillShot >= playerScript.skillAmmoRechargePause)
+            if(timeSinceSkillShot >= skillAmmoRechargePause)
                 isRechargingSkill = true;
         }
     }
 
     public void RechargeAmmo(string ammoType, float defaultAmmo = 0, float skillAmount = 0){
         if(ammoType == "default"){
-            playerScript.currentDefaultAmmo += defaultAmmo;
-            if(playerScript.currentDefaultAmmo > playerScript.maxDefaultAmmo)
-                playerScript.currentDefaultAmmo = playerScript.maxDefaultAmmo;
+            currentDefaultAmmo += defaultAmmo;
+            if(currentDefaultAmmo > maxDefaultAmmo)
+                currentDefaultAmmo = maxDefaultAmmo;
         }
         if(ammoType == "skill"){
-            playerScript.currentSkillAmmo += skillAmount;
-            if(playerScript.currentSkillAmmo > playerScript.maxSkillAmmo)
-                playerScript.currentSkillAmmo = playerScript.maxSkillAmmo;
+            currentSkillAmmo += skillAmount;
+            if(currentSkillAmmo > maxSkillAmmo)
+                currentSkillAmmo = maxSkillAmmo;
         }
         if(ammoType == "both"){
-            playerScript.currentDefaultAmmo += defaultAmmo;
-            if(playerScript.currentDefaultAmmo > playerScript.maxDefaultAmmo)
-                playerScript.currentDefaultAmmo = playerScript.maxDefaultAmmo;
+            currentDefaultAmmo += defaultAmmo;
+            if(currentDefaultAmmo > maxDefaultAmmo)
+                currentDefaultAmmo = maxDefaultAmmo;
 
-            playerScript.currentSkillAmmo += skillAmount;
-            if(playerScript.currentSkillAmmo > playerScript.maxSkillAmmo)
-                playerScript.currentSkillAmmo = playerScript.maxSkillAmmo;
+            currentSkillAmmo += skillAmount;
+            if(currentSkillAmmo > maxSkillAmmo)
+                currentSkillAmmo = maxSkillAmmo;
         }
     }
 
-    void Shoot(string bulletType)
-    {
+    void ShootStraight(){
+        GameObject bullet = PoolManager.Instance.ReuseObject(basicPrefab, firingPoint.position, firingPoint.rotation);
+        bullet.GetComponent<BulletScript>().SetData(false, firingPoint.up);
+    }
+
+    void ShootLaser(){
+        GameObject bullet = PoolManager.Instance.ReuseObject(laserPrefab, firingPoint.position, firingPoint.rotation);
+        bullet.GetComponent<LaserScript>().SetData(false, firingPoint.up, sizeIncreaseRate);
+    }
+
+    void ShootTriple(){
+
         GameObject bullet;
+        Quaternion angleDelta;
+        float currentAngle = -1 * (numShots-1)/2 * gapBetween;
+        Debug.Log("triple shot " + currentAngle + " " + numShots + " " + gapBetween);
 
-        switch(bulletType){
-            case "test":
-                bullet = PoolManager.Instance.ReuseObject(testPrefab, firingPoint.position, firingPoint.rotation);
-                bullet.GetComponent<BulletScript>().SetData(false, firingPoint.up);
-                break;
-            case "basic":
-                bullet = PoolManager.Instance.ReuseObject(basicPrefab, firingPoint.position, firingPoint.rotation);
-                bullet.GetComponent<BulletScript>().SetData(false, firingPoint.up);
-                break;
-            case "laser":
-                bullet = PoolManager.Instance.ReuseObject(laserPrefab, firingPoint.position, firingPoint.rotation);
-                bullet.GetComponent<BulletScript>().SetData(false, firingPoint.up);
-                break;
-            case "triple":
-                Quaternion angleDeltaL = Quaternion.AngleAxis(-15, firingPoint.forward);
-                Quaternion angleDeltaR = Quaternion.AngleAxis(15, firingPoint.forward);
+        for(int i = 0; i < numShots; i++){
+            angleDelta = Quaternion.AngleAxis(currentAngle, firingPoint.forward);
+            bullet = PoolManager.Instance.ReuseObject(triplePrefab, firingPoint.position, firingPoint.rotation);
+            bullet.GetComponent<TripleScript>().SetData(false, angleDelta * firingPoint.up, maxDistance);
 
-                bullet = PoolManager.Instance.ReuseObject(triplePrefab, firingPoint.position, firingPoint.rotation);
-                bullet.GetComponent<BulletScript>().SetData(false, firingPoint.up);
+            Debug.Log(angleDelta + " " + i);
 
-                bullet = PoolManager.Instance.ReuseObject(triplePrefab, firingPoint.position, angleDeltaL);
-                bullet.GetComponent<BulletScript>().SetData(false, angleDeltaL * firingPoint.up);
-
-                bullet = PoolManager.Instance.ReuseObject(triplePrefab, firingPoint.position, angleDeltaR);
-                bullet.GetComponent<BulletScript>().SetData(false, angleDeltaR * firingPoint.up);
-                break;
+            currentAngle += gapBetween;
         }
     }
-
-    void Shoot(GameObject bulletType)
-    {
-        // GameObject bullet = PoolManager.instance.ReuseObject(bulletType, firingPoint.position, firingPoint.rotation);
-        // bullet.GetComponent<BulletScript>().SetData();
-        // bullet.GetComponent<BulletScript>().isEnemyBullet = false;
-        // bullet.GetComponent<BulletScript>().moveDirection = new Vector2(0,1);
-    }
-    // void Shoot(BulletData bulletData)
-    // {
-    //     GameObject bullet = PoolManager.instance.ReuseObject(emptyShot, firingPoint.position, firingPoint.rotation);
-    //     bullet.GetComponent<BulletScript>().SetData(bulletData);
-    //     bullet.GetComponent<BulletScript>().isEnemyBullet = false;
-    //     bullet.GetComponent<BulletScript>().moveDirection = new Vector2(0,1);
-    // }
 }

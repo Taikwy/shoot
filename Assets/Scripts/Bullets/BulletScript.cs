@@ -5,11 +5,10 @@ using System;
 
 public class BulletScript : PoolObject
 {
-    // public BulletData bulletData;
- 
     public Rigidbody2D rb;
-    // public Animator animator;
+    public Transform bulletTransform;
     
+    [Tooltip("basic, skill, both")]
     public string bulletType;
     
     [Header("Bullet Stats")]
@@ -30,7 +29,7 @@ public class BulletScript : PoolObject
         isEnemyBullet = isEnemy;
         moveDirection = moveDir;
 
-        // initialPosition = transform.position;
+        initialPosition = bulletTransform.position;
         // nextPosition = transform.position;
     }
 

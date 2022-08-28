@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField]
+    [Header("movement info")]
     public float movementSpeed;
     public float dashDistance;
     public float dashSpeed;
@@ -17,36 +17,12 @@ public class PlayerScript : MonoBehaviour
     public DefaultBar defaultBar;
     public SkillBar skillBar;
 
-
-    public float maxDefaultAmmo;
-    public float currentDefaultAmmo;
-    public float defaultAmmoRechargePause;
-    public float defaultAmmoRechargeRate;
-    public float defaultAmmoRechargeAmount;
-    public float maxSkillAmmo;
-    public float currentSkillAmmo;
-    public float skillAmmoRechargePause;
-    public float skillAmmoRechargeRate;
-    public float skillAmmoRechargeAmount;
-
     // Start is called before the first frame update
     void Start()
     {
         movementSpeed = 8f;
         dashDistance = 4;
         dashSpeed = 600f;
-
-        maxDefaultAmmo = 100;
-        currentDefaultAmmo = maxDefaultAmmo;
-        defaultAmmoRechargePause = 0.25f;
-        defaultAmmoRechargeRate = 20;
-        defaultAmmoRechargeAmount = 20;
-
-        maxSkillAmmo = 100;
-        currentSkillAmmo = maxSkillAmmo;
-        skillAmmoRechargePause = 1;
-        skillAmmoRechargeRate = 10;
-        skillAmmoRechargeAmount = 15;
 
         currentHealth = maxHealth;
         //healthBar.SetMaxHealth(maxHealth);
@@ -78,6 +54,7 @@ public class PlayerScript : MonoBehaviour
         if(otherCollider.CompareTag("Bullet")){
             BulletScript bullet = otherCollider.gameObject.GetComponent<BulletScript>();
             if(bullet.isEnemyBullet){
+                Debug.Log("uh oh");
                 TakeDamage(bullet.damage);
                 bullet.TakeDamage();
             }
