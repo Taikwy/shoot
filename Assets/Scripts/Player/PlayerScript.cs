@@ -5,56 +5,57 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     [Header("movement info")]
-    public float movementSpeed;
-    public float dashDistance;
-    public float dashSpeed;
+    // public float movementSpeed;
+    // public float dashDistance;
+    // public float dashSpeed;
+    // public bool isDashing = false;
+    
+    // [Header("body info")]
+    // public int maxHealth = 5;
+    // public int currentHealth;
+    
+    [Header("ui stuffs")]
+    public GameObject playerUI;
 
-    public bool isDashing = false;
-    public int maxHealth = 5;
-    public int currentHealth;
-    public HealthBar healthBar;
-    public PlayerInfo playerInfo;
-    public DefaultBar defaultBar;
-    public SkillBar skillBar;
+    public delegate void ResourceBarAction();
+    public static event ResourceBarAction SetMaxStats;
+    public static event ResourceBarAction OnHealthChange;
+
+    [Header("player data")]
+    public PlayerData data;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        movementSpeed = 8f;
-        dashDistance = 4;
-        dashSpeed = 600f;
+        // movementSpeed = 8f;
+        // dashDistance = 4;
+        // dashSpeed = 600f;
 
-        currentHealth = maxHealth;
-        //healthBar.SetMaxHealth(maxHealth);
-        //defaultBar.SetMaxAmmo(maxDefaultAmmo);
-        //skillBar.SetMaxAmmo(maxSkillAmmo);
+        // currentHealth = maxHealth;
+        data.currentHealth = data.startingHealth;
 
-        //playerInfo.SetText(movementSpeed, dashDistance, dashSpeed, isDashing, maxHealth, currentHealth, currentDefaultAmmo, currentSkillAmmo);
-        // currentPlayerData.currentHealth = maxHealth;
+        SetMaxStats();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(currentHealth <= 0){
+        if(data.currentHealth <= 0){
             this.gameObject.SetActive(false);
         }
-        //playerInfo.SetText(movementSpeed, dashDistance, dashSpeed, isDashing, maxHealth, currentHealth, currentDefaultAmmo, currentSkillAmmo);
-        
-        //defaultBar.SetCurrentAmmo(currentDefaultAmmo);
-        //skillBar.SetCurrentAmmo(currentSkillAmmo);
     }
 
     public void TakeDamage(int damage){
-        currentHealth -= damage;
-        // healthBar.SetCurrentHealth(currentHealth);
+        // currentHealth -= damage;
+        data.currentHealth -= damage;
+        OnHealthChange();
     }
 
     void OnTriggerEnter2D(Collider2D otherCollider){
         if(otherCollider.CompareTag("Bullet")){
             BulletScript bullet = otherCollider.gameObject.GetComponent<BulletScript>();
             if(bullet.isEnemyBullet){
-                Debug.Log("uh oh");
                 TakeDamage(bullet.damage);
                 bullet.TakeDamage();
             }

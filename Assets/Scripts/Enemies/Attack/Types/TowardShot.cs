@@ -20,7 +20,7 @@ public class TowardShot : ShotType
     
     public void SetupType(Data data){
         // base.SetupType(data.firingPoint);
-        playerTransform = SingletonManager.Instance.player.transform;
+        playerTransform = SingletonManager.Instance.playerScript.transform;
         if(data.shootingForwards){
             shootDirection = -data.firingPoint.up;
         }
@@ -43,7 +43,7 @@ public class TowardShot : ShotType
         bullet.GetComponent<BulletScript>().SetData(true, angleDelta * shootDirection);
     }
     public void ShootTowardsPlayer(Data d){
-        playerTransform = SingletonManager.Instance.player.transform;
+        playerTransform = SingletonManager.Instance.playerScript.transform;
         if(d.shootingForwards){
             shootDirection = -d.firingPoint.up;
         }

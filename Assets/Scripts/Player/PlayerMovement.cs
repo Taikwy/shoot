@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         if(!isDashing)
             if (Input.GetKeyDown("l")){
                 isDashing = true;
-                targetPos = rb.position + movement * playerScript.dashDistance; 
+                targetPos = rb.position + movement * playerScript.data.dashDistance; 
                 startPos = rb.position;
                 timestarted = Time.time;
             }
@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         //isDashing = false;
 
         float timeSince = Time.time - timestarted;
-        float percentage = timeSince * playerScript.dashSpeed * Time.deltaTime;
+        float percentage = timeSince * playerScript.data.dashSpeed * Time.deltaTime;
 
         rb.MovePosition(Vector2.Lerp(startPos, targetPos, percentage));
         if(rb.position == targetPos)

@@ -16,8 +16,8 @@ public class BulletScript : PoolObject
     public int currentHealth;
     public int damage;
     public float movementSpeed;
-    public float ammoCost;
-    public float cooldown;
+    // public float ammoCost;
+    // public float cooldown;
 
     [Header("Extra Stats")]
     public bool isEnemyBullet;

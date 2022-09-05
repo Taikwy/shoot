@@ -7,90 +7,65 @@ public class PlayerShooting : MonoBehaviour
     
     [Header("Reference stuff")]
     public PlayerScript playerScript;
-    public GameObject basicGun, currentSkillGun;
-    public GameObject tripleGun, laserGun;
-    Gun basicGunScript, currentSkillScript;
-    Gun tripleGunScript, laserGunScript;
+    [Header("Reference stuff")]
+    public int maxNumSpecialGuns;
+    public GameObject primaryGun, currentSpecialGun;
+    [HideInInspector] public PrimaryGun primaryGunScript;
+    [HideInInspector] public Gun currentSpecialScript;
+    // public GameObject tripleGun, laserGun;
+    // Gun tripleGunScript, laserGunScript;
 
-    public List<GameObject> specialAttacks = new List<GameObject>();
-    public List<Gun> specialScripts = new List<Gun>();
-    public int maxNumOfSpecialAttack = 2;
-    public int equippedSpecialAttack;
-
+    public List<GameObject> specialGuns = new List<GameObject>();
+    public List<SpecialGun> specialGunScripts = new List<SpecialGun>();
+    public int currentSpecialIndex;
 
     [Header("bullet info")]
     public Transform firingPoint;
 
-    enum ShotType{
-        Basic,
-        Skill
-    }
-
-    [Header("current skill shot")]
-    public SkillType currentSkillType = SkillType.Laser;
-    public enum SkillType{
-        Laser,
-        Triple
-    }
-
-
     void Start(){
-        // currentSkillGun = laserGun;
-        equippedSpecialAttack = 0;
-        currentSkillGun = specialAttacks[equippedSpecialAttack];
+        maxNumSpecialGuns = 3;
 
-        basicGunScript = basicGun.GetComponent<Gun>();
-        tripleGunScript = tripleGun.GetComponent<Gun>();
-        laserGunScript = laserGun.GetComponent<Gun>();
-        currentSkillScript = currentSkillGun.GetComponent<Gun>();
+        currentSpecialIndex = 0;
+        currentSpecialGun = specialGuns[currentSpecialIndex];
+
+        primaryGunScript = primaryGun.GetComponent<PrimaryGun>();
+        currentSpecialScript = currentSpecialGun.GetComponent<Gun>();
+        foreach(GameObject g in specialGuns){
+            specialGunScripts.Add(g.GetComponent<SpecialGun>());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach(Gun g in specialScripts){
-            g.RechargeAmmo();
+        primaryGunScript.RechargeAmmo();
+        for(int i = 0; i < specialGuns.Count; i++){
+            if(i == currentSpecialIndex)
+                currentSpecialScript.RechargeAmmo();
+            else{
+                specialGunScripts[i].RechargeInactiveAmmo();
+            }
         }
+        
         if (Input.GetKey("k")){
-            basicGunScript.Shoot();
+            primaryGunScript.Shoot();
         }
         if (Input.GetKey("j")){
-            // currentSkillShot();
-            currentSkillScript.Shoot();
+            currentSpecialScript.Shoot();
         }
-
-        if (Input.GetKey("u")){
-            basicGunScript.Shoot();
-        }
-        if (Input.GetKey("i")){
-            tripleGunScript.Shoot();
-        }
-        if (Input.GetKey("o")){
-            laserGunScript.Shoot();
-        }
-        if (Input.GetKey("p")){
-            equippedSpecialAttack = (equippedSpecialAttack+1)%maxNumOfSpecialAttack;
-            currentSkillGun = specialAttacks[equippedSpecialAttack];
-            currentSkillScript = currentSkillGun.GetComponent<Gun>();
-
-            // if(currentSkillType == SkillType.Laser){
-            //     currentSkillType = SkillType.Triple;
-            //     currentSkillGun = laserGun;
-            // }
-            // else if(currentSkillType == SkillType.Triple){
-            //     currentSkillType = SkillType.Laser;
-            //     currentSkillGun = tripleGun;
-            // }
-            // currentSkillScript = currentSkillGun.GetComponent<Gun>();
+        if (Input.GetKeyDown("h")){
+            currentSpecialIndex = (currentSpecialIndex+1) % maxNumSpecialGuns;
+            currentSpecialGun = specialGuns[currentSpecialIndex];
+            currentSpecialScript = currentSpecialGun.GetComponent<Gun>();
         }
     }
 
     public void PickupAmmo(string ammoType, float ammoAmount){
         if(ammoType == "default"){
-            basicGunScript.RefillAmmo();
+            primaryGunScript.RefillAmmo();
         }
         if(ammoType == "skill"){
-            currentSkillScript.RefillAmmo();
+            currentSpecialScript.RefillAmmo();
         }
     }
 }

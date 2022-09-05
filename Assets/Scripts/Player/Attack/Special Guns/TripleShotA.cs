@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TripleGun : Gun
+public class TripleShotA : SpecialGun
 {
     [Header("triple shot data")]
-    public int numShots = 3;
-    public float gapBetween = 10;
-    public float maxDistance = 10;
+    public int numShots;
+    public float gapBetween;
+    public float maxDistance;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +33,7 @@ public class TripleGun : Gun
 
         GameObject bullet;
         Quaternion angleDelta;
-        float currentAngle = -1 * (numShots-1)/2 * gapBetween;
+        float currentAngle = -1 * (float)(numShots-1.0f)/2.0f * gapBetween;
 
         for(int i = 0; i < numShots; i++){
             angleDelta = Quaternion.AngleAxis(currentAngle, firingPoint.forward);

@@ -29,7 +29,7 @@ public class LaserGun : Gun
         if(ammoCost > currentAmmo || timeSinceShot < cooldown){
             return;
         }
-        GameObject bullet = PoolManager.Instance.ReuseObject(bulletPrefab, firingPoint.position, firingPoint.rotation);
+        GameObject bullet = PoolManager.Instance.ReuseObject(currentBulletPrefab, firingPoint.position, firingPoint.rotation);
         bullet.GetComponent<LaserScript>().SetData(false, firingPoint.up, sizeIncreaseRate);
         
         currentAmmo -= ammoCost;

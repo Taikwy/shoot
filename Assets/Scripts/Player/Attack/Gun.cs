@@ -6,15 +6,17 @@ public class Gun : MonoBehaviour
 {
     [Header("bullet info")]
     public Transform firingPoint;
-    public GameObject bulletPrefab;
-    public BulletScript bulletScript;
+    public GameObject currentBulletPrefab;
+    // [HideInInspector]
+    // public BulletScript currentBulletScript;
 
     [Header("reloading Stats")]
     public float maxAmmo;
-    public float currentAmmo;
-    public float ammoRechargePause;
     public float ammoRechargeRate;
+    public float subRechargeRate;
+    public float ammoRechargePause;
     public float ammoRechargeAmount;
+    public float currentAmmo;
 
     [Header("Bullet Stats")]
     public int maxHealth;
@@ -29,26 +31,26 @@ public class Gun : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
-        bulletScript = bulletPrefab.GetComponent<BulletScript>();
+        // currentBulletScript = currentBulletPrefab.GetComponent<BulletScript>();
         CreateBulletPool();
     }
     
-    public void CreateBulletPool(){
-        PoolManager.Instance.CreatePool(bulletPrefab, 100, "bullet");
+    public virtual void CreateBulletPool(){
+        PoolManager.Instance.CreatePool(currentBulletPrefab, 100, "bullet");
     }
 
-    public void RechargeAmmo(){
+    public virtual void RechargeAmmo(){
         if(isRecharging && currentAmmo < maxAmmo){
             currentAmmo += ammoRechargeRate*Time.deltaTime;
             if(currentAmmo > maxAmmo)
                 currentAmmo = maxAmmo;
         }
         timeSinceShot += Time.deltaTime;
-            if(timeSinceShot >= ammoRechargePause)
-                isRecharging = true;
+        if(timeSinceShot >= ammoRechargePause)
+            isRecharging = true;
     }
 
-    public void RefillAmmo(float ammoAmount = 0){
+    public virtual void RefillAmmo(float ammoAmount = 0){
         currentAmmo += ammoAmount;
         if(currentAmmo > maxAmmo)
             currentAmmo = maxAmmo;

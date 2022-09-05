@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Vector2 moveDir)
     {
-        rb.MovePosition(rb.position + moveDir * playerScript.movementSpeed * Time.deltaTime);
+        rb.MovePosition(rb.position + moveDir * playerScript.data.movementSpeed * Time.deltaTime);
     }
 
     // public void Dash(Vector2 dashDir)

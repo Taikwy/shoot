@@ -2,37 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicGun : Gun
+public class BeefyShotA : SpecialGun
 {
+    [Header("beefy shot data")]
+    public float sizeIncreaseRate;
 
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
-        maxAmmo = 100;
+        // maxAmmo = 100;
+        // ammoRechargePause = 1;
+        // ammoRechargeRate = 10;
+        // ammoRechargeAmount = 15;
         currentAmmo = maxAmmo;
-        ammoRechargePause = 0.25f;
-        ammoRechargeRate = 20;
-        ammoRechargeAmount = 20;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // base.RechargeAmmo();
+        // base.RechargeAmmo();        
     }
 
     public override void Shoot(){
-        // Debug.Log(bulletScript.ammoCost + " " + currentAmmo + " " + timeSinceShot + " " + bulletScript.cooldown);
         if(ammoCost > currentAmmo || timeSinceShot < cooldown){
             return;
         }
         GameObject bullet = PoolManager.Instance.ReuseObject(currentBulletPrefab, firingPoint.position, firingPoint.rotation);
-        bullet.GetComponent<BulletScript>().SetData(false, firingPoint.up);
+        bullet.GetComponent<LaserScript>().SetData(false, firingPoint.up, sizeIncreaseRate);
         
         currentAmmo -= ammoCost;
         isRecharging = false;
         timeSinceShot = 0;
-        
     }
 }
