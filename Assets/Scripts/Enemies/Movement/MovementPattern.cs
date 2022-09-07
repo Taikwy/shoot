@@ -23,12 +23,6 @@ public class MovementPattern : MonoBehaviour
     }
 
     void FixedUpdate(){
-        if(currentSpeed < maxSpeed){
-            currentSpeed += acceleration * Time.deltaTime;
-            if(currentSpeed > maxSpeed)
-                currentSpeed = maxSpeed;
-        }
-
         switch(currentSequence){
             case MovementSequence.Enter:
                 EnterSequence();
@@ -41,6 +35,11 @@ public class MovementPattern : MonoBehaviour
                 break;
         }
         rb.MovePosition(movePosition);
+
+        if(currentSpeed > maxSpeed)
+            currentSpeed = maxSpeed;
+        else
+            currentSpeed += acceleration * Time.deltaTime;
     }
 
     protected virtual void SetSpeedAndAccel(float newMax, float newSpeed, float newAccel){

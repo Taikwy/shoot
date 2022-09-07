@@ -50,10 +50,11 @@ public class Gun : MonoBehaviour
             isRecharging = true;
     }
 
-    public virtual void RefillAmmo(float ammoAmount = 0){
-        currentAmmo += ammoAmount;
+    public virtual void RefillAmmo(float refillAmount = 0){
+        currentAmmo += refillAmount;
         if(currentAmmo > maxAmmo)
             currentAmmo = maxAmmo;
+
     }
 
     public virtual void Shoot(){}

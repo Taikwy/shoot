@@ -19,6 +19,7 @@ public class PoolManager : MonoBehaviour
 
     public Transform bulletPoolsTransform;
     public Transform enemyPoolsTransform;
+    public Transform scrapPoolsTransform;
 
     public Queue<ObjectInstance> CreatePool(GameObject prefab, int poolSize, string poolType = ""){
         int poolKey = prefab.GetInstanceID();
@@ -33,6 +34,9 @@ public class PoolManager : MonoBehaviour
                 break;
             case "enemy":
                 poolHolder.transform.parent = enemyPoolsTransform;
+                break;
+            case "scrap":
+                poolHolder.transform.parent = scrapPoolsTransform;
                 break;
             default:
                 poolHolder.transform.parent = transform;

@@ -9,10 +9,14 @@ public class EnemyScript : PoolObject
     public int maxHealth;
     public int currentHealth;
     public bool partOfWave;
-    [HideInInspector]
-    public TestWaveHolder waveHolderScript;
+    
+    [HideInInspector] public TestWaveHolder waveHolderScript;
 
-    [Header("Scrap Prefabs")]
+    [Header("Scrap Info")]
+    public GameObject newScrapPrefab;
+    public float numScraps;
+    
+    [Header("Old Scrap Prefabs")]
     public GameObject scrapPrefab;
     public ScrapData defaultScrap;
     public ScrapData skillScrap;
@@ -31,9 +35,7 @@ public class EnemyScript : PoolObject
     public virtual void TakeDamage(BulletScript bulletScript){
         currentHealth -= bulletScript.damage;
         if(currentHealth <= 0){
-            DropScrap(bulletScript.bulletType);
-            TestEnemyManager.Instance.DestroyEnemy(gameObject);
-            // gameObject.SetActive(false);
+            OnDeath();
         }
     }
 
@@ -50,5 +52,23 @@ public class EnemyScript : PoolObject
                 scrap.GetComponent<ScrapScript>().SetData(bothScrap);
                 break;
         }
+    }
+
+    public virtual void OnDeath(){
+        GameObject scrap;
+        Scrap scrapScript;
+        Vector2 direction;
+        for(int i = 0; i < numScraps; i++){
+            scrap = DropScrap();
+            scrapScript = scrap.GetComponent<Scrap>();
+            direction = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
+            direction.Normalize();
+            scrapScript.SetData(direction);
+        }
+        TestEnemyManager.Instance.DestroyEnemy(gameObject);
+    }
+
+    public GameObject DropScrap(){
+        return PoolManager.Instance.ReuseObject(newScrapPrefab, gameObject.transform.position, Quaternion.identity);
     }
 }

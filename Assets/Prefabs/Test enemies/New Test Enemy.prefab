@@ -210,10 +210,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPoolHolder: {fileID: 0}
-  maxHealth: 5
+  maxHealth: 3
   currentHealth: 0
   partOfWave: 0
   waveHolderScript: {fileID: 0}
+  newScrapPrefab: {fileID: 7944649327332116237, guid: 6cabd868c6a502945a2ce9fc981531fb, type: 3}
+  numScraps: 5
   scrapPrefab: {fileID: 0}
   defaultScrap: {fileID: 0}
   skillScrap: {fileID: 0}

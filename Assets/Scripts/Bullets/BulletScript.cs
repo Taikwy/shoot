@@ -8,7 +8,7 @@ public class BulletScript : PoolObject
     public Rigidbody2D rb;
     public Transform bulletTransform;
     
-    [Tooltip("basic, skill, both")]
+    [Tooltip("Primary  |  Special  |  Both")]
     public string bulletType;
     
     [Header("Bullet Stats")]

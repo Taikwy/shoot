@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviour
         // currentHealth = maxHealth;
         data.currentHealth = data.startingHealth;
 
+        SingletonManager.Instance.playerShooting.Setup();
         SetMaxStats();
     }
 

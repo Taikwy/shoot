@@ -13,6 +13,9 @@ public class NewTestScript : MinorEnemyScript
         currentHealth = maxHealth;
         movementPattern.Setup();
         attackPattern.Setup();
+
+        
+        // PoolManager.Instance.CreatePool(newScrapPrefab, 50, "scrap");
     }
 
     //Reset stuff like animations and whatnot so it can be reused in pool

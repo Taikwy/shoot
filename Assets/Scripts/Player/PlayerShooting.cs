@@ -22,7 +22,20 @@ public class PlayerShooting : MonoBehaviour
     [Header("bullet info")]
     public Transform firingPoint;
 
-    void Start(){
+    // void Start(){
+    //     maxNumSpecialGuns = 3;
+
+    //     currentSpecialIndex = 0;
+    //     currentSpecialGun = specialGuns[currentSpecialIndex];
+
+    //     primaryGunScript = primaryGun.GetComponent<PrimaryGun>();
+    //     currentSpecialScript = currentSpecialGun.GetComponent<Gun>();
+    //     foreach(GameObject g in specialGuns){
+    //         specialGunScripts.Add(g.GetComponent<SpecialGun>());
+    //     }
+    // }
+
+    public void Setup(){
         maxNumSpecialGuns = 3;
 
         currentSpecialIndex = 0;
@@ -60,11 +73,35 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D otherCollider){
+        if(otherCollider.CompareTag("Scrap")){
+            Scrap scrapScript = otherCollider.gameObject.GetComponent<Scrap>();
+            PickupAmmo(scrapScript);
+            if(scrapScript is PoolObject){
+                otherCollider.gameObject.SetActive(false);
+                Debug.Log("picked up");
+            }
+            else{
+                Debug.Log("destroying");
+                Destroy(otherCollider.gameObject);
+            }
+        }
+    }
+
+    void PickupAmmo(Scrap scrapScript){
+        if(scrapScript.ammoType == "Primary"){
+            primaryGunScript.RefillAmmo(scrapScript.amount);
+        }
+        if(scrapScript.ammoType == "Special"){
+            currentSpecialScript.RefillAmmo(scrapScript.amount);
+        }
+    }
+
     public void PickupAmmo(string ammoType, float ammoAmount){
-        if(ammoType == "default"){
+        if(ammoType == "Primary"){
             primaryGunScript.RefillAmmo();
         }
-        if(ammoType == "skill"){
+        if(ammoType == "Special"){
             currentSpecialScript.RefillAmmo();
         }
     }
