@@ -21,6 +21,7 @@ public class TestWave : MonoBehaviour
     public float xGap;
     public float yGap;
     public float spawnInterval;
+    public bool mirrored;
 
     void OnTriggerEnter2D(Collider2D otherCollider){
         if(otherCollider.CompareTag("Spawnpoint")){
@@ -36,6 +37,8 @@ public class TestWave : MonoBehaviour
     }
 
     public void SpawnWave(GameObject waveHolder, Vector2 spawnPosition){
+        if(mirrored)
+            xGap *= -1;
         switch(spawnType){
             case "horizontal":
                 testWaveSpawner.SpawnHorizontalLine(waveHolder, enemyPrefab, numEnemies, xGap, spawnPosition.x);

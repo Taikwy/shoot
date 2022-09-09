@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewTestScript : MinorEnemyScript
+public class GreenScript : MinorEnemyScript
 {
     [Header("Behavior Pattern Scripts")]
-    public NewMovementPattern movementPattern;
-    public NewAttackPattern attackPattern;
+    public GreenMP movementPattern;
+    public GreenAP attackPattern;
     void Start()
     {
         Debug.Log("object starting");

@@ -15,9 +15,10 @@ MonoBehaviour:
   movementSpeed: 8
   dashDistance: 4
   dashSpeed: 600
-  maxHealth: 30
-  startingHealth: 30
-  currentHealth: 26
+  isDashing: 0
+  maxHealth: 10
+  startingHealth: 10
+  currentHealth: 10
   guns: []
-  maxAmmo: 0
-  currentAmmo: 0
+  maxPrimaryAmmo: 0
+  currentPrimaryAmmo: 0

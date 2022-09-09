@@ -16,11 +16,11 @@ public class EnemyScript : PoolObject
     public GameObject newScrapPrefab;
     public float numScraps;
     
-    [Header("Old Scrap Prefabs")]
-    public GameObject scrapPrefab;
-    public ScrapData defaultScrap;
-    public ScrapData skillScrap;
-    public ScrapData bothScrap;
+    // [Header("Old Scrap Prefabs")]
+    // public GameObject scrapPrefab;
+    // public ScrapData defaultScrap;
+    // public ScrapData skillScrap;
+    // public ScrapData bothScrap;
 
     void OnTriggerEnter2D(Collider2D otherCollider){
         if(otherCollider.CompareTag("Bullet")){
@@ -39,20 +39,20 @@ public class EnemyScript : PoolObject
         }
     }
 
-    public virtual void DropScrap(string bulletType){
-        GameObject scrap = Instantiate(scrapPrefab, transform.position, Quaternion.identity);
-        switch(bulletType){
-            case "basic":
-                scrap.GetComponent<ScrapScript>().SetData(defaultScrap);
-                break;
-            case "skill":
-                scrap.GetComponent<ScrapScript>().SetData(skillScrap);
-                break;
-            case "both":
-                scrap.GetComponent<ScrapScript>().SetData(bothScrap);
-                break;
-        }
-    }
+    // public virtual void DropScrap(string bulletType){
+    //     GameObject scrap = Instantiate(scrapPrefab, transform.position, Quaternion.identity);
+    //     switch(bulletType){
+    //         case "basic":
+    //             scrap.GetComponent<ScrapScript>().SetData(defaultScrap);
+    //             break;
+    //         case "skill":
+    //             scrap.GetComponent<ScrapScript>().SetData(skillScrap);
+    //             break;
+    //         case "both":
+    //             scrap.GetComponent<ScrapScript>().SetData(bothScrap);
+    //             break;
+    //     }
+    // }
 
     public virtual void OnDeath(){
         GameObject scrap;

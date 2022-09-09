@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewTestScript : MinorEnemyScript
+public class OrangeScript : MinorEnemyScript
 {
     [Header("Behavior Pattern Scripts")]
-    public NewMovementPattern movementPattern;
-    public NewAttackPattern attackPattern;
+    public OrangeMP movementPattern;
+    public OrangeAP attackPattern;
     void Start()
     {
         Debug.Log("object starting");
@@ -34,17 +34,9 @@ public class NewTestScript : MinorEnemyScript
         base.TakeDamage(bulletScript);
 
         if(movementPattern.currentSequence != MovementPattern.MovementSequence.Exit){
-            if(currentHealth <= 1){
-                movementPattern.ChangeSequence(MovementPattern.MovementSequence.Exit);
-            }
-            else if(currentHealth <= 3){
-                attackPattern.ChangeSequence(AttackPattern.AttackSequence.Conditional);
-                attackPattern.ChangeSequence(AttackPattern.AttackSequence.Impaired);
-            }
-            else{
-                attackPattern.ChangeSequence(AttackPattern.AttackSequence.Conditional);
-                attackPattern.ChangeSequence(AttackPattern.AttackSequence.Primary);
-            }
+            Debug.Log("took damage");
+            attackPattern.ChangeSequence(AttackPattern.AttackSequence.Conditional);
+            attackPattern.ChangeSequence(AttackPattern.AttackSequence.Primary);
 
         }
     }
