@@ -52,8 +52,11 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateAmmo(primaryAmmoScript, playerShooting.primaryGunScript);
-        UpdateAmmo(specialAmmoScript, playerShooting.currentSpecialScript);
+        // UpdateAmmo(primaryAmmoScript, playerShooting.primaryGunScript);
+        // UpdateAmmo(specialAmmoScript, playerShooting.currentSpecialScript);
+
+        primaryAmmoScript.SetCurrentValue(playerShooting.primaryGunScript.currentHeat);
+        specialAmmoScript.SetCurrentValue(playerShooting.currentSpecialScript.currentAmmo);
     }
 
     public void SetMaxHealth(){
@@ -65,7 +68,7 @@ public class PlayerUI : MonoBehaviour
     }
 
     public void SetMaxPrimaryAmmo(){
-        SetMaxAmmo(primaryAmmoScript, playerShooting.primaryGunScript);
+        primaryAmmoScript.SetMaxValue(playerShooting.primaryGunScript.maxHeat);
         Debug.Log("max primary ammo");
     }
     
@@ -74,16 +77,16 @@ public class PlayerUI : MonoBehaviour
     }
 
     public void SetMaxSpecialAmmo(){
-        SetMaxAmmo(specialAmmoScript, playerShooting.currentSpecialScript);
+        specialAmmoScript.SetMaxValue(playerShooting.currentSpecialScript.maxAmmo);
         Debug.Log("max special ammo");
     }
-    public void SetMaxAmmo(ResourceBar ammoScript, Gun gunScript){
-        ammoScript.SetMaxValue(gunScript.maxAmmo);
-    }
+    // public void SetMaxAmmo(ResourceBar ammoScript, Gun gunScript){
+    //     ammoScript.SetMaxValue(gunScript.maxAmmo);
+    // }
 
-    public void UpdateAmmo(ResourceBar ammoScript, Gun gunScript){
-        ammoScript.SetCurrentValue(gunScript.currentAmmo);
-    }
+    // public void UpdateAmmo(ResourceBar ammoScript, Gun gunScript){
+    //     ammoScript.SetCurrentValue(gunScript.currentAmmo);
+    // }
 
     public void SetMaxDashCooldown(){}
 }

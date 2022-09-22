@@ -27,7 +27,7 @@ public class TripleShotA : SpecialGun
     }
 
     public override void Shoot(){
-        if(ammoCost > currentAmmo || timeSinceShot < cooldown){
+        if(ammoCost > currentAmmo || timeSinceShot < roundsPerSecond){
             return;
         }
 

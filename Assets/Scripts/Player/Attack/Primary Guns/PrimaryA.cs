@@ -8,11 +8,7 @@ public class PrimaryA : PrimaryGun
     void Start()
     {
         base.Start();
-        // maxAmmo = 100;
-        // ammoRechargePause = 0.25f;
-        // ammoRechargeRate = 20;
-        // ammoRechargeAmount = 20;
-        currentAmmo = maxAmmo;
+        // currentAmmo = maxAmmo;
     }
 
     public override void CreateBulletPool(){
@@ -20,13 +16,13 @@ public class PrimaryA : PrimaryGun
     }
 
     public override void Shoot(){
-        if(ammoCost > currentAmmo || timeSinceShot < cooldown){
+        if(timeSinceShot < roundsPerSecond){
             return;
         }
         GameObject bullet = PoolManager.Instance.ReuseObject(currentBulletPrefab, firingPoint.position, firingPoint.rotation);
         bullet.GetComponent<BulletScript>().SetData(false, firingPoint.up);
         
-        currentAmmo -= ammoCost;
+        // currentAmmo -= ammoCost;
         isRecharging = false;
         timeSinceShot = 0;
         

@@ -7,42 +7,25 @@ public class PlayerShooting : MonoBehaviour
     
     [Header("Reference stuff")]
     public PlayerScript playerScript;
+    public PlayerUI playerUI;
     [Header("Reference stuff")]
+    public GameObject primaryGun;
     public int maxNumSpecialGuns;
-    public GameObject primaryGun, currentSpecialGun;
-    [HideInInspector] public PrimaryGun primaryGunScript;
-    [HideInInspector] public Gun currentSpecialScript;
-    // public GameObject tripleGun, laserGun;
-    // Gun tripleGunScript, laserGunScript;
-
     public List<GameObject> specialGuns = new List<GameObject>();
-    public List<SpecialGun> specialGunScripts = new List<SpecialGun>();
+    [HideInInspector] public GameObject currentSpecialGun;
     public int currentSpecialIndex;
+    [HideInInspector] public PrimaryGun primaryGunScript;
+    [HideInInspector] public SpecialGun currentSpecialScript;
 
-    [Header("bullet info")]
-    public Transform firingPoint;
-
-    // void Start(){
-    //     maxNumSpecialGuns = 3;
-
-    //     currentSpecialIndex = 0;
-    //     currentSpecialGun = specialGuns[currentSpecialIndex];
-
-    //     primaryGunScript = primaryGun.GetComponent<PrimaryGun>();
-    //     currentSpecialScript = currentSpecialGun.GetComponent<Gun>();
-    //     foreach(GameObject g in specialGuns){
-    //         specialGunScripts.Add(g.GetComponent<SpecialGun>());
-    //     }
-    // }
+    [HideInInspector] public List<SpecialGun> specialGunScripts = new List<SpecialGun>();
 
     public void Setup(){
-        maxNumSpecialGuns = 3;
-
         currentSpecialIndex = 0;
         currentSpecialGun = specialGuns[currentSpecialIndex];
 
         primaryGunScript = primaryGun.GetComponent<PrimaryGun>();
-        currentSpecialScript = currentSpecialGun.GetComponent<Gun>();
+        currentSpecialScript = currentSpecialGun.GetComponent<SpecialGun>();
+        currentSpecialScript.equipped = true;
         foreach(GameObject g in specialGuns){
             specialGunScripts.Add(g.GetComponent<SpecialGun>());
         }
@@ -51,25 +34,32 @@ public class PlayerShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        primaryGunScript.RechargeAmmo();
-        for(int i = 0; i < specialGuns.Count; i++){
-            if(i == currentSpecialIndex)
-                currentSpecialScript.RechargeAmmo();
-            else{
-                specialGunScripts[i].RechargeInactiveAmmo();
-            }
-        }
+        // primaryGunScript.RechargeAmmo();
+        // for(int i = 0; i < specialGuns.Count; i++){
+        //     if(i == currentSpecialIndex)
+        //         currentSpecialScript.RechargeAmmo();
+        //     else{
+        //         specialGunScripts[i].RechargeInactiveAmmo();
+        //     }
+        // }
         
         if (Input.GetKey("k")){
             primaryGunScript.Shoot();
+            // Debug.Log("primary shoot");
         }
         if (Input.GetKey("j")){
             currentSpecialScript.Shoot();
+            Debug.Log("special shoot");
         }
         if (Input.GetKeyDown("h")){
+            currentSpecialScript.equipped = false;
+
             currentSpecialIndex = (currentSpecialIndex+1) % maxNumSpecialGuns;
             currentSpecialGun = specialGuns[currentSpecialIndex];
-            currentSpecialScript = currentSpecialGun.GetComponent<Gun>();
+            currentSpecialScript = currentSpecialGun.GetComponent<SpecialGun>();
+            playerUI.SetMaxSpecialAmmo();
+
+            currentSpecialScript.equipped = true;
         }
     }
 

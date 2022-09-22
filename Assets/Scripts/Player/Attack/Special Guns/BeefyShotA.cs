@@ -25,7 +25,7 @@ public class BeefyShotA : SpecialGun
     }
 
     public override void Shoot(){
-        if(ammoCost > currentAmmo || timeSinceShot < cooldown){
+        if(ammoCost > currentAmmo || timeSinceShot < roundsPerSecond){
             return;
         }
         GameObject bullet = PoolManager.Instance.ReuseObject(currentBulletPrefab, firingPoint.position, firingPoint.rotation);

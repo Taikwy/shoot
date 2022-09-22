@@ -14,7 +14,7 @@ public class TripleScript : BulletScript
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if(Vector2.Distance(bulletTransform.position, initialPosition) >= maxDistance){
+        if(Vector2.Distance(bulletTransform.position, startPosition) >= maxDistance){
             gameObject.SetActive(false);
         }
     }

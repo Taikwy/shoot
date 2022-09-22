@@ -27,7 +27,7 @@ public class AlternatingA : SpecialGun
 
     public override void Shoot(){
         Debug.Log("alternating");
-        if(ammoCost > currentAmmo || timeSinceShot < cooldown){
+        if(ammoCost > currentAmmo || timeSinceShot < roundsPerSecond){
             return;
         }
 

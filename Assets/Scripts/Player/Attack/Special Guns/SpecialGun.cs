@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class SpecialGun : Gun
 {
+    [Header("reloading Stats")]
+    public float maxAmmo;
+    [HideInInspector] public float currentAmmo;
+    public float ammoRechargeRate;
+    public float subRechargeRate;
+    public float ammoRechargePause;
+    public float ammoRechargeAmount;
+
     [Header("special gun info")]
     public List<GameObject> bulletPrefabs = new List<GameObject>();
     protected List<SpecialGun> bulletScripts = new List<SpecialGun>();
     public int currentBulletIndex = 0;
+    [HideInInspector] public bool equipped = false;
 
     public override void Start()
     {
@@ -24,33 +33,33 @@ public class SpecialGun : Gun
         }
     }
 
-    public virtual void RechargeInactiveAmmo(){
-        if(isRecharging && currentAmmo < maxAmmo){
-            currentAmmo += subRechargeRate*Time.deltaTime;
-            if(currentAmmo > maxAmmo)
-                currentAmmo = maxAmmo;
-        }
+    public override void Shoot()
+    {
+        currentAmmo -= ammoCost;
+        isRecharging = false;
+        timeSinceShot = 0;
+    }
+
+    public void Update(){
+        Debug.Log("updating");
         timeSinceShot += Time.deltaTime;
         if(timeSinceShot >= ammoRechargePause)
             isRecharging = true;
+
+        if(isRecharging && currentAmmo < maxAmmo){
+            if(equipped)
+                currentAmmo += ammoRechargeRate*Time.deltaTime;
+            else
+                currentAmmo += subRechargeRate*Time.deltaTime;
+
+            if(currentAmmo > maxAmmo)
+                currentAmmo = maxAmmo;
+        }
     }
 
-    // public virtual void RechargeAmmo(){
-    //     if(isRecharging && currentAmmo < maxAmmo){
-    //         currentAmmo += ammoRechargeRate*Time.deltaTime;
-    //         if(currentAmmo > maxAmmo)
-    //             currentAmmo = maxAmmo;
-    //     }
-    //     timeSinceShot += Time.deltaTime;
-    //     if(timeSinceShot >= ammoRechargePause)
-    //         isRecharging = true;
-    // }
-
-    // public virtual void RefillAmmo(float ammoAmount = 0){
-    //     currentAmmo += ammoAmount;
-    //     if(currentAmmo > maxAmmo)
-    //         currentAmmo = maxAmmo;
-    // }
-
-    // public virtual void Shoot(){}
+    public override void RefillAmmo(float refillAmount = 0){
+        currentAmmo += refillAmount;
+        if(currentAmmo > maxAmmo)
+            currentAmmo = maxAmmo;
+    }
 }

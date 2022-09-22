@@ -12,25 +12,34 @@ public class BulletScript : PoolObject
     public string bulletType;
     
     [Header("Bullet Stats")]
-    public int maxHealth;
-    public int currentHealth;
-    public int damage;
     public float movementSpeed;
-    // public float ammoCost;
-    // public float cooldown;
+    public int maxHealth, currentHealth, damage;
+
+    [HideInInspector] public float maxTimeAlive, currentTimeAlive;
+    [HideInInspector] public float maxDistance, currentDistance;
 
     [Header("Extra Stats")]
     public bool isEnemyBullet;
-    protected Vector2 moveDirection, initialPosition, nextPosition;
+    protected Vector2 moveDirection, startPosition, lastPosition;
 
-    public virtual void SetData(bool isEnemy, Vector2 moveDir){
+    public virtual void SetData(bool isEnemy, Vector2 moveDir, float distance = -1, float timeAlive = -1){
         currentHealth = maxHealth;
+        lastPosition = bulletTransform.position;
+        startPosition = bulletTransform.position;
 
         isEnemyBullet = isEnemy;
         moveDirection = moveDir;
 
-        initialPosition = bulletTransform.position;
-        // nextPosition = transform.position;
+        if(distance != -1){
+            maxDistance = distance;
+        }
+        else
+            maxDistance = 999f;
+
+        if(timeAlive != -1)
+            maxTimeAlive = timeAlive;
+        else
+            maxTimeAlive = 999f;
     }
 
     public virtual void TakeDamage(){
@@ -41,12 +50,23 @@ public class BulletScript : PoolObject
 
     //Reset stuff like animations and whatnot so it can be reused in pool
     public override void OnObjectReuse(){
-        
+        currentDistance = 0;
+        currentTimeAlive = 0;
     }
 
     protected virtual void FixedUpdate()
     {
         Move();
+        UpdateBullet();
+        if(currentDistance >= maxDistance || currentTimeAlive >= maxTimeAlive){
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void UpdateBullet(){
+        currentTimeAlive += Time.deltaTime;
+        currentDistance += Vector2.Distance(bulletTransform.position, lastPosition);
+        lastPosition = bulletTransform.position;
     }
 
     public virtual void Move()
