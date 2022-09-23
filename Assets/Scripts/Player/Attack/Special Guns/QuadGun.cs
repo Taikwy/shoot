@@ -12,7 +12,6 @@ public class QuadGun : SpecialGun
     }
 
     public override void Shoot(){
-        Debug.Log(currentAmmo + " " + timeSinceShot + " ");
         if(ammoCost > currentAmmo || timeSinceShot < 1/roundsPerSecond){
             return;
         }

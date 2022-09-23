@@ -4,69 +4,109 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody2D rb;
-    public PlayerScript playerScript;
-    public PlayerController controller;
+    
+    [Header("component refs")]
+    
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     public Animator animator;
 
-    // public float movementSpeed = 5f;
-    // public float dashSpeed = 12.5f;
+    [Header("player data")]
+    public PlayerData data;
 
-    Vector2 movement;
+    Vector2 moveDirection, dashDirection, dashStartPos;
+    float dashTimeStarted, dashSpeed;
     bool isIdle;
 
-    bool isDashing = false;
+    [Header("afterimage info")]
+    Vector2 lastAfterimagePos;
+    float lastAfterimageTime;
 
-    Vector2 targetPos;
-    Vector2 startPos;
-
-    float timestarted;
-
-    // Update is called once per frame
-    void Update()
+    public void Setup(){
+        PoolManager.Instance.CreatePool(data.afterImagePrefab, 20);
+    }
+    public void UpdateMovement()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-        movement.Normalize();
+        moveDirection.x = Input.GetAxisRaw("Horizontal");
+        moveDirection.y = Input.GetAxisRaw("Vertical");
+        moveDirection.Normalize();
 
-        if(!isDashing)
-            if (Input.GetKeyDown("l")){
-                isDashing = true;
-                targetPos = rb.position + movement * playerScript.data.dashDistance; 
-                startPos = rb.position;
-                timestarted = Time.time;
+        if (Input.GetKeyDown("l") && !data.isDashing){
+            if(moveDirection.x != 0 || moveDirection.y != 0){
+                StartDashing();
             }
+        }
 
         //Currently if the player isn't moving horizontally it counts as idling
-        isIdle = (movement.x == 0) && !isDashing;
+        // isIdle = (movement.x == 0) && !isDashing;
 
-        animator.SetFloat("Horizontal Movement", movement.x);
+        animator.SetFloat("Horizontal Movement", moveDirection.x);
         animator.SetBool("Idle", isIdle);
     }
 
     private void FixedUpdate()
     {
-        if(isDashing){
-            Dash();
+        if(data.isDashing){
+            if(data.dashLag){
+                if(Time.time - dashTimeStarted >= data.dashTime + data.dashEndlagAmount){
+                    data.isDashing = false;
+                    data.dashLag = false;
+                }
+            }
+            else{
+                Dash();
+            }
         }
-        else
-            controller.Move(movement);
+        else{
+            if(data.isAbsorbing){
+                rb.MovePosition(rb.position + moveDirection * data.absorbMovementSpeed * Time.deltaTime);
 
-        //rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
+            }
+            else
+                rb.MovePosition(rb.position + moveDirection * data.movementSpeed * Time.deltaTime);
+        }
     }
 
+    private void StartDashing(){
+        data.isDashing = true;
+        data.isInvincible = true;
+        data.isAbsorbing = false;
+
+        dashDirection = moveDirection;
+        dashStartPos = rb.position;
+        dashTimeStarted = Time.time;
+        data.dashSpeed = data.dashDistance / data.dashTime;
+
+        Debug.Log("starting dash");
+        lastAfterimagePos = transform.position;
+        // CreateAfterImage();
+    }
     private void Dash()
     {
-        //controller.Dash(movement);
-        //isDashing = false;
+        if(Time.time - dashTimeStarted >= data.dashTime){
+            data.isInvincible = false;
+            data.dashLag = true;
+        }
+        else{
+            if(Mathf.Abs(Time.time - lastAfterimageTime) >= data.timeBetweenAfterimages){
+                CreateAfterImage();
+            }
+            
+            rb.MovePosition(rb.position + dashDirection * data.dashSpeed * Time.deltaTime);
+        }
+    }
 
-        float timeSince = Time.time - timestarted;
-        float percentage = timeSince * playerScript.data.dashSpeed * Time.deltaTime;
+    private GameObject CreateAfterImage(){
+        Debug.Log("creating afterimage");
+        GameObject afterimage = PoolManager.Instance.ReuseObject(data.afterImagePrefab, transform.position, Quaternion.identity);
+        PlayerAfterimage afterimageScript = afterimage.gameObject.GetComponent<PlayerAfterimage>();
+        afterimageScript.SetData(data.activeTime, data.startingAlpha, data.alphaMultiplier, data.afterimageColor);
+        
+        afterimageScript.spriteRenderer.sprite = spriteRenderer.sprite;
 
-        rb.MovePosition(Vector2.Lerp(startPos, targetPos, percentage));
-        if(rb.position == targetPos)
-            isDashing = false;
+        lastAfterimagePos = transform.position;
+        lastAfterimageTime = Time.time;
+        return afterimage;
     }
 
 }

@@ -12,7 +12,6 @@ public class LaserGun : SpecialGun
     }
 
     public override void Shoot(){
-        Debug.Log(currentAmmo + " " + ammoCost + " " + timeSinceShot + " " + 1/roundsPerSecond);
         if(ammoCost > currentAmmo || timeSinceShot < 1/roundsPerSecond){
             return;
         }

@@ -41,7 +41,6 @@ public class SpecialGun : Gun
     }
 
     public void Update(){
-        Debug.Log("updating");
         timeSinceShot += Time.deltaTime;
         if(timeSinceShot >= ammoRechargePause)
             isRecharging = true;

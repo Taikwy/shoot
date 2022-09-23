@@ -113,18 +113,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.5}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.8, y: 1.8}
   m_EdgeRadius: 0
 --- !u!212 &2091175611100040830
 SpriteRenderer:
@@ -167,7 +167,7 @@ SpriteRenderer:
   m_SortingLayerID: 376939251
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3352868958805856340, guid: f992d367ea71d7545b0a0fa26ecba7d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9db7bc2e6fb2e474abee04a079de2db7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -186,7 +186,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091175611100040831}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 110fe0daa64f82943ad1ef8670732958, type: 2}
   m_CullingMode: 0
@@ -210,6 +210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7891431207467e842ac6022dfa61ca4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovement: {fileID: 2091175611100040819}
+  playerController: {fileID: 2091175611100040817}
+  playerShooting: {fileID: 2091175611100040816}
   playerUI: {fileID: 0}
   data: {fileID: 11400000, guid: 48603838ea396a846a44047d5a961f19, type: 2}
 --- !u!114 &2091175611100040817
@@ -225,7 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2091175611100040828}
-  playerScript: {fileID: 2091175611100040823}
+  spriteRenderer: {fileID: 2091175611100040830}
+  data: {fileID: 11400000, guid: 48603838ea396a846a44047d5a961f19, type: 2}
 --- !u!114 &2091175611100040819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,9 +243,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2091175611100040828}
-  playerScript: {fileID: 2091175611100040823}
-  controller: {fileID: 2091175611100040817}
+  spriteRenderer: {fileID: 2091175611100040830}
   animator: {fileID: 2091175611100040818}
+  data: {fileID: 11400000, guid: 48603838ea396a846a44047d5a961f19, type: 2}
 --- !u!114 &2091175611100040816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScript: {fileID: 2091175611100040823}
   playerUI: {fileID: 0}
+  data: {fileID: 11400000, guid: 48603838ea396a846a44047d5a961f19, type: 2}
   primaryGun: {fileID: 4803545389529757901}
   maxNumSpecialGuns: 4
   specialGuns:
@@ -435,6 +440,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 124575956572689962}
     m_Modifications:
+    - target: {fileID: 8555427073958938861, guid: 3885e1f8803c853428c80ebe213ea127, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8555427074017021308, guid: 3885e1f8803c853428c80ebe213ea127, type: 3}
       propertyPath: m_Name
       value: Shotgun
@@ -502,6 +511,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 124575956572689962}
     m_Modifications:
+    - target: {fileID: 967962092345174033, guid: ea7ec59caeab5404ebb29be7a9d79750, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4496277631429620057, guid: ea7ec59caeab5404ebb29be7a9d79750, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -569,6 +582,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 124575956572689962}
     m_Modifications:
+    - target: {fileID: 174659172860862219, guid: 457b2a1c45a16394da92054509139353, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2098243857333821096, guid: 457b2a1c45a16394da92054509139353, type: 3}
       propertyPath: m_Name
       value: SMG
@@ -631,6 +648,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 124575956572689962}
     m_Modifications:
+    - target: {fileID: 8398570881576192714, guid: 672e386a6beb8e84cb587ac4c6a0ee71, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8398570881584698626, guid: 672e386a6beb8e84cb587ac4c6a0ee71, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -698,6 +719,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 124575956572689962}
     m_Modifications:
+    - target: {fileID: 7518529376351920120, guid: cd63574b72a64014e92d683a37e4f954, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518529376370774061, guid: cd63574b72a64014e92d683a37e4f954, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518529377489476516, guid: cd63574b72a64014e92d683a37e4f954, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518529377489476516, guid: cd63574b72a64014e92d683a37e4f954, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518529377523425128, guid: cd63574b72a64014e92d683a37e4f954, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518529377523425128, guid: cd63574b72a64014e92d683a37e4f954, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 7518529377913968804, guid: cd63574b72a64014e92d683a37e4f954, type: 3}
       propertyPath: m_Name
       value: Quad

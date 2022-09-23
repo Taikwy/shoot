@@ -72,7 +72,7 @@ public class PoolManager : MonoBehaviour
         return poolDictionary[poolKey];
     }
 
-    //For spawning pol objects
+    //For spawning pool objects
     public GameObject ReuseObject(GameObject prefab, Vector3 position, Quaternion rotation){
         int poolKey = prefab.GetInstanceID();
 

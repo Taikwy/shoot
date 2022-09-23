@@ -8,7 +8,11 @@ public class PlayerShooting : MonoBehaviour
     [Header("Reference stuff")]
     public PlayerScript playerScript;
     public PlayerUI playerUI;
-    [Header("Reference stuff")]
+
+    [Header("player data")]
+    public PlayerData data;
+
+    [Header("Gun stuff")]
     public GameObject primaryGun;
     public int maxNumSpecialGuns;
     public List<GameObject> specialGuns = new List<GameObject>();
@@ -31,26 +35,8 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateShooting()
     {
-        // primaryGunScript.RechargeAmmo();
-        // for(int i = 0; i < specialGuns.Count; i++){
-        //     if(i == currentSpecialIndex)
-        //         currentSpecialScript.RechargeAmmo();
-        //     else{
-        //         specialGunScripts[i].RechargeInactiveAmmo();
-        //     }
-        // }
-        
-        if (Input.GetKey("k")){
-            primaryGunScript.Shoot();
-            // Debug.Log("primary shoot");
-        }
-        if (Input.GetKey("j")){
-            currentSpecialScript.Shoot();
-            Debug.Log("special shoot");
-        }
         if (Input.GetKeyDown("h")){
             currentSpecialScript.equipped = false;
 
@@ -61,6 +47,22 @@ public class PlayerShooting : MonoBehaviour
 
             currentSpecialScript.equipped = true;
         }
+        if(!data.isDashing){
+            data.isAbsorbing = Input.GetKey("u");               //is absorbing as long as key is being held
+
+            if(!data.isAbsorbing){
+                if (Input.GetKey("k")){
+                    primaryGunScript.Shoot();
+                    data.isShooting = true;
+                }
+                if (Input.GetKey("j")){
+                    currentSpecialScript.Shoot();
+                    data.isShooting = true;
+                }
+                data.isShooting = Input.GetKey("j") || Input.GetKey("k");
+            }            
+        }
+        
     }
 
     void OnTriggerEnter2D(Collider2D otherCollider){

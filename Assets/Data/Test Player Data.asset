@@ -12,13 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbae83194b5be59499fb4d35cb8232c2, type: 3}
   m_Name: Test Player Data
   m_EditorClassIdentifier: 
-  movementSpeed: 8
-  dashDistance: 4
-  dashSpeed: 600
-  isDashing: 0
   maxHealth: 10
   startingHealth: 10
   currentHealth: 10
+  movementSpeed: 10
+  dashDistance: 5
+  dashTime: 0.125
+  dashEndlagAmount: 0.2
+  dashSpeed: 40
+  afterImagePrefab: {fileID: 8833289758158608280, guid: 6675d2be7f8b2e24f9c84b0274f791e6, type: 3}
+  activeTime: 0.8
+  startingAlpha: 0.8
+  alphaMultiplier: 0.95
+  afterimageColor: {r: 1, g: 0, b: 0.6379585, a: 0}
+  distanceBetweenAfterimages: 0.8
+  timeBetweenAfterimages: 0.02
   guns: []
   maxPrimaryAmmo: 0
   currentPrimaryAmmo: 0
+  absorbMovementSpeed: 6
+  isDashing: 0
+  dashLag: 0
+  isInvincible: 0
+  isShooting: 0
+  isAbsorbing: 0

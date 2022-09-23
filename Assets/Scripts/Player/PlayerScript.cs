@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    [Header("movement info")]
-    // public float movementSpeed;
-    // public float dashDistance;
-    // public float dashSpeed;
-    // public bool isDashing = false;
     
-    // [Header("body info")]
-    // public int maxHealth = 5;
-    // public int currentHealth;
-    
+    [Header("script refs")]
+    public PlayerMovement playerMovement;
+    public PlayerController playerController;
+    public PlayerShooting playerShooting;
+
     [Header("ui stuffs")]
     public GameObject playerUI;
 
@@ -24,18 +20,13 @@ public class PlayerScript : MonoBehaviour
     [Header("player data")]
     public PlayerData data;
 
-
     // Start is called before the first frame update
     void Start()
     {
-        // movementSpeed = 8f;
-        // dashDistance = 4;
-        // dashSpeed = 600f;
-
-        // currentHealth = maxHealth;
         data.currentHealth = data.startingHealth;
 
-        SingletonManager.Instance.playerShooting.Setup();
+        playerMovement.Setup();
+        playerShooting.Setup();
         SetMaxStats();
     }
 
@@ -45,6 +36,9 @@ public class PlayerScript : MonoBehaviour
         if(data.currentHealth <= 0){
             this.gameObject.SetActive(false);
         }
+        playerMovement.UpdateMovement();
+        playerShooting.UpdateShooting();
+        playerController.UpdateSprite();
     }
 
     public void TakeDamage(int damage){
@@ -55,6 +49,9 @@ public class PlayerScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D otherCollider){
         if(otherCollider.CompareTag("Bullet")){
+            if(data.isInvincible){
+                return;
+            }
             BulletScript bullet = otherCollider.gameObject.GetComponent<BulletScript>();
             if(bullet.isEnemyBullet){
                 TakeDamage(bullet.damage);

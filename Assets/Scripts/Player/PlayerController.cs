@@ -5,31 +5,36 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody2D rb;
-    public PlayerScript playerScript;
-
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+    
+    [Header("player data")]
+    public PlayerData data;
 
+    
+    
 
-    Vector2 dashTargetPosition;
+    private void Awake(){}
 
-    private void Awake()
-    {
-        // rb = GetComponent<Rigidbody2D>();
-        // player = GetComponent<Player>();
+    public void UpdateSprite(){
+        if(data.isDashing){
+            spriteRenderer.color = Color.magenta;
+            // Debug.Log("currentky dasgubg");
+        }
+        else if(data.isAbsorbing){
+            spriteRenderer.color = Color.green;
+            // Debug.Log("currentky abosbring");
+        }
+        else if(data.isShooting){
+            spriteRenderer.color = Color.red;
+            // Debug.Log("currentky shoting");
+        }
+        else{
+            spriteRenderer.color = Color.white;
+            // Debug.Log("currentky chilling");
+        }
     }
-
-    public void Move(Vector2 moveDir)
-    {
-        rb.MovePosition(rb.position + moveDir * playerScript.data.movementSpeed * Time.deltaTime);
-    }
-
-    // public void Dash(Vector2 dashDir)
-    // {
-    //     rb.MovePosition(rb.position + dashDir * player.dashDistance * Time.fixedDeltaTime);
-    //     //rb.MovePosition(Vector2.Lerp(rb.position, rb.position + dashDir * player.dashDistance * Time.fixedDeltaTime, ));
-    // }
 
     private void Flip()
     {
