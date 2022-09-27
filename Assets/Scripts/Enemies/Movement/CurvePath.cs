@@ -25,11 +25,14 @@ public class CurvePath : PathSegment
         float currentRads = 0;
 
         pathPoints.Clear();
-        Destroy(pointHolder);
+         foreach (Transform child in pointHolder.transform) {
+            Destroy(child.gameObject);
+        }
+        // Destroy(pointHolder);
 
-        pointHolder = Instantiate(pointHolderObjPrefab, gameObject.transform.position, Quaternion.identity);
-        pointHolder.name = "point holder";
-        pointHolder.transform.parent = gameObject.transform;
+        // pointHolder = Instantiate(pointHolderObjPrefab, gameObject.transform.position, Quaternion.identity);
+        // pointHolder.name = "point holder";
+        // pointHolder.transform.parent = gameObject.transform;
 
         Vector2 pointPos;
         GameObject pathPoint;

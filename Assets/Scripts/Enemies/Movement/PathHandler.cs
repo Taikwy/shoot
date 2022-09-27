@@ -17,17 +17,20 @@ public class PathHandler : MonoBehaviour
 
     Rigidbody2D rb;
     public PathFollower follower;
-    public List<PathSegment> segments = new List<PathSegment>();
-    PathSegment currentSegment;
+    public EnemyPath currentPath;
+    // public List<PathSegment> segments = new List<PathSegment>();
+    // PathSegment currentSegment;
 
     Vector2 movePosition;
 
-    int currentSegmentIndex;
-    int numSegments;
+    // int currentSegmentIndex;
+    // int numSegments;
     // bool pathsComplete = false;
     // bool segmentComplete = false;
-    bool pathComplete = false;
+    // bool pathComplete = false;
     bool pathReversed = false;
+    public bool segmentTransitionsOn;
+    bool segmentTransitioning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,85 +41,86 @@ public class PathHandler : MonoBehaviour
     }
 
     void SetupPath(int pathIndex = 0){
-        numSegments = segments.Count;
-        SetPath(0);
-        rb.position = currentSegment.startPoint.transform.position;
+        // numSegments = segments.Count;
+        SetPath();
     }
 
-    void SetPath(int pathIndex = 0){
-        // Debug.Log(paths.Count + " " + pathIndex);
-        currentSegmentIndex = pathIndex;
-        currentSegment = segments[currentSegmentIndex];
-        currentSegment.PopulatePoints();
-        if(pathReversed)
-            follower.SetupPoints(currentSegment, currentSegment.pathPoints.Count-1, pathReversed);
-        else
-            follower.SetupPoints(currentSegment, 0, pathReversed);
+    void SetPath(){
+        currentPath.Setup(pathReversed);
+        // currentSegmentIndex = pathIndex;
+        // currentSegment = segments[currentSegmentIndex];
+        // currentSegment = path.segments[currentSegmentIndex];
+        // currentSegment.PopulatePoints();
+        // if(pathReversed)
+            follower.SetupPoints(currentPath.currentSegment, pathReversed);
+            rb.position = follower.startPosition;
+        // else
+        //     follower.SetupPoints(path.currentSegment, 0, pathReversed);
     }
-
-
 
     public void FixedUpdate(){
-
-        movePosition = follower.FollowPath(moveSpeed);
-        if(pathComplete){
-            OnPathFinished();
+        if(segmentTransitioning){
+            if(segmentTransitionsOn){
+                movePosition = Vector2.MoveTowards(rb.position, follower.startPosition, moveSpeed * Time.deltaTime);
+                if(movePosition == follower.startPosition)
+                    segmentTransitioning = false;
+            }
+            else
+                segmentTransitioning = false;
         }
-        if(follower.segmentFinished){
-            OnSegmentFinished();
+        else{
+            movePosition = follower.FollowPath(moveSpeed);
+            if(follower.segmentFinished){
+                OnSegmentFinished();
+            }
+            if(currentPath.pathComplete){
+                OnPathFinished();
+            }
         }
+        
         rb.MovePosition(movePosition);
     }
 
     public void OnSegmentFinished(){
-        Debug.Log(currentSegmentIndex + " " + numSegments + " " + pathComplete + " " + pathReversed);
-        if(pathReversed){
-            currentSegmentIndex--;
-            if(currentSegmentIndex < 0){
-                pathComplete = true;
-                return;
-            }
-        }
-        else{
-            currentSegmentIndex++;
-            if(currentSegmentIndex > numSegments - 1){
-                pathComplete = true;
-                return;
-            }
-        }
-        pathComplete = false;
-        SetPath(currentSegmentIndex);
+        Debug.Log("segment finished");
+        currentPath.NextSegment();
+        if(currentPath.pathComplete)
+            return;
+        follower.SetupPoints(currentPath.currentSegment, pathReversed);
+        segmentTransitioning = true;
+        if(!segmentTransitionsOn)
+            rb.position = follower.startPosition;
 
-        float remainingSpeed = moveSpeed - Vector2.Distance(rb.position, movePosition);
-        movePosition = follower.FollowPath(remainingSpeed);
-        
+        OnMovementOverflow();
+        // float remainingSpeed = moveSpeed - Vector2.Distance(rb.position, movePosition);
+        // movePosition = follower.FollowPath(remainingSpeed);
     }
 
     public void OnPathFinished(){
+        Debug.Log("path finished");
         switch(type){
             case TYPE.single:
-                pathComplete = true;
+                // pathComplete = true;
                 break;
             case TYPE.pingpong:
-                pathComplete = false;
+                // pathComplete = false;
                 pathReversed = !pathReversed;
                 if(pathReversed){
                     // Debug.Log("should be reversing ");
-                    SetPath(numSegments-1);
+                    // SetPath();
                 }
                 else{
-                    SetPath();
+                    // SetPath();
                 }
                     
-                float remainingSpeed = moveSpeed - Vector2.Distance(rb.position, movePosition);
-                movePosition = follower.FollowPath(remainingSpeed);
+                // float remainingSpeed = moveSpeed - Vector2.Distance(rb.position, movePosition);
+                // movePosition = follower.FollowPath(remainingSpeed);
                 break;
             case TYPE.repeat:
-                pathComplete = false;
-                SetPath();
-                rb.position = follower.startPosition;
-                    remainingSpeed = moveSpeed - Vector2.Distance(rb.position, movePosition);
-                movePosition = follower.FollowPath(remainingSpeed);
+                // pathComplete = false;
+                // SetPath();
+                //     remainingSpeed = moveSpeed - Vector2.Distance(rb.position, movePosition);
+                // movePosition = follower.FollowPath(remainingSpeed);
                 break;
             // case TYPE.loop:
             //     pathComplete = false;
@@ -125,5 +129,12 @@ public class PathHandler : MonoBehaviour
             //     movePosition = follower.FollowPath(remainingSpeed);
             //     break;
         }
+        SetPath();
+        OnMovementOverflow();
+    }
+
+    void OnMovementOverflow(){
+        float remainingSpeed = moveSpeed - Vector2.Distance(rb.position, movePosition);
+        movePosition = follower.FollowPath(remainingSpeed);
     }
 }

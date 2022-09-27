@@ -23,7 +23,7 @@ public class PathFollower : MonoBehaviour
 
     int numPathPoints, currentPointIndex;
 
-    PathSegment path;
+    PathSegment segment;
     bool pointReached = false;
     public bool segmentFinished = false;
     public bool pathComplete = false;
@@ -32,46 +32,39 @@ public class PathFollower : MonoBehaviour
 
     public void Setup(){
         rb = gameObject.GetComponent<Rigidbody2D>();
-        // lastPosition = rb.position;
     }
 
-    public void SetupPoints(LinePath p){
-        // endReached = false;
-        // pathComplete = false;
-        // pointReached = false;
-        path = p;
-        numPathPoints = path.pathPoints.Count;
-        SetPoints();
-        Debug.Log("setup point");
-    }
-
-    public void SetupPoints(PathSegment p, int startIndex, bool reversed){
-        path = p;
-        numPathPoints = path.pathPoints.Count;
+    public void SetupPoints(PathSegment p, bool reversed){
+        segment = p;
+        numPathPoints = segment.pathPoints.Count;
         segmentReversed = reversed;
-        currentPointIndex = startIndex;
-        // Debug.Log("setup point " + currentPointIndex + " " + reversed);
-        SetPoints(currentPointIndex);
+        if(segmentReversed){
+            currentPointIndex = segment.pathPoints.Count-1;
+        }
+        else{
+            currentPointIndex = 0;
+        }
+        SetPoints();
     }
 
     public void SetPoints(int index = 0){
         segmentFinished = false;
         pointReached = false;
-        currentPointIndex = index;
-        SetStartingPos(path.pathPoints[currentPointIndex].transform);
+        // currentPointIndex = index;
+        SetStartingPos(segment.pathPoints[currentPointIndex].transform);
         if(segmentReversed)
-            SetTargetPos(path.pathPoints[currentPointIndex-1].transform);
+            SetTargetPos(segment.pathPoints[currentPointIndex-1].transform);
         else   
-            SetTargetPos(path.pathPoints[currentPointIndex+1].transform);
+            SetTargetPos(segment.pathPoints[currentPointIndex+1].transform);
     }
 
     public void IncrementPoints(){
-        SetStartingPos(path.pathPoints[currentPointIndex].transform);
-        SetTargetPos(path.pathPoints[currentPointIndex+1].transform);
+        SetStartingPos(segment.pathPoints[currentPointIndex].transform);
+        SetTargetPos(segment.pathPoints[currentPointIndex+1].transform);
     }
     public void DecrementPoints(){
-        SetStartingPos(path.pathPoints[currentPointIndex].transform);
-        SetTargetPos(path.pathPoints[currentPointIndex-1].transform);
+        SetStartingPos(segment.pathPoints[currentPointIndex].transform);
+        SetTargetPos(segment.pathPoints[currentPointIndex-1].transform);
     }
 
     public void SetStartingPos(Transform transform){

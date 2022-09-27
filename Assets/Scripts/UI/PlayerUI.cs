@@ -69,7 +69,7 @@ public class PlayerUI : MonoBehaviour
 
     public void SetMaxPrimaryAmmo(){
         primaryAmmoScript.SetMaxValue(playerShooting.primaryGunScript.maxHeat);
-        Debug.Log("max primary ammo");
+        // Debug.Log("max primary ammo set");
     }
     
     public void UpdatePrimaryAmmo(){
@@ -78,7 +78,7 @@ public class PlayerUI : MonoBehaviour
 
     public void SetMaxSpecialAmmo(){
         specialAmmoScript.SetMaxValue(playerShooting.currentSpecialScript.maxAmmo);
-        Debug.Log("max special ammo");
+        // Debug.Log("max special ammo set");
     }
     // public void SetMaxAmmo(ResourceBar ammoScript, Gun gunScript){
     //     ammoScript.SetMaxValue(gunScript.maxAmmo);

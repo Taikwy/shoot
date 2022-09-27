@@ -4,70 +4,61 @@ using UnityEngine;
 
 public class EnemyPath : MonoBehaviour
 {
-
-    public enum TYPE{
-        single,
-        pingpong,
-        repeat,
-        loop
-    }
-    public TYPE type;
-
-    public float moveSpeed;
-
-    Rigidbody2D rb;
-    public PathFollower follower;
-    public List<PathSegment> pathSegments = new List<PathSegment>();
-    PathSegment currentSegment;
-
-    Vector2 movePosition;
+    public List<PathSegment> segments = new List<PathSegment>();
+    public PathSegment currentSegment;
 
     int currentSegmentIndex;
-    int numSegments;
-    bool pathComplete = false;
+    // public int startingSegmentIndex;
+    public int numSegments;
+    public bool pathComplete = false;
     bool pathReversed = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        follower.Setup();
-        SetupPath();
-    }
-
-    void SetupPath(int pathIndex = 0){
-        numSegments = pathSegments.Count;
-        SetPath(0);
-        rb.position = currentSegment.startPoint.transform.position;
-    }
-
-    void SetPath(int pathIndex = 0){
-        // Debug.Log(paths.Count + " " + pathIndex);
-        currentSegmentIndex = pathIndex;
-        currentSegment = pathSegments[currentSegmentIndex];
-        currentSegment.PopulatePoints();
-        if(pathReversed)
-            follower.SetupPoints(currentSegment, currentSegment.pathPoints.Count-1, pathReversed);
-        else
-            follower.SetupPoints(currentSegment, 0, pathReversed);
-    }
-
-
-
-    public void FixedUpdate(){
-
-        movePosition = follower.FollowPath(moveSpeed);
-        if(pathComplete){
-            OnPathFinished();
+    public void Setup(bool reversed){
+        // Debug.Log("setting up path , is reverse: " + reversed);
+        // pathComplete = false;
+        numSegments = segments.Count;
+        pathReversed = reversed;
+        foreach(PathSegment segment in segments){
+            segment.PopulatePoints();
         }
-        if(follower.segmentFinished){
-            OnSegmentFinished();
+        if(pathReversed){
+            currentSegmentIndex = segments.Count-1;
+            // Debug.Log(currentSegmentIndex);
         }
-        rb.MovePosition(movePosition);
+        else{
+            currentSegmentIndex = 0;
+        }
+        // currentSegmentIndex = startingSegmentIndex;
+        SetCurrentSegment(reversed);
     }
 
-    public void OnSegmentFinished(){
-        Debug.Log(currentSegmentIndex + " " + numSegments + " " + pathComplete + " " + pathReversed);
+    // public void SetupSegments(bool reversed = false){
+    //     Debug.Log("setting up segments ");
+    //     pathComplete = false;
+    //     pathReversed = reversed;
+    //     numSegments = segments.Count;
+    //     foreach(PathSegment segment in segments){
+    //         segment.PopulatePoints();
+    //     }
+
+    //     if(pathReversed){
+    //         currentSegmentIndex = currentSegment.pathPoints.Count-1;
+    //     }
+    //     else{
+    //         currentSegmentIndex = 0;
+    //     }
+    //     currentSegment = segments[currentSegmentIndex];
+    // }
+
+    public void SetCurrentSegment(bool reversed = false){
+        // Debug.Log("setting up segment " + currentSegmentIndex);
+        pathComplete = false;
+
+        currentSegment = segments[currentSegmentIndex];
+    }
+
+    public void NextSegment(){
+        // Debug.Log(currentSegmentIndex + " " + numSegments + " " + pathComplete + " " + pathReversed);
         if(pathReversed){
             currentSegmentIndex--;
             if(currentSegmentIndex < 0){
@@ -83,39 +74,6 @@ public class EnemyPath : MonoBehaviour
             }
         }
         pathComplete = false;
-        SetPath(currentSegmentIndex);
-
-        float remainingSpeed = moveSpeed - Vector2.Distance(rb.position, movePosition);
-        movePosition = follower.FollowPath(remainingSpeed);
-        
-    }
-
-    public void OnPathFinished(){
-        switch(type){
-            case TYPE.single:
-                pathComplete = true;
-                break;
-            case TYPE.pingpong:
-                pathComplete = false;
-                pathReversed = !pathReversed;
-                if(pathReversed){
-                    // Debug.Log("should be reversing ");
-                    SetPath(numSegments-1);
-                }
-                else{
-                    SetPath();
-                }
-                    
-                float remainingSpeed = moveSpeed - Vector2.Distance(rb.position, movePosition);
-                movePosition = follower.FollowPath(remainingSpeed);
-                break;
-            case TYPE.repeat:
-                pathComplete = false;
-                SetPath();
-                rb.position = follower.startPosition;
-                    remainingSpeed = moveSpeed - Vector2.Distance(rb.position, movePosition);
-                movePosition = follower.FollowPath(remainingSpeed);
-                break;
-        }
+        SetCurrentSegment();
     }
 }
