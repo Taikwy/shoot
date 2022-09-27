@@ -36,23 +36,23 @@ public class NewMovementPattern : MovementPattern
         mirrored = m;
 
         base.Setup();
-        ChangeSequence(MovementSequence.Enter);
+        ChangeSequence(MovementSeq.Enter);
     }
 
-    public override void ChangeSequence(MovementSequence newSequence){
+    public override void ChangeSequence(MovementSeq newSequence){
         base.ChangeSequence(newSequence);
         switch(newSequence){
-            case MovementSequence.Enter:
+            case MovementSeq.Enter:
                 lineMovement.Setup(enter_line);
                 SetSpeedAndAccel(enterMaxSpeed, enterSpeed, enterAcceleration);
                 EnterSequence();
                 break;
-            case MovementSequence.Main:
+            case MovementSeq.Main:
                 sinMovement.Setup(main_sin);
                 SetSpeedAndAccel(mainMaxSpeed, mainSpeed, mainAcceleration);
                 MainSequence();
                 break;
-            case MovementSequence.Exit:
+            case MovementSeq.Exit:
                 attackPattern.canAttack = false;
                 currentPiece = "curve";
                 curveMovement.Setup(exit_curve);
@@ -65,7 +65,7 @@ public class NewMovementPattern : MovementPattern
     //line downwards
     protected override void EnterSequence(){
         if(lineMovement.pieceDist >= enter_line.distanceToTravel){
-            ChangeSequence(MovementSequence.Main);
+            ChangeSequence(MovementSeq.Main);
             return;
         }
         movePosition = lineMovement.Movement(currentSpeed);
@@ -75,7 +75,7 @@ public class NewMovementPattern : MovementPattern
     protected override void MainSequence(){
         if(sinMovement.numHalfCycles >= main_sin.numHalfCycles){
             movePosition = sinMovement.ClampSinX();
-            ChangeSequence(MovementSequence.Exit);
+            ChangeSequence(MovementSeq.Exit);
             return;
         }
         movePosition = sinMovement.MovementX(currentSpeed);

@@ -33,7 +33,7 @@ public class OrangeScript : MinorEnemyScript
     public override void TakeDamage(BulletScript bulletScript){
         base.TakeDamage(bulletScript);
 
-        if(movementPattern.currentSequence != MovementPattern.MovementSequence.Exit){
+        if(movementPattern.currentSeq != MovementPattern.MovementSeq.Exit){
             Debug.Log("took damage");
             attackPattern.ChangeSequence(AttackPattern.AttackSequence.Conditional);
             attackPattern.ChangeSequence(AttackPattern.AttackSequence.Primary);

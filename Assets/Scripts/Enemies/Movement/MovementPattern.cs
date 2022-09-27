@@ -10,36 +10,59 @@ public class MovementPattern : MonoBehaviour
     protected float currentSpeed, maxSpeed, acceleration;
     
     [HideInInspector]
-    public enum MovementSequence{
+    public enum MovementSeq{
         // Spawn,
         Enter,
         Main,
         Exit
     }
+    public MovementSeq currentSeq;
+
+    public List<MovementSequence> sequences = new List<MovementSequence>();
     public MovementSequence currentSequence;
+    public int currentSequenceIndex = 0;
+    bool sequenceLooping = false;
+
+
+
+    bool movementMirrored;
+
+    public float movementSpeed;
+
 
     public virtual void Setup(){
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate(){
-        switch(currentSequence){
-            case MovementSequence.Enter:
-                EnterSequence();
-                break;
-            case MovementSequence.Main:
-                MainSequence();
-                break;
-            case MovementSequence.Exit:
-                ExitSequence();
-                break;
-        }
+        // switch(currentSequence){
+        //     case MovementSequence.Enter:
+        //         EnterSequence();
+        //         break;
+        //     case MovementSequence.Main:
+        //         MainSequence();
+        //         break;
+        //     case MovementSequence.Exit:
+        //         ExitSequence();
+        //         break;
+        // }
+
+        movePosition = currentSequence.MoveSequence(movementSpeed);
         rb.MovePosition(movePosition);
 
-        if(currentSpeed > maxSpeed)
-            currentSpeed = maxSpeed;
-        else
-            currentSpeed += acceleration * Time.deltaTime;
+
+        // if(currentSpeed > maxSpeed)
+        //     currentSpeed = maxSpeed;
+        // else
+        //     currentSpeed += acceleration * Time.deltaTime;
+    }
+
+    public virtual void ChangeSequence(MovementSequence newSequence){
+        currentSequence = newSequence;
+        // newSequence.SetupSequence();
+    }
+
+    public virtual void ChangeSequence(MovementSeq newSequence){
     }
 
     protected virtual void SetSpeedAndAccel(float newMax, float newSpeed, float newAccel){
@@ -51,19 +74,14 @@ public class MovementPattern : MonoBehaviour
         acceleration = newAccel;
     }
 
-    public virtual void ChangeSequence(MovementSequence newSequence){
-        currentSequence = newSequence;
-    }
-
-    //How enemy enteres the screen
     protected virtual void EnterSequence(){
     }
 
-    //Main movement while on screen
+    //sin downwards
     protected virtual void MainSequence(){
     }
 
-    //Movement sequence for leaving the screen
-    protected virtual void ExitSequence(){
+    //curves and goes away
+    protected virtual void ExitSequence(){ 
     }
 }

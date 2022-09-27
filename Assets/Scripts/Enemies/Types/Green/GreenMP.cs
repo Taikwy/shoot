@@ -31,22 +31,22 @@ public class GreenMP : MovementPattern
         mirrored = m;
 
         base.Setup();
-        ChangeSequence(MovementSequence.Enter);
+        ChangeSequence(MovementSeq.Enter);
     }
 
-    public override void ChangeSequence(MovementSequence newSequence){
+    public override void ChangeSequence(MovementSeq newSequence){
         base.ChangeSequence(newSequence);
         switch(newSequence){
-            case MovementSequence.Enter:
+            case MovementSeq.Enter:
                 lineMovement.Setup(enter_line);
                 SetSpeedAndAccel(enterMaxSpeed, enterSpeed, enterAcceleration);
                 EnterSequence();
                 break;
-            case MovementSequence.Main:
+            case MovementSeq.Main:
                 stopMovement.Setup(main_stop);
                 MainSequence();
                 break;
-            case MovementSequence.Exit:
+            case MovementSeq.Exit:
                 attackPattern.canAttack = false;
                 currentPiece = "curve";
                 curveMovement.Setup(exit_curve);
@@ -59,7 +59,7 @@ public class GreenMP : MovementPattern
     //line downwards
     protected override void EnterSequence(){
         if(lineMovement.pieceDist >= enter_line.distanceToTravel){
-            ChangeSequence(MovementSequence.Main);
+            ChangeSequence(MovementSeq.Main);
             return;
         }
         movePosition = lineMovement.Movement(currentSpeed);
@@ -68,7 +68,7 @@ public class GreenMP : MovementPattern
     //stays in place
     protected override void MainSequence(){
         if(stopMovement.pieceTime >= main_stop.stopTime){
-            ChangeSequence(MovementSequence.Exit);
+            ChangeSequence(MovementSeq.Exit);
             return;
         }
         movePosition = stopMovement.Movement(currentSpeed);

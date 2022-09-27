@@ -25,18 +25,18 @@ public class OrangeMP : MovementPattern
         mirrored = m;
 
         base.Setup();
-        ChangeSequence(MovementSequence.Enter);
+        ChangeSequence(MovementSeq.Enter);
     }
 
-    public override void ChangeSequence(MovementSequence newSequence){
+    public override void ChangeSequence(MovementSeq newSequence){
         base.ChangeSequence(newSequence);
         switch(newSequence){
-            case MovementSequence.Enter:
+            case MovementSeq.Enter:
                 lineMovement.Setup(enter_line);
                 SetSpeedAndAccel(enterMaxSpeed, enterSpeed, enterAcceleration);
                 EnterSequence();
                 break;
-            case MovementSequence.Main:
+            case MovementSeq.Main:
                 stopMovement.Setup(main_stop);
                 MainSequence();
                 break;
@@ -46,7 +46,7 @@ public class OrangeMP : MovementPattern
     //line downwards
     protected override void EnterSequence(){
         if(lineMovement.pieceDist >= enter_line.distanceToTravel){
-            ChangeSequence(MovementSequence.Main);
+            ChangeSequence(MovementSeq.Main);
             return;
         }
         movePosition = lineMovement.Movement(currentSpeed);

@@ -33,19 +33,19 @@ public class NewTestScript : MinorEnemyScript
     public override void TakeDamage(BulletScript bulletScript){
         base.TakeDamage(bulletScript);
 
-        if(movementPattern.currentSequence != MovementPattern.MovementSequence.Exit){
-            if(currentHealth <= 1){
-                movementPattern.ChangeSequence(MovementPattern.MovementSequence.Exit);
-            }
-            else if(currentHealth <= 3){
-                attackPattern.ChangeSequence(AttackPattern.AttackSequence.Conditional);
-                attackPattern.ChangeSequence(AttackPattern.AttackSequence.Impaired);
-            }
-            else{
-                attackPattern.ChangeSequence(AttackPattern.AttackSequence.Conditional);
-                attackPattern.ChangeSequence(AttackPattern.AttackSequence.Primary);
-            }
+        // if(movementPattern.currentSequence != MovementPattern.MovementSequence.Exit){
+        //     if(currentHealth <= 1){
+        //         movementPattern.ChangeSequence(MovementPattern.MovementSequence.Exit);
+        //     }
+        //     else if(currentHealth <= 3){
+        //         attackPattern.ChangeSequence(AttackPattern.AttackSequence.Conditional);
+        //         attackPattern.ChangeSequence(AttackPattern.AttackSequence.Impaired);
+        //     }
+        //     else{
+        //         attackPattern.ChangeSequence(AttackPattern.AttackSequence.Conditional);
+        //         attackPattern.ChangeSequence(AttackPattern.AttackSequence.Primary);
+        //     }
 
-        }
+        // }
     }
 }

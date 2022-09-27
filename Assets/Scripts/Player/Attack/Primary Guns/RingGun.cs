@@ -32,9 +32,6 @@ public class RingGun : PrimaryGun
 
         for(int i = 0; i < numShots; i++){
             angleDeltaR = Quaternion.AngleAxis(angleBetween*i, firingPoints[0].forward);
-            // if(!centered)
-            //     angleDeltaR = Quaternion.AngleAxis(angleBetween*i + angleBetween/2, firingPoint.forward);
-
             bullet = PoolManager.Instance.ReuseObject(currentBulletPrefab, firingPoints[0].position, angleDeltaR);
             bullet.GetComponent<BulletScript>().SetData(false, angleDeltaR * firingPoints[0].up);
         }

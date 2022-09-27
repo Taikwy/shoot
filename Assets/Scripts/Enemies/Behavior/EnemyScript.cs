@@ -15,13 +15,6 @@ public class EnemyScript : PoolObject
     [Header("Scrap Info")]
     public GameObject newScrapPrefab;
     public float numScraps;
-    
-    // [Header("Old Scrap Prefabs")]
-    // public GameObject scrapPrefab;
-    // public ScrapData defaultScrap;
-    // public ScrapData skillScrap;
-    // public ScrapData bothScrap;
-
     void OnTriggerEnter2D(Collider2D otherCollider){
         if(otherCollider.CompareTag("Bullet")){
             BulletScript bulletScript = otherCollider.gameObject.GetComponent<BulletScript>();

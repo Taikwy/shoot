@@ -30,7 +30,7 @@ public class BlueScript : MinorEnemyScript
     public override void TakeDamage(BulletScript bulletScript){
         base.TakeDamage(bulletScript);
 
-        if(movementPattern.currentSequence != MovementPattern.MovementSequence.Exit){
+        if(movementPattern.currentSeq != MovementPattern.MovementSeq.Exit){
             if(currentHealth <= 2){
                 attackPattern.ChangeSequence(AttackPattern.AttackSequence.Impaired);
             }
