@@ -5,17 +5,13 @@ using UnityEngine;
 public class EnemyPath : MonoBehaviour
 {
     public List<PathSegment> segments = new List<PathSegment>();
-    public PathSegment currentSegment;
-
-    int currentSegmentIndex;
-    // public int startingSegmentIndex;
-    public int numSegments;
-    public bool pathComplete = false;
+    [HideInInspector] public PathSegment currentSegment;
+    [HideInInspector] public int currentSegmentIndex, numSegments;
+    [HideInInspector] public bool pathComplete = false;
     bool pathReversed = false;
 
-    public void Setup(bool reversed){
-        // Debug.Log("setting up path , is reverse: " + reversed);
-        // pathComplete = false;
+    public void Setup(bool reversed, bool relativePositioning = false){
+        // Debug.Log("set up path");
         numSegments = segments.Count;
         pathReversed = reversed;
         foreach(PathSegment segment in segments){
@@ -23,42 +19,26 @@ public class EnemyPath : MonoBehaviour
         }
         if(pathReversed){
             currentSegmentIndex = segments.Count-1;
-            // Debug.Log(currentSegmentIndex);
         }
         else{
             currentSegmentIndex = 0;
         }
-        // currentSegmentIndex = startingSegmentIndex;
         SetCurrentSegment(reversed);
     }
 
-    // public void SetupSegments(bool reversed = false){
-    //     Debug.Log("setting up segments ");
-    //     pathComplete = false;
-    //     pathReversed = reversed;
-    //     numSegments = segments.Count;
-    //     foreach(PathSegment segment in segments){
-    //         segment.PopulatePoints();
-    //     }
-
-    //     if(pathReversed){
-    //         currentSegmentIndex = currentSegment.pathPoints.Count-1;
-    //     }
-    //     else{
-    //         currentSegmentIndex = 0;
-    //     }
-    //     currentSegment = segments[currentSegmentIndex];
-    // }
+    public void AdjustPositioning(Vector2 offsetAmount){
+        foreach(PathSegment segment in segments){
+            segment.OffsetPoints(offsetAmount);
+        }
+    }
 
     public void SetCurrentSegment(bool reversed = false){
-        // Debug.Log("setting up segment " + currentSegmentIndex);
         pathComplete = false;
 
         currentSegment = segments[currentSegmentIndex];
     }
 
     public void NextSegment(){
-        // Debug.Log(currentSegmentIndex + " " + numSegments + " " + pathComplete + " " + pathReversed);
         if(pathReversed){
             currentSegmentIndex--;
             if(currentSegmentIndex < 0){

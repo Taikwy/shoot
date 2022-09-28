@@ -12,7 +12,7 @@ public class PathFollower : MonoBehaviour
     public TYPE type;
     
     [Header("Movement Info")]
-    protected Rigidbody2D rb;
+    public Rigidbody2D rb;
     protected Vector2 newPosition;
     // Vector2 lastPosition;
     public Vector2 startPosition, targetPosition;
@@ -30,9 +30,9 @@ public class PathFollower : MonoBehaviour
     public bool segmentReversed = false;
 
 
-    public void Setup(){
-        rb = gameObject.GetComponent<Rigidbody2D>();
-    }
+    // public void Setup(){
+    //     rb = gameObject.GetComponent<Rigidbody2D>();
+    // }
 
     public void SetupPoints(PathSegment p, bool reversed){
         segment = p;

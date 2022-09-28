@@ -4,84 +4,132 @@ using UnityEngine;
 
 public class MovementPattern : MonoBehaviour
 {
-    protected Rigidbody2D rb;
+    [Header("Component Refs")]
+    public Rigidbody2D rb;
+    public PathFollower follower;
     
+    [Header("movement stats")]
     protected Vector2 movePosition;
-    protected float currentSpeed, maxSpeed, acceleration;
+    // protected float currentSpeed, maxSpeed, acceleration;
+
+    public float movementSpeed;
+    public float currentSpeed;
+    public bool movementMirrored;
+
+    public bool dropSpawnEnabled = false;
     
     [HideInInspector]
-    public enum MovementSeq{
+    public enum MovementState{
         // Spawn,
         Enter,
         Main,
+        DROP,
+        SPAWN,
+        STAY,
+        PASS,
+        EXIT,
         Exit
     }
-    public MovementSeq currentSeq;
+    [Header("movement stuff")]
+    public MovementState currentState;
+    
+    // public List<MovementSequence> sequences = new List<MovementSequence>();
+    // public int currentSequenceIndex = 0;
+    protected MovementSequence currentSequence;
+    public MovementSequence spawnSequence, staySequence, passSequence, exitSequence;
 
-    public List<MovementSequence> sequences = new List<MovementSequence>();
-    public MovementSequence currentSequence;
-    public int currentSequenceIndex = 0;
-    bool sequenceLooping = false;
 
-
-
-    bool movementMirrored;
-
-    public float movementSpeed;
-
+    void Start()
+    {
+        ChangeStateAndSequence(MovementState.SPAWN);
+    }
 
     public virtual void Setup(){
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        // rb = gameObject.GetComponent<Rigidbody2D>();
+        currentSequence = passSequence;
+        currentSequence.Setup(gameObject, 0);
+        // follower.Setup();
     }
 
     void FixedUpdate(){
-        // switch(currentSequence){
-        //     case MovementSequence.Enter:
-        //         EnterSequence();
-        //         break;
-        //     case MovementSequence.Main:
-        //         MainSequence();
-        //         break;
-        //     case MovementSequence.Exit:
-        //         ExitSequence();
-        //         break;
-        // }
-
-        movePosition = currentSequence.MoveSequence(movementSpeed);
+        if(currentSequence.sequenceComplete){
+            switch(currentState){
+                case MovementState.DROP:
+                    ChangeStateAndSequence(MovementState.STAY);
+                    break;
+                case MovementState.SPAWN:
+                    ChangeStateAndSequence(MovementState.STAY);
+                    break;
+                case MovementState.STAY:
+                    ChangeStateAndSequence(MovementState.EXIT);
+                    break;
+                case MovementState.PASS:
+                //despawn
+                    break;
+                case MovementState.EXIT:
+                //despawn
+                    break;
+            }
+        }
+        
+        movePosition = currentSequence.Move(movementSpeed);
         rb.MovePosition(movePosition);
+    }
 
 
+    public virtual void ChangeStateAndSequence(MovementState newState){
+        currentState = newState;
+        switch(currentState){
+            case MovementState.SPAWN:
+                SetSequence(spawnSequence);
+                break;
+            case MovementState.STAY:
+                SetSequence(staySequence);
+                break;
+            case MovementState.PASS:
+                SetSequence(passSequence);
+                break;
+            case MovementState.EXIT:
+                SetSequence(exitSequence);
+                break;
+        }
+    }
+
+    public virtual void SetSequence(MovementSequence newSequence){
+        currentSequence = newSequence;
+        currentSequence.Setup(gameObject, 0);
+    }
+
+    public virtual void ChangeSequence(MovementState newState){
+        currentState = newState;
+    }
+
+    public void UpdateSpeed(){
         // if(currentSpeed > maxSpeed)
         //     currentSpeed = maxSpeed;
         // else
         //     currentSpeed += acceleration * Time.deltaTime;
     }
 
-    public virtual void ChangeSequence(MovementSequence newSequence){
-        currentSequence = newSequence;
-        // newSequence.SetupSequence();
-    }
+    protected virtual void EnterSequence(){}
 
-    public virtual void ChangeSequence(MovementSeq newSequence){
-    }
+    protected virtual void MainSequence(){}
 
-    protected virtual void SetSpeedAndAccel(float newMax, float newSpeed, float newAccel){
-        maxSpeed = newMax;
-        if(newSpeed > newMax)
-            currentSpeed = newMax;
-        else
-            currentSpeed = newSpeed;
-        acceleration = newAccel;
-    }
+    protected virtual void SpawnSequence(){}
 
-    protected virtual void EnterSequence(){
-    }
+    protected virtual void StaySequence(){}
 
-    //sin downwards
-    protected virtual void MainSequence(){
-    }
+    protected virtual void PassSequence(){}
+    protected virtual void ExitSequence(){}
 
-    //curves and goes away
-    protected virtual void ExitSequence(){ 
-    }
+
+    public virtual void SetSpeedAndAccel(float max, float spd, float acc){}
+     // protected virtual void SetSpeedAndAccel(float newMax, float newSpeed, float newAccel){
+    //     maxSpeed = newMax;
+    //     if(newSpeed > newMax)
+    //         currentSpeed = newMax;
+    //     else
+    //         currentSpeed = newSpeed;
+    //     acceleration = newAccel;
+    // }
 }

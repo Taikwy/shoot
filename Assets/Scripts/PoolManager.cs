@@ -25,7 +25,7 @@ public class PoolManager : MonoBehaviour
         int poolKey = prefab.GetInstanceID();
 
         if(poolDictionary.ContainsKey(poolKey)){
-            return IncreasePoolSize(prefab, poolSize);
+            return IncreasePoolSize(prefab, poolSize, poolType);
         }
         GameObject poolHolder = new GameObject(prefab.name + " pool");
         switch(poolType){
@@ -53,14 +53,28 @@ public class PoolManager : MonoBehaviour
         return poolDictionary[poolKey];
     }
 
-    public Queue<ObjectInstance> IncreasePoolSize(GameObject prefab, int poolSize){
+    public Queue<ObjectInstance> IncreasePoolSize(GameObject prefab, int poolSize, string poolType = ""){
         int poolKey = prefab.GetInstanceID();
 
         if(!poolDictionary.ContainsKey(poolKey)){
             return CreatePool(prefab, poolSize);
         }
         if(poolSize > poolDictionary[poolKey].Count){
-            GameObject poolHolder = transform.Find(prefab.name + " pool").gameObject;
+            GameObject poolHolder;
+            switch(poolType){
+                case "bullet":
+                    poolHolder = bulletPoolsTransform.Find(prefab.name + " pool").gameObject;
+                    break;
+                case "enemy":
+                    poolHolder = enemyPoolsTransform.Find(prefab.name + " pool").gameObject;
+                    break;
+                case "scrap":
+                    poolHolder = scrapPoolsTransform.Find(prefab.name + " pool").gameObject;
+                    break;
+                default:
+                    poolHolder = transform.Find(prefab.name + " pool").gameObject;
+                    break;
+            }
             int numToAdd = poolSize - poolDictionary[poolKey].Count;
 
             for(int i = 0; i < numToAdd; i++){

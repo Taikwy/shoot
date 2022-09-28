@@ -20,13 +20,13 @@ public class BlueMP : MovementPattern
         mirrored = m;
 
         base.Setup();
-        ChangeSequence(MovementSeq.Enter);
+        ChangeSequence(MovementState.Enter);
     }
 
-    public override void ChangeSequence(MovementSeq newSequence){
+    public override void ChangeSequence(MovementState newSequence){
         base.ChangeSequence(newSequence);
         switch(newSequence){
-            case MovementSeq.Enter:
+            case MovementState.Enter:
                 sinMovement.Setup(enter_sin);
                 SetSpeedAndAccel(enterMaxSpeed, enterSpeed, enterAcceleration);
                 EnterSequence();

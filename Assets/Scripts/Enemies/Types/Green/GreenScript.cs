@@ -33,9 +33,9 @@ public class GreenScript : MinorEnemyScript
     public override void TakeDamage(BulletScript bulletScript){
         base.TakeDamage(bulletScript);
 
-        if(movementPattern.currentSeq != MovementPattern.MovementSeq.Exit){
+        if(movementPattern.currentState != MovementPattern.MovementState.Exit){
             if(currentHealth <= 1){
-                movementPattern.ChangeSequence(MovementPattern.MovementSeq.Exit);
+                movementPattern.ChangeSequence(MovementPattern.MovementState.Exit);
             }
             else if(currentHealth <= 3){
                 attackPattern.ChangeSequence(AttackPattern.AttackSequence.Conditional);

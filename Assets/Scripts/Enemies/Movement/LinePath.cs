@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LinePath : PathSegment
-{
-    // public List<GameObject> pathPoints = new List<GameObject>();
-    // public List<Transform> pathTransforms = new List<Transform>();
-    // public GameObject startPoint, endPoint;
+{    
+    // public override void OffsetPoints(Vector2 offsetAmount){}
 }

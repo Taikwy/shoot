@@ -11,15 +11,11 @@ public class TestMovementPattern : MovementPattern
 
     public void Setup(bool m = false){
         Debug.Log("setting pattern");
-        currentSequence = sequences[currentSequenceIndex];
-        currentSequence.Setup(gameObject);
+        // currentSequence = sequences[currentSequenceIndex];
+        // currentSequence.Setup(gameObject, 0);
 
         mirrored = m;
 
         base.Setup();
-    }
-
-    public override void ChangeSequence(MovementSeq newSequence){
-        base.ChangeSequence(newSequence);
     }
 }

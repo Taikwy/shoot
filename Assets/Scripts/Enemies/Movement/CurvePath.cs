@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CurvePath : PathSegment
 {
-    
     public float radius;
     public int numPoints = 72;
 
@@ -25,15 +24,9 @@ public class CurvePath : PathSegment
         float currentRads = 0;
 
         pathPoints.Clear();
-         foreach (Transform child in pointHolder.transform) {
+        foreach (Transform child in pointHolder.transform) {
             Destroy(child.gameObject);
         }
-        // Destroy(pointHolder);
-
-        // pointHolder = Instantiate(pointHolderObjPrefab, gameObject.transform.position, Quaternion.identity);
-        // pointHolder.name = "point holder";
-        // pointHolder.transform.parent = gameObject.transform;
-
         Vector2 pointPos;
         GameObject pathPoint;
         for(int i = 0; i < numPoints; i++){
@@ -58,8 +51,8 @@ public class CurvePath : PathSegment
         endPoint = pathPoints[numPoints-1];
     }
 
-    public void Setup(){
+    public override void OffsetPoints(Vector2 offsetAmount){
+        Vector2 startPointPos = startPoint.transform.position;
+        base.OffsetPoints(offsetAmount-startPointPos);
     }
-
-    
 }

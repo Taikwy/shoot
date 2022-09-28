@@ -36,27 +36,27 @@ public class NewMovementPattern : MovementPattern
         mirrored = m;
 
         base.Setup();
-        ChangeSequence(MovementSeq.Enter);
+        ChangeSequence(MovementState.Enter);
     }
 
-    public override void ChangeSequence(MovementSeq newSequence){
+    public override void ChangeSequence(MovementState newSequence){
         base.ChangeSequence(newSequence);
         switch(newSequence){
-            case MovementSeq.Enter:
+            case MovementState.Enter:
                 lineMovement.Setup(enter_line);
-                SetSpeedAndAccel(enterMaxSpeed, enterSpeed, enterAcceleration);
+                // SetSpeedAndAccel(enterMaxSpeed, enterSpeed, enterAcceleration);
                 EnterSequence();
                 break;
-            case MovementSeq.Main:
+            case MovementState.Main:
                 sinMovement.Setup(main_sin);
-                SetSpeedAndAccel(mainMaxSpeed, mainSpeed, mainAcceleration);
+                // SetSpeedAndAccel(mainMaxSpeed, mainSpeed, mainAcceleration);
                 MainSequence();
                 break;
-            case MovementSeq.Exit:
+            case MovementState.Exit:
                 attackPattern.canAttack = false;
                 currentPiece = "curve";
                 curveMovement.Setup(exit_curve);
-                SetSpeedAndAccel(exitMaxSpeed, exitSpeed, exitAcceleration);
+                // SetSpeedAndAccel(exitMaxSpeed, exitSpeed, exitAcceleration);
                 ExitSequence();
                 break;
         }
@@ -65,20 +65,20 @@ public class NewMovementPattern : MovementPattern
     //line downwards
     protected override void EnterSequence(){
         if(lineMovement.pieceDist >= enter_line.distanceToTravel){
-            ChangeSequence(MovementSeq.Main);
+            ChangeSequence(MovementState.Main);
             return;
         }
-        movePosition = lineMovement.Movement(currentSpeed);
+        // movePosition = lineMovement.Movement(currentSpeed);
     }
 
     //sin downwards
     protected override void MainSequence(){
         if(sinMovement.numHalfCycles >= main_sin.numHalfCycles){
             movePosition = sinMovement.ClampSinX();
-            ChangeSequence(MovementSeq.Exit);
+            ChangeSequence(MovementState.Exit);
             return;
         }
-        movePosition = sinMovement.MovementX(currentSpeed);
+        // movePosition = sinMovement.MovementX(currentSpeed);
     }
 
     //curves and goes away
@@ -86,16 +86,16 @@ public class NewMovementPattern : MovementPattern
         
         switch(currentPiece){
             case "curve":
-                movePosition = curveMovement.Movement(currentSpeed);
+                // movePosition = curveMovement.Movement(currentSpeed);
                 curveMovement.CurveRotate();
                 if(Mathf.Abs(curveMovement.deltaAngle) >= exit_curve.distanceToCurve){
                     currentPiece = "line";
                     lineMovement.Setup(exit_line, mirrored);
-                    SetSpeedAndAccel(900f, currentSpeed, 15f);
+                    // SetSpeedAndAccel(900f, currentSpeed, 15f);
                 }
                 break;
             case "line":
-                movePosition = lineMovement.Movement(currentSpeed);
+                // movePosition = lineMovement.Movement(currentSpeed);
                 break;
         }            
     }
