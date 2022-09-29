@@ -15,7 +15,9 @@ public class EnemyPath : MonoBehaviour
         numSegments = segments.Count;
         pathReversed = reversed;
         foreach(PathSegment segment in segments){
-            segment.PopulatePoints();
+            
+            // PoolManager.Instance.CreatePool(segment.pointObj, 100, "point");
+            // segment.PopulatePoints();
         }
         if(pathReversed){
             currentSegmentIndex = segments.Count-1;
@@ -26,9 +28,9 @@ public class EnemyPath : MonoBehaviour
         SetCurrentSegment(reversed);
     }
 
-    public void AdjustPositioning(Vector2 offsetAmount){
+    public void OffsetSegments(bool offset, Vector2 offsetAmount){
         foreach(PathSegment segment in segments){
-            segment.OffsetPoints(offsetAmount);
+            segment.OffsetPoints(offset, offsetAmount);
         }
     }
 

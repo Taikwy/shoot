@@ -44,10 +44,8 @@ public class MovementSequence : MonoBehaviour
 
     void SetPath(){
         currentPath.Setup(pathReversed);
-        if(relativePositioning){
-            currentPath.AdjustPositioning(relativePositioningOffset);
-        }
-
+        currentPath.OffsetSegments(relativePositioning, relativePositioningOffset);
+        
         follower.SetupPoints(currentPath.currentSegment, pathReversed);
         rb.position = follower.startPosition;
     }

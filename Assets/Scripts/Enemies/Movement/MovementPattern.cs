@@ -41,7 +41,7 @@ public class MovementPattern : MonoBehaviour
 
     void Start()
     {
-        ChangeStateAndSequence(MovementState.SPAWN);
+        ChangeStateAndSequence(MovementState.PASS);
     }
 
     public virtual void Setup(){

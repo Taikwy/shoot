@@ -36,10 +36,10 @@ public class PathFollower : MonoBehaviour
 
     public void SetupPoints(PathSegment p, bool reversed){
         segment = p;
-        numPathPoints = segment.pathPoints.Count;
+        numPathPoints = segment.pathPositions.Count;
         segmentReversed = reversed;
         if(segmentReversed){
-            currentPointIndex = segment.pathPoints.Count-1;
+            currentPointIndex = segment.pathPositions.Count-1;
         }
         else{
             currentPointIndex = 0;
@@ -50,27 +50,35 @@ public class PathFollower : MonoBehaviour
     public void SetPoints(int index = 0){
         segmentFinished = false;
         pointReached = false;
-        // currentPointIndex = index;
-        SetStartingPos(segment.pathPoints[currentPointIndex].transform);
+
+        // SetStartingPos(segment.pathTransforms[currentPointIndex]);
+        // if(segmentReversed)
+        //     SetTargetPos(segment.pathTransforms[currentPointIndex-1]);
+        // else   
+        //     SetTargetPos(segment.pathTransforms[currentPointIndex+1]);
+        
+        SetStartingPos(segment.pathPositions[currentPointIndex]);
         if(segmentReversed)
-            SetTargetPos(segment.pathPoints[currentPointIndex-1].transform);
+            SetTargetPos(segment.pathPositions[currentPointIndex-1]);
         else   
-            SetTargetPos(segment.pathPoints[currentPointIndex+1].transform);
+            SetTargetPos(segment.pathPositions[currentPointIndex+1]);
+
+        // SetStartingPos(segment.pathPoints[currentPointIndex].transform);
+        // if(segmentReversed)
+        //     SetTargetPos(segment.pathPoints[currentPointIndex-1].transform);
+        // else   
+        //     SetTargetPos(segment.pathPoints[currentPointIndex+1].transform);
     }
 
-    public void IncrementPoints(){
-        SetStartingPos(segment.pathPoints[currentPointIndex].transform);
-        SetTargetPos(segment.pathPoints[currentPointIndex+1].transform);
+    public void SetStartingPos(Vector3 pos){
+        startPosition = pos;
     }
-    public void DecrementPoints(){
-        SetStartingPos(segment.pathPoints[currentPointIndex].transform);
-        SetTargetPos(segment.pathPoints[currentPointIndex-1].transform);
+    public void SetTargetPos(Vector3 pos){
+        targetPosition = pos;
     }
-
     public void SetStartingPos(Transform transform){
         startPosition = transform.position;
     }
-
     public void SetTargetPos(Transform transform){
         targetPosition = transform.position;
     }
