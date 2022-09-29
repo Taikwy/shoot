@@ -11,14 +11,8 @@ public class EnemyPath : MonoBehaviour
     bool pathReversed = false;
 
     public void Setup(bool reversed, bool relativePositioning = false){
-        // Debug.Log("set up path");
         numSegments = segments.Count;
         pathReversed = reversed;
-        foreach(PathSegment segment in segments){
-            
-            // PoolManager.Instance.CreatePool(segment.pointObj, 100, "point");
-            // segment.PopulatePoints();
-        }
         if(pathReversed){
             currentSegmentIndex = segments.Count-1;
         }

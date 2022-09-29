@@ -2107,6 +2107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f2e70d49b12644886b737dda35e880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointObj: {fileID: 0}
   pathPoints:
   - {fileID: 979567717}
   - {fileID: 1332740066}
@@ -2182,6 +2183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f2e70d49b12644886b737dda35e880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointObj: {fileID: 0}
   pathPoints:
   - {fileID: 1926305477}
   - {fileID: 736476801}
@@ -3872,6 +3874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f2e70d49b12644886b737dda35e880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointObj: {fileID: 0}
   pathPoints:
   - {fileID: 1190539740}
   - {fileID: 425377287}
@@ -4104,7 +4107,7 @@ MonoBehaviour:
   segmentTransitionsOn: 0
   type: 2
   maxPasses: 10
-  relativePositioning: 0
+  relativePositioning: 1
   sequenceComplete: 0
 --- !u!4 &622433706
 Transform:
@@ -10860,6 +10863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f2e70d49b12644886b737dda35e880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointObj: {fileID: 0}
   pathPoints:
   - {fileID: 1297966429}
   - {fileID: 1572168151}
