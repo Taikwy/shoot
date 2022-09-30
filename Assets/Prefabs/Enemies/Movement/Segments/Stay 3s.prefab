@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 3755674427395042553}
   m_Layer: 0
   m_Name: Stay 3s
-  m_TagString: Untagged
+  m_TagString: Segment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

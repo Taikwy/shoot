@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 6477098082160701105}
   m_Layer: 0
   m_Name: Line 2 Points
-  m_TagString: Untagged
+  m_TagString: Segment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -217,5 +217,7 @@ MonoBehaviour:
   pathPoints:
   - {fileID: 6477098080291961981}
   - {fileID: 6477098081129700402}
+  pathPositions: []
   startPoint: {fileID: 6477098080291961981}
   endPoint: {fileID: 6477098081129700402}
+  stayTime: 0

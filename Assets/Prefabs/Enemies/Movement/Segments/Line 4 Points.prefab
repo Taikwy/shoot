@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8718216407417124055}
   m_Layer: 0
   m_Name: Line 4 Points
-  m_TagString: Untagged
+  m_TagString: Segment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,8 +137,10 @@ MonoBehaviour:
   - {fileID: 8718216408380507732}
   - {fileID: 8718216408192142102}
   - {fileID: 8718216406917203375}
+  pathPositions: []
   startPoint: {fileID: 8718216408216086043}
   endPoint: {fileID: 8718216406917203375}
+  stayTime: 0
 --- !u!1 &8718216408192142102
 GameObject:
   m_ObjectHideFlags: 0

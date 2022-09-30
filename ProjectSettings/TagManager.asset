@@ -11,6 +11,7 @@ TagManager:
   - Scrap
   - Gun
   - path point
+  - Segment
   layers:
   - Default
   - TransparentFX

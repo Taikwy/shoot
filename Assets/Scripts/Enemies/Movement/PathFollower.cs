@@ -31,15 +31,31 @@ public class PathFollower : MonoBehaviour
     PathSegment segment;
     bool pointReached = false;
     public bool segmentFinished = false;
-    public bool pathComplete = false;
     public bool segmentReversed = false;
     bool isStaying = false;
     float stayTime = 0;
+     List<Vector3> segmentPositions = new List<Vector3>();
 
+    public void ResetFollower(){
+        segmentFinished = false;
+        pointReached = false;
+        stayTime = 0f;
+        isStaying = false;
+        moveSpeed = 0f;
 
-    public void SetupPoints(PathSegment s, bool reversed){
+        segment = null;
+        numPathPoints = 0;
+        segmentPositions.Clear();
+        segmentReversed = false;
+        currentPointIndex = 0;
+
+        startPosition = targetPosition = default(Vector2);
+    }
+
+    public void SetupPoints(PathSegment s, List<Vector3> currentSegmentPositions, bool reversed){
         segment = s;
         numPathPoints = segment.pathPositions.Count;
+        segmentPositions = currentSegmentPositions;
         segmentReversed = reversed;
         if(segmentReversed){
             currentPointIndex = segment.pathPositions.Count-1;
@@ -48,7 +64,6 @@ public class PathFollower : MonoBehaviour
             currentPointIndex = 0;
         }
 
-        
         SetPoints();
     }
 
@@ -58,14 +73,14 @@ public class PathFollower : MonoBehaviour
         stayTime = 0f;
         isStaying = numPathPoints <= 1;
         
-        SetStartingPos(segment.pathPositions[currentPointIndex]);
+        SetStartingPos(segmentPositions[currentPointIndex]);
         if(isStaying)
             return;
 
         if(segmentReversed)
-            SetTargetPos(segment.pathPositions[currentPointIndex-1]);
+            SetTargetPos(segmentPositions[currentPointIndex-1]);
         else   
-            SetTargetPos(segment.pathPositions[currentPointIndex+1]);
+            SetTargetPos(segmentPositions[currentPointIndex+1]);
     }
 
     public void SetStartingPos(Vector3 pos){

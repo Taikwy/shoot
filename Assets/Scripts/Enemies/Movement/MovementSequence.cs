@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class MovementSequence : MonoBehaviour
 {
-    [Header("Movement refs")]
-    protected Rigidbody2D rb;
-    protected Transform objectTransform;
-    protected Vector2 newPosition;
-    [HideInInspector]
-    public float time, distance;
+    [Header("Component refs")]
+    public Transform objectTransform;
+    public Rigidbody2D rb;
+    public PathFollower follower;
 
-    [Header("Path Refs")]
-    PathFollower follower;
+    [Header("Path Stuff")]
     public List<EnemyPath> paths = new List<EnemyPath>();
     [HideInInspector] public EnemyPath currentPath;
-    float moveSpeed;
+    Vector2 relativePositioningOffset;
+    [HideInInspector] public bool sequenceComplete, pathComplete = false;
+
+    [Header("Path Stats")]
+    protected int numPasses = 0;
     bool pathReversed, segmentTransitioning = false;
-    [Header("Path Info")]
+    int currentSegmentIndex = 0;
+    PathSegment currentSegment;
+    List<Vector3> currentSegmentPositions = new List<Vector3>();
+    int numSegments;
+
+    [Header("Path Variables")]
     public bool segmentTransitionsOn;
     public enum TYPE{
         single,
@@ -26,31 +32,80 @@ public class MovementSequence : MonoBehaviour
     }
     public TYPE type;
     public int maxPasses;
-    protected int numPasses = 0;
+    public float maxTime;
+    public bool timedSequence = false;
     public bool relativePositioning = false;
-    Vector2 relativePositioningOffset;
-    [HideInInspector] public bool sequenceComplete = false;
 
-    public virtual void Setup(GameObject gameObj, int startingPathIndex = 0){
-        follower = gameObj.GetComponent<PathFollower>();
-        rb = gameObj.GetComponent<Rigidbody2D>();
-        objectTransform = gameObj.transform;
+
+    protected Vector2 newPosition;
+    [HideInInspector]
+    public float time, distance;
+    float moveSpeed;
+
+    public virtual void SetComponentsEditor(){
+        objectTransform = gameObject.transform.parent.parent;
+        follower = objectTransform.GetComponent<PathFollower>();
+        rb = objectTransform.GetComponent<Rigidbody2D>();
+    }
+
+    public virtual void Reset(){
+        pathReversed = false;
+        sequenceComplete = false;
+        pathComplete = false;
+        currentSegmentIndex = 0;
+        numPasses = 0;
         time = distance = 0;
 
+        
+    }
+
+    public void SetupPath(int startingPathIndex = 0){
         relativePositioningOffset = rb.position;
         currentPath = paths[startingPathIndex];
         SetPath();
     }
 
     void SetPath(){
-        currentPath.Setup(pathReversed);
-        currentPath.OffsetSegments(relativePositioning, relativePositioningOffset);
-        
-        follower.SetupPoints(currentPath.currentSegment, pathReversed);
+        if(pathReversed){
+            currentSegmentIndex = currentPath.segments.Count-1;
+        }
+        else{
+            currentSegmentIndex = 0;
+        }
+        SetCurrentSegment();
+        // Debug.Log(follower.startPosition);
         rb.position = follower.startPosition;
     }
 
+    public void SetCurrentSegment(bool reversed = false){
+        pathComplete = false;
+        currentSegment = currentPath.segments[currentSegmentIndex];
+        currentSegmentPositions = currentSegment.OffsetPointsList(relativePositioning, relativePositioningOffset);
+        follower.SetupPoints(currentSegment, currentSegmentPositions, pathReversed);
+    }
+
+    public void NextSegment(){
+        if(pathReversed){
+            currentSegmentIndex--;
+            if(currentSegmentIndex < 0){
+                pathComplete = true;
+                return;
+            }
+        }
+        else{
+            currentSegmentIndex++;
+            if(currentSegmentIndex > currentPath.segments.Count - 1){
+                pathComplete = true;
+                return;
+            }
+        }
+        pathComplete = false;
+        SetCurrentSegment();
+    }
+
     public virtual Vector2 Move(float speed){
+        if(sequenceComplete)
+            return newPosition;
         moveSpeed = speed;
         if(segmentTransitioning){
             if(segmentTransitionsOn){
@@ -60,7 +115,6 @@ public class MovementSequence : MonoBehaviour
             }
             else{
                 segmentTransitioning = false;
-
             }
         }
         else{
@@ -68,7 +122,7 @@ public class MovementSequence : MonoBehaviour
             if(follower.segmentFinished){
                 OnSegmentFinished();
             }
-            if(currentPath.pathComplete){
+            if(pathComplete){
                 OnPathFinished();
             }
         }
@@ -76,18 +130,17 @@ public class MovementSequence : MonoBehaviour
         return newPosition;
     }
 
-    //Updates stats based on newposition 
+    //Updates stats based on newposition
     public virtual void UpdateSequence(){
         time += Time.deltaTime;
         distance += Vector2.Distance(newPosition, objectTransform.position);
     }
 
-
     public void OnSegmentFinished(){
-        currentPath.NextSegment();
-        if(currentPath.pathComplete)
+        NextSegment();
+        if(pathComplete)
             return;
-        follower.SetupPoints(currentPath.currentSegment, pathReversed);
+        
         segmentTransitioning = true;
         if(!segmentTransitionsOn){
             rb.position = follower.startPosition;
@@ -97,26 +150,22 @@ public class MovementSequence : MonoBehaviour
     }
 
     public void OnPathFinished(){
+        // Debug.Log(gameObject.transform.parent.transform.parent.gameObject.name + " finished " + currentPath.gameObject.name );
         switch(type){
             case TYPE.single:
                 sequenceComplete = true;
                 return;
                 break;
             case TYPE.pingpong:
-                numPasses++;
-                if(numPasses >= maxPasses){
-                    sequenceComplete = true;
-                    return;
-                }
                 pathReversed = !pathReversed;
                 break;
             case TYPE.repeat:
-                numPasses++;
-                if(numPasses >= maxPasses){
-                    sequenceComplete = true;
-                    return;
-                }
                 break;
+        }
+        numPasses++;
+        if(numPasses >= maxPasses){
+            sequenceComplete = true;
+            return;
         }
         SetPath();
         OnMovementOverflow();
@@ -126,7 +175,4 @@ public class MovementSequence : MonoBehaviour
         float remainingSpeed = moveSpeed - Vector2.Distance(rb.position, newPosition);
         newPosition = follower.FollowPath(remainingSpeed);
     }
-
-    
-    
 }

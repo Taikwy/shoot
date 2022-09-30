@@ -8,15 +8,11 @@ public class MovementPattern : MonoBehaviour
     public Rigidbody2D rb;
     public PathFollower follower;
     
-    [Header("movement stats")]
     protected Vector2 movePosition;
     // protected float currentSpeed, maxSpeed, acceleration;
-
+    [Header("movement stats")]
     public float movementSpeed;
-    public float currentSpeed;
-    public bool movementMirrored;
-
-    public bool dropSpawnEnabled = false;
+    // public float currentSpeed;
     
     [HideInInspector]
     public enum MovementState{
@@ -30,28 +26,34 @@ public class MovementPattern : MonoBehaviour
         EXIT,
         Exit
     }
-    [Header("movement stuff")]
-    public MovementState currentState;
-    
-    // public List<MovementSequence> sequences = new List<MovementSequence>();
-    // public int currentSequenceIndex = 0;
-    protected MovementSequence currentSequence;
+    [Header("movement sequence stuff")]
+    public bool movementMirrored;
+    public bool dropSpawnEnabled = false;
+    public MovementState startingState;
+    protected MovementState currentState;
     public MovementSequence spawnSequence, staySequence, passSequence, exitSequence;
+    protected MovementSequence currentSequence;
 
+    bool timedCurrentSequence = false;
 
     void Start()
     {
-        ChangeStateAndSequence(MovementState.PASS);
+        ResetMP();
+        ChangeStateAndSequence(startingState);
     }
 
-    public virtual void Setup(){
-        // rb = gameObject.GetComponent<Rigidbody2D>();
-        currentSequence = passSequence;
-        currentSequence.Setup(gameObject, 0);
-        // follower.Setup();
+    public virtual void ResetMP(){
+        spawnSequence.Reset();
+        staySequence.Reset();
+        passSequence.Reset();
+        exitSequence.Reset();
     }
 
     void FixedUpdate(){
+        if(timedCurrentSequence){
+            if(currentSequence.time >= currentSequence.maxTime)
+                currentSequence.sequenceComplete = true;
+        }
         if(currentSequence.sequenceComplete){
             switch(currentState){
                 case MovementState.DROP:
@@ -93,15 +95,12 @@ public class MovementPattern : MonoBehaviour
                 SetSequence(exitSequence);
                 break;
         }
+        timedCurrentSequence = currentSequence.timedSequence;
     }
 
     public virtual void SetSequence(MovementSequence newSequence){
         currentSequence = newSequence;
-        currentSequence.Setup(gameObject, 0);
-    }
-
-    public virtual void ChangeSequence(MovementState newState){
-        currentState = newState;
+        currentSequence.SetupPath(0);
     }
 
     public void UpdateSpeed(){

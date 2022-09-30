@@ -13,10 +13,6 @@ public class PathSegmentEditor : Editor
         // Undo.RecordObject(pathScript.gameObject, "Made some changes to myObject");
 
         EditorGUILayout.LabelField("Path Segment Buttons", EditorStyles.boldLabel);
-        // if(GUILayout.Button("Set Positions List"))
-        // {
-        //     pathScript.SetPositionsList();
-        // }
         if(GUILayout.Button("Populate Points (for curves)"))
         {
             pathScript.PopulatePointsEditor();

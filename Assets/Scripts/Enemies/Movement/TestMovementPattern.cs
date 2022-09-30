@@ -16,6 +16,6 @@ public class TestMovementPattern : MovementPattern
 
         mirrored = m;
 
-        base.Setup();
+        // base.Setup();
     }
 }

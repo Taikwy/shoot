@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 565274624444481868}
   m_Layer: 0
   m_Name: Curve 90
-  m_TagString: Untagged
+  m_TagString: Segment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,6 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 565274624986193844}
+  - {fileID: 5195950994356143981}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,15 +47,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathPoints: []
+  pathPositions: []
   startPoint: {fileID: 0}
   endPoint: {fileID: 0}
+  stayTime: 0
   pointObj: {fileID: 1828483148794942998, guid: cc25a057672eb7e42bf4fb188adb507b, type: 3}
-  pointHolderObjPrefab: {fileID: 565274624986193845}
-  pointHolder: {fileID: 565274624986193845}
-  centerTransform: {fileID: 565274624986193844}
+  pivotCircle: {fileID: 565274624986193845}
+  pointHolder: {fileID: 7420025707617296065}
   radius: 0.5
-  numPoints: 18
   degreesToTurn: 90
+  numPoints: 18
   clockwise: 0
 --- !u!1 &565274624986193845
 GameObject:
@@ -140,3 +142,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &7420025707617296065
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5195950994356143981}
+  m_Layer: 0
+  m_Name: Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5195950994356143981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420025707617296065}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 565274624444481871}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

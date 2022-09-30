@@ -5,7 +5,7 @@ using UnityEngine;
 public class NewTestScript : MinorEnemyScript
 {
     [Header("Behavior Pattern Scripts")]
-    public NewMovementPattern movementPattern;
+    public TestMovementPattern movementPattern;
     public NewAttackPattern attackPattern;
     void Start()
     {
