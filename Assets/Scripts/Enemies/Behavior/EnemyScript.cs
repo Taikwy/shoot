@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class EnemyScript : PoolObject
 {
-
     [Header("Enemy Info")]
     public int maxHealth;
     public int currentHealth;
-    public bool partOfWave;
-    
+    [HideInInspector] public bool partOfWave;
     [HideInInspector] public TestWaveHolder waveHolderScript;
 
     [Header("Scrap Info")]
     public GameObject newScrapPrefab;
     public float numScraps;
+
+
     void OnTriggerEnter2D(Collider2D otherCollider){
         if(otherCollider.CompareTag("Bullet")){
             BulletScript bulletScript = otherCollider.gameObject.GetComponent<BulletScript>();

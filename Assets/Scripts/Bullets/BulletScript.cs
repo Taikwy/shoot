@@ -8,12 +8,13 @@ public class BulletScript : PoolObject
     public Rigidbody2D rb;
     public Transform bulletTransform;
     
-    [Tooltip("Primary  |  Special  |  Both")]
+    [Tooltip("Primary  |  Special  |  Both  |  Enemy")]
     public string bulletType;
     
     [Header("Bullet Stats")]
     public float movementSpeed;
-    public int maxHealth, currentHealth, damage;
+    public int maxHealth, damage;
+    int currentHealth;
 
     [HideInInspector] public float maxTimeAlive, currentTimeAlive;
     [HideInInspector] public float maxDistance, currentDistance;

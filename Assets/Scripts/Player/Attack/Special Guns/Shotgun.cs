@@ -31,7 +31,6 @@ public class Shotgun : SpecialGun
             angleDelta = Quaternion.AngleAxis(angle, firingPoints[0].forward);
             bullet = PoolManager.Instance.ReuseObject(currentBulletPrefab, firingPoints[0].position, firingPoints[0].rotation);
             bullet.GetComponent<BulletScript>().SetData(false, angleDelta * firingPoints[0].up, range);
-
         }
         
         base.Shoot();

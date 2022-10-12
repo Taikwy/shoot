@@ -4,48 +4,25 @@ using UnityEngine;
 
 public class AttackPattern : MonoBehaviour
 {
-    [HideInInspector]
-    public enum AttackSequence{
-        Primary,
-        Conditional,
-        Impaired
+    public bool canAttack = false;
+    public bool counterAttack = false;
+
+    public AttackSequence mainSequence, damageSequence, exitSequence;
+    protected AttackSequence currentSequence;
+
+    public virtual void Setup(){
+        Debug.Log("setting attack pattern");
+        canAttack = true;
+        if(mainSequence)
+            mainSequence.Setup();
+        SetSequence(mainSequence);
     }
 
-    public AttackSequence currentSequence;
-    [HideInInspector]
-    public bool canAttack = true;
-
-    // public virtual void Reset(){
-    //     ChangeSequence(AttackSequence.Primary);
-    // }
-
-    protected virtual void Update(){
-        switch(currentSequence){
-            case AttackSequence.Primary:
-                PrimarySequence();
-                break;
-            case AttackSequence.Conditional:
-                ConditionalSequence();
-                break;
-            case AttackSequence.Impaired:
-                ImpairedSequence();
-                break;
-        }
+    public virtual void Update(){
+        currentSequence.UpdateSequence(canAttack);
     }
 
-    public virtual void ChangeSequence(AttackSequence newSequence){
+    public virtual void SetSequence(AttackSequence newSequence){
         currentSequence = newSequence;
-    }
-    
-    //basic bullets forward
-    protected virtual void PrimarySequence(){
-    }
-
-    //Getting hit will spray 8 bullets out
-    protected virtual void ConditionalSequence(){
-    }
-
-    //stops attacking
-    protected virtual void ImpairedSequence(){
     }
 }

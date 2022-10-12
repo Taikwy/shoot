@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class TestMovementPattern : MovementPattern
 {
-    public AttackPattern attackPattern;
-    bool mirrored;
-    string currentPiece;
+    // // public AttackPattern attackPattern;
+    // bool mirrored;
+    // // string currentPiece;
 
 
-    public void Setup(bool m = false){
-        Debug.Log("setting pattern");
-        // currentSequence = sequences[currentSequenceIndex];
-        // currentSequence.Setup(gameObject, 0);
+    // public override void Setup(bool m = false){
+    //     Debug.Log("setting pattern");
+    //     // currentSequence = sequences[currentSequenceIndex];
+    //     // currentSequence.Setup(gameObject, 0);
 
-        mirrored = m;
+    //     mirrored = m;
 
-        // base.Setup();
-    }
+    //     // base.Setup();
+    // }
 }

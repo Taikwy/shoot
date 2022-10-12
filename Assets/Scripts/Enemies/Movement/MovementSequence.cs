@@ -46,6 +46,7 @@ public class MovementSequence : MonoBehaviour
         objectTransform = gameObject.transform.parent.parent;
         follower = objectTransform.GetComponent<PathFollower>();
         rb = objectTransform.GetComponent<Rigidbody2D>();
+        Debug.Log(rb + " rb set");
     }
 
     public virtual void Reset(){
@@ -73,7 +74,6 @@ public class MovementSequence : MonoBehaviour
             currentSegmentIndex = 0;
         }
         SetCurrentSegment();
-        // Debug.Log(follower.startPosition);
         rb.position = follower.startPosition;
     }
 

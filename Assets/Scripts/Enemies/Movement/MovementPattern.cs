@@ -7,12 +7,15 @@ public class MovementPattern : MonoBehaviour
     [Header("Component Refs")]
     public Rigidbody2D rb;
     public PathFollower follower;
-    
     protected Vector2 movePosition;
-    // protected float currentSpeed, maxSpeed, acceleration;
-    [Header("movement stats")]
+    [Header("movement sequence stuff")]
     public float movementSpeed;
-    // public float currentSpeed;
+    public bool movementMirrored;
+    public float rotationSpeed;
+    public bool isRotating;
+    public bool clockwise;
+    [Header("movement state stuff")]
+    public bool dropSpawnEnabled = false;
     
     [HideInInspector]
     public enum MovementState{
@@ -26,9 +29,7 @@ public class MovementPattern : MonoBehaviour
         EXIT,
         Exit
     }
-    [Header("movement sequence stuff")]
-    public bool movementMirrored;
-    public bool dropSpawnEnabled = false;
+    
     public MovementState startingState;
     protected MovementState currentState;
     public MovementSequence spawnSequence, staySequence, passSequence, exitSequence;
@@ -36,17 +37,25 @@ public class MovementPattern : MonoBehaviour
 
     bool timedCurrentSequence = false;
 
-    void Start()
-    {
+    public virtual void Setup(bool m = false){
+        Debug.Log("setting movement pattern");
+        movementMirrored = m;
+        if(clockwise)
+            rotationSpeed = Mathf.Abs(rotationSpeed) * -1;
+
         ResetMP();
         ChangeStateAndSequence(startingState);
     }
 
     public virtual void ResetMP(){
-        spawnSequence.Reset();
-        staySequence.Reset();
-        passSequence.Reset();
-        exitSequence.Reset();
+        if(spawnSequence)
+            spawnSequence.Reset();
+        if(staySequence)
+            staySequence.Reset();
+        if(passSequence)
+            passSequence.Reset();
+        if(exitSequence)
+            exitSequence.Reset();
     }
 
     void FixedUpdate(){
@@ -73,8 +82,10 @@ public class MovementPattern : MonoBehaviour
                     break;
             }
         }
-        
         movePosition = currentSequence.Move(movementSpeed);
+        if(isRotating){            
+            rb.rotation += rotationSpeed * Time.deltaTime;
+        }
         rb.MovePosition(movePosition);
     }
 
