@@ -10,6 +10,9 @@ public class EnemyScript : PoolObject
     [HideInInspector] public bool partOfWave;
     [HideInInspector] public TestWaveHolder waveHolderScript;
 
+    [Header("Attack Info")]
+    public bool counterAttack = false;
+
     [Header("Scrap Info")]
     public GameObject newScrapPrefab;
     public float numScraps;

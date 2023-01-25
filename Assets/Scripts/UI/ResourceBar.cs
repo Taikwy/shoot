@@ -12,6 +12,7 @@ public class ResourceBar : MonoBehaviour
     public virtual void SetMaxValue(float maxValue){
         slider.maxValue = maxValue;
         slider.value = maxValue;
+        // Debug.Log(fill);
         fill.color = gradient.Evaluate(1f);
     }
     public virtual void SetCurrentValue(float currentValue){

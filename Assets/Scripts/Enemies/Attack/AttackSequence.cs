@@ -42,50 +42,77 @@ public class AttackSequence : MonoBehaviour
         }
     }
 
-    public virtual void UpdateSequence(bool canAttack = false){
-        if(canAttack){
-            if(!isBursting && burstTimer >= timeBetweenBursts){
-                isBursting = true;
-                burstTimer = 0;
-            }
-            if(isBursting && shotTimer >= timeBetweenShots){
-                Shoot();
-                shotsTaken++;
-                shotTimer = 0;
-                if(shotsTaken >= burstSize){
-                    isBursting = false;
-                    shotsTaken = 0;
-                    shotTimer = timeBetweenShots;
-                }
-            }
+    public virtual void UpdateSequence(){
+        if(!isBursting && burstTimer >= timeBetweenBursts){
+            isBursting = true;
+            burstTimer = 0;
         }
-        
-        shotTimer += Time.deltaTime;
+        if(isBursting && shotTimer >= timeBetweenShots){
+            StartCoroutine(BurstFire());
+            isBursting = false;
+            // Shoot();
+            // shotsTaken++;
+            // Debug.Log(shotTimer + " " + shotsTaken + " " + timeBetweenShots);
+            // shotTimer = 0;
+            // if(shotsTaken >= burstSize){
+            //     isBursting = false;
+            //     shotsTaken = 0;
+            //     shotTimer = timeBetweenShots;
+            // }
+            // Debug.Log(shotTimer + " " + shotsTaken  + " afterwards=================================");
+        }
+    }
+
+    IEnumerator BurstFire(){
+        // isBursting = true;
+        for(int i = 0; i < burstSize; i++){
+            Shoot();
+            // Debug.Log(shotTimer + " " + shotsTaken + " " + timeBetweenShots);
+            // shotTimer = 0;
+            // if(shotsTaken >= burstSize){
+            //     isBursting = false;
+            //     shotsTaken = 0;
+            //     shotTimer = timeBetweenShots;
+            // }
+            // Debug.Log(shotTimer + " " + shotsTaken  + " afterwards=================================");
+
+            yield return new WaitForSeconds(timeBetweenShots);
+        }
+        // isBursting = false;
+    }
+
+    public virtual void UpdateTimers(){
+        if(isBursting){
+            shotTimer += Time.deltaTime;
+        }
+            // if(shotTimer >= .06)
+            //     Debug.Log(shotTimer + " " + Time.deltaTime + " \\\\\\\\\\");
         burstTimer += Time.deltaTime;
     }
 
-    // public IEnumerator Burst(){
-    //     timeBetweenBursts = 0;
-    //     canBurst = false;
-    //     isBursting = true;
-    //     for(int i = 0; i < burstSize; i++){
-    //         Shoot();
-    //         yield return new WaitForSeconds(timeBetweenShots);
-    //     }
-    //     canBurst = true;
-    //     isBursting = false;
-    // }
-
-    // public virtual void Attack(){
-    //     timeBetweenBursts = 0;
-    //     canBurst = false;
-    //     isBursting = true;
-    // }
+    public virtual bool SingleUpdate(){
+        if(!isBursting){
+            if(burstTimer >= timeBetweenBursts){
+                isBursting = true;
+                burstTimer = 0;
+            }
+            else{
+                return true;
+            }
+        }
+        if(isBursting && shotTimer >= timeBetweenShots){
+            Shoot();
+            shotsTaken++;
+            shotTimer = 0;
+            if(shotsTaken >= burstSize){
+                isBursting = false;
+                shotsTaken = 0;
+                shotTimer = timeBetweenShots;
+                return true;
+            }
+        }
+        return false;
+    }
 
     public virtual void Shoot(){}
-
-    // public virtual void ShootForward(){}
-    // public virtual void ShootAt(){}
-    // public virtual void ShootAtPlayer(){}
-
 }

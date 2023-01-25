@@ -21,9 +21,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("afterimage info")]
     Vector2 lastAfterimagePos;
     float lastAfterimageTime;
+    Coroutine dashAfterimageCoroutine = null;
 
     public void Setup(){
-        PoolManager.Instance.CreatePool(data.afterImagePrefab, 20);
+        PoolManager.Instance.CreatePool(data.afterImagePrefab, 50);
     }
     public void UpdateMovement()
     {
@@ -77,15 +78,17 @@ public class PlayerMovement : MonoBehaviour
         dashTimeStarted = Time.time;
         data.dashSpeed = data.dashDistance / data.dashTime;
 
-        Debug.Log("starting dash");
+        // Debug.Log("starting dash");
         lastAfterimagePos = transform.position;
-        // CreateAfterImage();
+
+        // dashAfterimageCoroutine = StartCoroutine(CreateAfterImages());
     }
     private void Dash()
     {
         if(Time.time - dashTimeStarted >= data.dashTime){
             data.isInvincible = false;
             data.dashLag = true;
+            // StopCoroutine(dashAfterimageCoroutine);
         }
         else{
             if(Mathf.Abs(Time.time - lastAfterimageTime) >= data.timeBetweenAfterimages){
@@ -108,5 +111,24 @@ public class PlayerMovement : MonoBehaviour
         lastAfterimageTime = Time.time;
         return afterimage;
     }
+
+    //no point, afterimages are based on player position which doesn't udpate often enough
+    private IEnumerator CreateAfterImages(){
+        Debug.Log("creating afterimages with coroutine");
+        for(int i = 0; i < 200; i++){
+            Debug.Log("making new afterimage" + Time.deltaTime);
+            GameObject afterimage = PoolManager.Instance.ReuseObject(data.afterImagePrefab, transform.position, Quaternion.identity);
+            PlayerAfterimage afterimageScript = afterimage.gameObject.GetComponent<PlayerAfterimage>();
+            afterimageScript.SetData(data.activeTime, data.startingAlpha, data.alphaMultiplier, data.afterimageColor);
+            
+            afterimageScript.spriteRenderer.sprite = spriteRenderer.sprite;
+
+            lastAfterimagePos = transform.position;
+            lastAfterimageTime = Time.time;
+            yield return new WaitForSeconds(data.timeBetweenAfterimages);
+        }
+    }   
+
+
 
 }

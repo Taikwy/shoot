@@ -50,14 +50,14 @@ MonoBehaviour:
   - {fileID: 7593482412082234885, guid: 3ea58b6acc759ba499b31c08d681a197, type: 3}
   poolSize: 25
   burstSize: 1
-  timeBetweenBursts: 1.5
+  timeBetweenBursts: 1
   timeBetweenShots: 0
   shotsTaken: 0
   shotTimer: 0
   burstTimer: 0
   isBursting: 0
-  requireLOS: 1
+  requireLOS: 0
   numBullets: 3
   angleBetween: 10
-  xOffset: 0.25
+  xOffset: 0
   direction: 0

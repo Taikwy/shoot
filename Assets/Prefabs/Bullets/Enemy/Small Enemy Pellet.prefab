@@ -150,7 +150,7 @@ MonoBehaviour:
   rb: {fileID: 7593482412082234904}
   bulletTransform: {fileID: 7593482412082234907}
   bulletType: Enemy
-  movementSpeed: 0.3
+  movementSpeed: 0.2
   maxHealth: 1
   damage: 1
   maxTimeAlive: 0

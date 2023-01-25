@@ -15,22 +15,22 @@ MonoBehaviour:
   maxHealth: 10
   startingHealth: 10
   currentHealth: 10
-  movementSpeed: 10
-  dashDistance: 5
-  dashTime: 0.125
-  dashEndlagAmount: 0.2
-  dashSpeed: 40
+  movementSpeed: 8
+  dashDistance: 6
+  dashTime: 0.15
+  dashEndlagAmount: 0.05
+  dashSpeed: 30
   afterImagePrefab: {fileID: 8833289758158608280, guid: 6675d2be7f8b2e24f9c84b0274f791e6, type: 3}
   activeTime: 0.8
   startingAlpha: 0.8
-  alphaMultiplier: 0.95
+  alphaMultiplier: 0.9
   afterimageColor: {r: 1, g: 0, b: 0.6379585, a: 0}
   distanceBetweenAfterimages: 0.8
-  timeBetweenAfterimages: 0.02
+  timeBetweenAfterimages: 0.01
   guns: []
   maxPrimaryAmmo: 0
   currentPrimaryAmmo: 0
-  absorbMovementSpeed: 6
+  absorbMovementSpeed: 15
   isDashing: 0
   dashLag: 0
   isInvincible: 0

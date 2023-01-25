@@ -60,13 +60,13 @@ public class MovementSequence : MonoBehaviour
         
     }
 
-    public void SetupPath(int startingPathIndex = 0){
+    public virtual void SetupPath(int startingPathIndex = 0){
         relativePositioningOffset = rb.position;
         currentPath = paths[startingPathIndex];
         SetPath();
     }
 
-    void SetPath(){
+    public virtual void SetPath(){
         if(pathReversed){
             currentSegmentIndex = currentPath.segments.Count-1;
         }

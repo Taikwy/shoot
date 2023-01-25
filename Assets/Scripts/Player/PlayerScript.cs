@@ -20,6 +20,8 @@ public class PlayerScript : MonoBehaviour
     [Header("player data")]
     public PlayerData data;
 
+    public bool shieldRecharging, shieldBroken;
+
     // Start is called before the first frame update
     void Start()
     {

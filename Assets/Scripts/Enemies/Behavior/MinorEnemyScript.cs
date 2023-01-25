@@ -26,6 +26,12 @@ public class MinorEnemyScript : EnemyScript
         attackPattern.Setup();
     }
 
+    public override void TakeDamage(BulletScript bulletScript)
+    {
+        base.TakeDamage(bulletScript);
+        attackPattern.TakeDamage();
+    }
+
     //Reset behavior stuff but keep stats cuz its jsut respawning
     //Only major enemies can respawn
 

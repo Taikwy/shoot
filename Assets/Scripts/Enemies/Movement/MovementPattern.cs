@@ -48,13 +48,13 @@ public class MovementPattern : MonoBehaviour
     }
 
     public virtual void ResetMP(){
-        if(spawnSequence)
+        // if(spawnSequence)
             spawnSequence.Reset();
-        if(staySequence)
+        // if(staySequence)
             staySequence.Reset();
-        if(passSequence)
+        // if(passSequence)
             passSequence.Reset();
-        if(exitSequence)
+        // if(exitSequence)
             exitSequence.Reset();
     }
 
