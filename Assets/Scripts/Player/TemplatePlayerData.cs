@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Player Data", menuName = "Player Data")]
-public class PlayerData : ScriptableObject
+[CreateAssetMenu(fileName = "New Template Player Data", menuName = "Template Player Data")]
+public class TemplatePlayerData : ScriptableObject
 {
     [Header("health info")]
     public int maxHealth;
@@ -21,7 +21,9 @@ public class PlayerData : ScriptableObject
 
     [Header("movement info")]
     public float movementSpeed;
-    public float dashDistance, dashTime, dashEndlagAmount;
+    public float dashDistance;
+    public float dashTime;
+    public float dashEndlagAmount;
     [HideInInspector] public float dashSpeed;
     
     [Header("dash aftgerimage info")]
@@ -32,12 +34,17 @@ public class PlayerData : ScriptableObject
 
     [Header("shooting info")]
     public List<Gun> guns = new List<Gun>();
-    public float maxPrimaryAmmo, currentPrimaryAmmo;
+    public float maxPrimaryAmmo;
+    public float currentPrimaryAmmo;
+
     
     [Header("abosrbing info")]
     public float absorbMovementSpeed;
 
     [Header("player state info")]
+    public bool isDashing = false;
+    public bool dashLag = false;
     public bool isInvincible = false;
-    public bool healthInvincible, isDashing, dashLag, dashInvincible, isShooting, isAbsorbing = false;
+    public bool isShooting = false;
+    public bool isAbsorbing = false;
 }

@@ -18,7 +18,18 @@ public class PlayerController : MonoBehaviour
     private void Awake(){}
 
     public void UpdateSprite(){
-        if(data.isDashing){
+        if(data.isInvincible){
+            
+            Color temp = spriteRenderer.color ;
+            temp.a = 0.5f;
+            spriteRenderer.color = temp;
+            // Debug.Log("currentky invincibsle");
+        }
+        else if(data.currentShield <= 0){
+            spriteRenderer.color = Color.blue;
+            // Debug.Log("currentky shield broken");
+        }
+        else if(data.isDashing){
             spriteRenderer.color = Color.magenta;
             // Debug.Log("currentky dasgubg");
         }

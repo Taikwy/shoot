@@ -10,38 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbae83194b5be59499fb4d35cb8232c2, type: 3}
-  m_Name: Test Player Data
+  m_Name: Current Player Data
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  startingHealth: 5
-  currentHealth: 5
-  damageInvincibleTime: 2
-  maxShield: 10
-  startingShield: 10
-  currentShield: 10
-  shieldBreakDelay: 3
-  shieldRechargeDelay: 1
-  shieldRechargeRate: 2
-  movementSpeed: 8
-  dashDistance: 6
-  dashTime: 0.15
-  dashEndlagAmount: 0.05
+  maxHealth: 0
+  startingHealth: 0
+  currentHealth: 0
+  damageInvincibleTime: 0
+  maxShield: 0
+  startingShield: 0
+  currentShield: 0
+  shieldBreakDelay: 0
+  shieldRechargeDelay: 0
+  shieldRechargeRate: 0
+  movementSpeed: 0
+  dashDistance: 0
+  dashTime: 0
+  dashEndlagAmount: 0
   dashSpeed: 40
   afterImagePrefab: {fileID: 8833289758158608280, guid: 6675d2be7f8b2e24f9c84b0274f791e6, type: 3}
-  activeTime: 0.8
-  startingAlpha: 0.8
-  alphaMultiplier: 0.9
+  activeTime: 0
+  startingAlpha: 0
+  alphaMultiplier: 0
   afterimageColor: {r: 1, g: 0, b: 0.6379585, a: 0}
-  distanceBetweenAfterimages: 0.8
-  timeBetweenAfterimages: 0.01
+  distanceBetweenAfterimages: 0
+  timeBetweenAfterimages: 0
   guns: []
   maxPrimaryAmmo: 0
   currentPrimaryAmmo: 0
-  absorbMovementSpeed: 15
-  isInvincible: 0
-  healthInvincible: 0
+  absorbMovementSpeed: 0
   isDashing: 0
   dashLag: 0
-  dashInvincible: 0
+  isInvincible: 0
   isShooting: 0
   isAbsorbing: 0

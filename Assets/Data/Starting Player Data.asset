@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbae83194b5be59499fb4d35cb8232c2, type: 3}
-  m_Name: Test Player Data
+  m_Name: Starting Player Data
   m_EditorClassIdentifier: 
   maxHealth: 5
   startingHealth: 5
-  currentHealth: 5
-  damageInvincibleTime: 2
+  currentHealth: 3
+  damageInvincibleTime: 1
   maxShield: 10
   startingShield: 10
   currentShield: 10
   shieldBreakDelay: 3
   shieldRechargeDelay: 1
-  shieldRechargeRate: 2
+  shieldRechargeRate: 1
   movementSpeed: 8
   dashDistance: 6
   dashTime: 0.15
@@ -38,10 +38,8 @@ MonoBehaviour:
   maxPrimaryAmmo: 0
   currentPrimaryAmmo: 0
   absorbMovementSpeed: 15
-  isInvincible: 0
-  healthInvincible: 0
   isDashing: 0
   dashLag: 0
-  dashInvincible: 0
+  isInvincible: 0
   isShooting: 0
   isAbsorbing: 0

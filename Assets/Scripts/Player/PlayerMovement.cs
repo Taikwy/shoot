@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartDashing(){
         data.isDashing = true;
+        data.dashInvincible = true;
         data.isInvincible = true;
         data.isAbsorbing = false;
 
@@ -86,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
     private void Dash()
     {
         if(Time.time - dashTimeStarted >= data.dashTime){
-            data.isInvincible = false;
+            data.dashInvincible = false;
             data.dashLag = true;
             // StopCoroutine(dashAfterimageCoroutine);
         }

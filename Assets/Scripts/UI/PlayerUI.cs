@@ -12,6 +12,7 @@ public class PlayerUI : MonoBehaviour
 
     [Header("ui objects")]
     public GameObject healthDisplay;
+    public GameObject shieldDisplay;
     public GameObject dashDisplay;
     public GameObject movementInfoDisplay;
     public GameObject primaryAmmoDisplay;
@@ -19,6 +20,7 @@ public class PlayerUI : MonoBehaviour
     public GameObject infoDisplay;
 
     HealthBar healthScript;
+    ShieldBar shieldScript;
     ResourceBar primaryAmmoScript;
     ResourceBar specialAmmoScript;
     DashCDBar dashCooldownScript;
@@ -30,23 +32,44 @@ public class PlayerUI : MonoBehaviour
     void Awake()
     {
         SetComponents();
-        // PlayerScript.SetMaxStats += SetMaxHealth;
-        PlayerScript.SetMaxStats += healthScript.SetMaxHealth;
-        PlayerScript.SetMaxStats += SetMaxPrimaryAmmo;
-        PlayerScript.SetMaxStats += SetMaxSpecialAmmo;
-        // PlayerScript.SetMaxStats += dashCooldownScript.SetMaxCooldown;
-        // PlayerScript.OnHealthChange += UpdateHealth;
-        PlayerScript.OnHealthChange += healthScript.UpdateHealth;
+        SetEvents();
     }
 
     void SetComponents(){
+        Debug.Log("settinmg components");
         playerScript = SingletonManager.Instance.playerScript;
         playerShooting = SingletonManager.Instance.playerShooting;
 
         healthScript = healthDisplay.GetComponent<HealthBar>();
+        shieldScript = shieldDisplay.GetComponent<ShieldBar>();
         primaryAmmoScript = primaryAmmoDisplay.GetComponent<ResourceBar>();
         specialAmmoScript = specialAmmoDisplay.GetComponent<ResourceBar>();
-        // dashCooldownScript = dashDisplay.GetComponent<DashCDBar>();
+    }
+
+    void SetEvents(){
+        PlayerScript.SetMaxStats += healthScript.SetMaxHealth;
+        PlayerScript.SetMaxStats += shieldScript.SetMaxShield;
+        PlayerScript.SetMaxStats += SetMaxPrimaryAmmo;
+        PlayerScript.SetMaxStats += SetMaxSpecialAmmo;
+        PlayerScript.OnHealthChange += healthScript.UpdateHealth;
+        PlayerScript.OnShieldChange += shieldScript.UpdateShield;
+
+
+        
+        // PlayerScript.SetMaxStats += SetMaxHealth;
+        // PlayerScript.SetMaxStats += dashCooldownScript.SetMaxCooldown;
+        // PlayerScript.OnHealthChange += UpdateHealth;
+    }
+
+    void CleanEvents(){
+        PlayerScript.SetMaxStats -= healthScript.SetMaxHealth;
+        PlayerScript.SetMaxStats -= shieldScript.SetMaxShield;
+        PlayerScript.SetMaxStats -= SetMaxPrimaryAmmo;
+        PlayerScript.SetMaxStats -= SetMaxSpecialAmmo;
+        PlayerScript.OnHealthChange -= healthScript.UpdateHealth;
+        PlayerScript.OnShieldChange -= shieldScript.UpdateShield;
+        Debug.Log("cleaned events");
+
     }
 
     // Update is called once per frame
@@ -59,17 +82,8 @@ public class PlayerUI : MonoBehaviour
         specialAmmoScript.SetCurrentValue(playerShooting.currentSpecialScript.currentAmmo);
     }
 
-    public void SetMaxHealth(){
-        healthScript.SetMaxValue(playerData.maxHealth);
-    }
-
-    public void UpdateHealth(){
-        healthScript.SetCurrentValue(playerData.currentHealth);
-    }
-
     public void SetMaxPrimaryAmmo(){
         primaryAmmoScript.SetMaxValue(playerShooting.primaryGunScript.maxHeat);
-        // Debug.Log("max primary ammo set");
     }
     
     public void UpdatePrimaryAmmo(){
@@ -78,15 +92,11 @@ public class PlayerUI : MonoBehaviour
 
     public void SetMaxSpecialAmmo(){
         specialAmmoScript.SetMaxValue(playerShooting.currentSpecialScript.maxAmmo);
-        // Debug.Log("max special ammo set");
     }
-    // public void SetMaxAmmo(ResourceBar ammoScript, Gun gunScript){
-    //     ammoScript.SetMaxValue(gunScript.maxAmmo);
-    // }
 
-    // public void UpdateAmmo(ResourceBar ammoScript, Gun gunScript){
-    //     ammoScript.SetCurrentValue(gunScript.currentAmmo);
-    // }
-
-    public void SetMaxDashCooldown(){}
+    
+    public void OnDestroy(){
+        // Debug.Log("destroyed player ui");
+        CleanEvents();
+    }
 }
