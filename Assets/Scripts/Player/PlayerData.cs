@@ -5,6 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Player Data", menuName = "Player Data")]
 public class PlayerData : ScriptableObject
 {
+    [Header("KEYBINDS")]
+    public string dashKey;
+    public string absorbKey;
+    public string primaryFireKey, specialFireKey, switchSpecialGunKey;
+
     [Header("health info")]
     public int maxHealth;
     public int startingHealth, currentHealth;
@@ -39,5 +44,5 @@ public class PlayerData : ScriptableObject
 
     [Header("player state info")]
     public bool isInvincible = false;
-    public bool healthInvincible, isDashing, dashLag, dashInvincible, isShooting, isAbsorbing = false;
+    public bool healthInvincible, isMoving, isDashing, dashLag, dashInvincible, isShooting, isAbsorbing = false;
 }

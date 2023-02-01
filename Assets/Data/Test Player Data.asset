@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbae83194b5be59499fb4d35cb8232c2, type: 3}
   m_Name: Test Player Data
   m_EditorClassIdentifier: 
+  dashKey: l
+  absorbKey: u
+  primaryFireKey: k
+  specialFireKey: j
+  switchSpecialGunKey: h
   maxHealth: 5
   startingHealth: 5
   currentHealth: 5
@@ -22,24 +27,25 @@ MonoBehaviour:
   shieldBreakDelay: 3
   shieldRechargeDelay: 1
   shieldRechargeRate: 2
-  movementSpeed: 8
-  dashDistance: 6
+  movementSpeed: 5
+  dashDistance: 3
   dashTime: 0.15
   dashEndlagAmount: 0.05
-  dashSpeed: 40
+  dashSpeed: 20
   afterImagePrefab: {fileID: 8833289758158608280, guid: 6675d2be7f8b2e24f9c84b0274f791e6, type: 3}
   activeTime: 0.8
-  startingAlpha: 0.8
-  alphaMultiplier: 0.9
-  afterimageColor: {r: 1, g: 0, b: 0.6379585, a: 0}
+  startingAlpha: 1
+  alphaMultiplier: 0.95
+  afterimageColor: {r: 0.54337645, g: 0, b: 1, a: 0}
   distanceBetweenAfterimages: 0.8
   timeBetweenAfterimages: 0.01
   guns: []
   maxPrimaryAmmo: 0
   currentPrimaryAmmo: 0
-  absorbMovementSpeed: 15
+  absorbMovementSpeed: 10
   isInvincible: 0
   healthInvincible: 0
+  isMoving: 0
   isDashing: 0
   dashLag: 0
   dashInvincible: 0

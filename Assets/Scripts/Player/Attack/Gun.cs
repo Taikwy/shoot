@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    [HideInInspector] public PlayerData playerData;
     [Header("bullet info")]
     public Transform firingPoint;
     public List<Transform> firingPoints;
@@ -20,6 +21,7 @@ public class Gun : MonoBehaviour
     // public float currentAmmo;
 
     [Header("Bullet Stats")]
+    public int bulletPoolSize = 100;
     // public int maxHealth;
     // public int currentHealth;
     public float ammoCost;
@@ -29,16 +31,14 @@ public class Gun : MonoBehaviour
     [HideInInspector] public bool isRecharging = true;
     [HideInInspector] public float timeSinceShot = 999f;
 
+
     // Start is called before the first frame update
     public virtual void Start()
     {
-        // currentBulletScript = currentBulletPrefab.GetComponent<BulletScript>();
-        CreateBulletPool();
+        playerData = SingletonManager.Instance.playerScript.data;
     }
     
-    public virtual void CreateBulletPool(){
-        PoolManager.Instance.CreatePool(currentBulletPrefab, 100, "bullet");
-    }
+    public virtual void CreateBulletPool(){}
 
     public virtual void Cooldown(){
     }
@@ -49,5 +49,6 @@ public class Gun : MonoBehaviour
     public virtual void RefillAmmo(float refillAmount = 0){
     }
 
+    public virtual void UpdateShooting(){}
     public virtual void Shoot(){}
 }

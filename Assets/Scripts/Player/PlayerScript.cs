@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("player data")]
     public PlayerData data;
-    public PlayerData startingData;
+    // public PlayerData startingData;
 
     float healthDamageTime, shieldDamageTime, shieldBreakTime;
     float shieldResetRate;
@@ -32,7 +32,7 @@ public class PlayerScript : MonoBehaviour
         data.currentShield = data.startingShield;
 
         // data.currentPrimaryAmmo = ;
-        data.isInvincible = data.healthInvincible= data.isDashing= data.dashLag= data.dashInvincible= data.isShooting= data.isAbsorbing = false;
+        data.isInvincible = data.healthInvincible= data.isMoving= data.isDashing= data.dashLag= data.dashInvincible= data.isShooting= data.isAbsorbing = false;
 
         playerMovement.Setup();
         playerShooting.Setup();
@@ -93,7 +93,7 @@ public class PlayerScript : MonoBehaviour
     public void TakeDamage(int damage){
         if(!shieldBroken){
             shieldDamageTime = Time.time;
-            Debug.Log("taking shield damge");
+            // Debug.Log("taking shield damge");
             data.currentShield -= damage;
             if(data.currentShield <= 0){
                 Debug.Log("shield broken");

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
-{
-    
+{    
     [Header("Reference stuff")]
     public PlayerScript playerScript;
     public PlayerUI playerUI;
@@ -20,7 +19,6 @@ public class PlayerShooting : MonoBehaviour
     public int currentSpecialIndex;
     [HideInInspector] public PrimaryGun primaryGunScript;
     [HideInInspector] public SpecialGun currentSpecialScript;
-
     [HideInInspector] public List<SpecialGun> specialGunScripts = new List<SpecialGun>();
 
     public void Setup(){
@@ -51,14 +49,17 @@ public class PlayerShooting : MonoBehaviour
             data.isAbsorbing = Input.GetKey("u");               //is absorbing as long as key is being held
 
             if(!data.isAbsorbing){
-                if (Input.GetKey("k")){
-                    primaryGunScript.Shoot();
-                    data.isShooting = true;
-                }
-                if (Input.GetKey("j")){
-                    currentSpecialScript.Shoot();
-                    data.isShooting = true;
-                }
+                // if (Input.GetKey("k")){
+                //     primaryGunScript.Shoot();
+                // }                
+                // if (Input.GetKey("j")){
+                //     currentSpecialScript.Shoot(data.isMoving);
+                //     data.isShooting = true;
+                // }
+
+                primaryGunScript.UpdateShooting();
+                currentSpecialScript.UpdateShooting();
+
                 data.isShooting = Input.GetKey("j") || Input.GetKey("k");
             }            
         }

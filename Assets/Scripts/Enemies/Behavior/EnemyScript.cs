@@ -14,8 +14,9 @@ public class EnemyScript : PoolObject
     public bool counterAttack = false;
 
     [Header("Scrap Info")]
-    public GameObject newScrapPrefab;
     public float numScraps;
+    public GameObject newScrapPrefab;
+    public GameObject scrapPrefab;
 
 
     void OnTriggerEnter2D(Collider2D otherCollider){
@@ -65,6 +66,8 @@ public class EnemyScript : PoolObject
     }
 
     public GameObject DropScrap(){
-        return PoolManager.Instance.ReuseObject(newScrapPrefab, gameObject.transform.position, Quaternion.identity);
+        Debug.Log("spawning scrap");
+        return PoolManager.Instance.ReuseObject(scrapPrefab, gameObject.transform.position, Quaternion.identity);
+        // return PoolManager.Instance.ReuseObject(newScrapPrefab, gameObject.transform.position, Quaternion.identity);
     }
 }

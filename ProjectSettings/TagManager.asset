@@ -20,9 +20,9 @@ TagManager:
   - Water
   - UI
   - Background
-  - 
-  - 
-  - 
+  - Bullet
+  - Enemy
+  - Player
   - 
   - 
   - 
@@ -57,4 +57,7 @@ TagManager:
     locked: 0
   - name: Characters
     uniqueID: 376939251
+    locked: 0
+  - name: Bullets
+    uniqueID: 3576903747
     locked: 0

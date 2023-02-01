@@ -20,6 +20,10 @@ public class SpecialGun : Gun
 
     public override void Start()
     {
+        base.Start();
+        
+        currentAmmo = maxAmmo;
+        
         foreach(GameObject bullet in bulletPrefabs){
             bulletScripts.Add(bullet.GetComponent<SpecialGun>());
         }
@@ -29,15 +33,23 @@ public class SpecialGun : Gun
     
     public override void CreateBulletPool(){
         foreach(GameObject bullet in bulletPrefabs){
-            PoolManager.Instance.CreatePool(bullet, 50, "bullet");
+            PoolManager.Instance.CreatePool(bullet, bulletPoolSize, "bullet");
         }
     }
 
-    public override void Shoot()
-    {
+    public override void Shoot(){
         currentAmmo -= ammoCost;
         isRecharging = false;
         timeSinceShot = 0;
+    }
+
+    public override void UpdateShooting(){
+        if (Input.GetKey(playerData.specialFireKey)){
+            if(ammoCost > currentAmmo || timeSinceShot < 1/roundsPerSecond){
+                return;
+            }
+            Shoot();
+        }
     }
 
     public void Update(){

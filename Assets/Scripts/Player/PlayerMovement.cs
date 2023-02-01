@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+            data.isMoving = (moveDirection != Vector2.zero || data.isDashing);
+
         //Currently if the player isn't moving horizontally it counts as idling
         // isIdle = (movement.x == 0) && !isDashing;
 

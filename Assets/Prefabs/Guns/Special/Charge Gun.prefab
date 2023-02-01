@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5746092571688524681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5746092571688524680}
+  - component: {fileID: 5746092571688524682}
+  m_Layer: 0
+  m_Name: Charge Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5746092571688524680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5746092571688524681}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5746092571697022016}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5746092571688524682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5746092571688524681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6399307d72822b40a7053bb94a5c243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 0}
+  firingPoint: {fileID: 0}
+  firingPoints:
+  - {fileID: 5746092571697022016}
+  currentBulletPrefab: {fileID: 0}
+  bulletPoolSize: 20
+  ammoCost: 50
+  roundsPerSecond: 8
+  isRecharging: 1
+  timeSinceShot: 999
+  maxAmmo: 250
+  currentAmmo: 0
+  ammoRechargeRate: 50
+  subRechargeRate: 150
+  ammoRechargePause: 0
+  ammoRechargeAmount: 0
+  bulletPrefabs:
+  - {fileID: 7728890862573666716, guid: 3f279c8e509f11c41941a10e4cff04f8, type: 3}
+  - {fileID: 2091473799627245740, guid: a450e494ef538c548815dc4608475ab7, type: 3}
+  - {fileID: 6625661457405645454, guid: 70068a5065e699046b538a4c6214a8dd, type: 3}
+  - {fileID: 5897795075799583402, guid: c204ed39a10ce8442ae8bc42e5157232, type: 3}
+  currentBulletIndex: 0
+  equipped: 0
+  maxChargeLevel: 3
+  currentChargeLevel: 0
+  lv1ChargeTime: 0.2
+  lv2ChargeTime: 0.5
+  lv3ChargeTime: 1
+--- !u!1 &5746092571697022017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5746092571697022016}
+  m_Layer: 0
+  m_Name: Firing Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5746092571697022016
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5746092571697022017}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5746092571688524680}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

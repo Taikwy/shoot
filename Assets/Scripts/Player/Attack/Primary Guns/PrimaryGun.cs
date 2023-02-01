@@ -8,11 +8,20 @@ public class PrimaryGun : Gun
     public float maxHeat;
     [HideInInspector] public float currentHeat;
     public float overheatAmount;
-    public float overheatedPause;
+    public float overheatedDelay;
     [HideInInspector] public bool overheated;
     public float cooldownRate;
     public float cooldownPause;
     public float cooldownAmount;
+
+    public virtual void Start()
+    {
+        base.Start();
+        CreateBulletPool();
+    }
+    public override void CreateBulletPool(){
+        PoolManager.Instance.CreatePool(currentBulletPrefab, bulletPoolSize, "bullet");
+    }
 
     public void Update(){
         Cooldown();
@@ -20,7 +29,7 @@ public class PrimaryGun : Gun
 
     public override void Cooldown(){
         if(overheated){
-            if(timeSinceShot >= overheatedPause){
+            if(timeSinceShot >= overheatedDelay){
                 isRecharging = true;
                 overheated = false;
             }
@@ -36,7 +45,12 @@ public class PrimaryGun : Gun
                 currentHeat = 0;
         }            
     }
-
+    
+    public override void UpdateShooting(){
+        if (Input.GetKey(playerData.primaryFireKey)){
+            Shoot();
+        }
+    }
     public override void Shoot()
     {
         timeSinceShot = 0;
