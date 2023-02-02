@@ -6,7 +6,7 @@ using System.Linq;
 public class Level : MonoBehaviour
 {
     // [Header("waves")]
-    public List<TestWave> wavesInLevel = new List<TestWave>();
+    public List<Wave> wavesInLevel = new List<Wave>();
 
     // [Header("enemy prefabs")]
     public List<GameObject> enemyPrefabsInLevel = new List<GameObject>();
@@ -18,8 +18,10 @@ public class Level : MonoBehaviour
     void Start()
     {
         for(int i = 0; i < wavesInLevel.Count; i++){
-            enemyPrefabsInLevel.Add(wavesInLevel[i].enemyPrefab);
-            scrapPrefabsInLevel.Add(wavesInLevel[i].enemyPrefab.GetComponent<EnemyScript>().scrapPrefab);
+            foreach(WavePieceData data in wavesInLevel[i].wavePieces){
+                enemyPrefabsInLevel.Add(data.enemyPrefab);
+                scrapPrefabsInLevel.Add(data.enemyPrefab.GetComponent<EnemyScript>().scrapPrefab);
+            }
         }
         enemyPrefabsInLevel = enemyPrefabsInLevel.Distinct().ToList();
         scrapPrefabsInLevel = scrapPrefabsInLevel.Distinct().ToList();

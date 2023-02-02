@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WavePiece : MonoBehaviour
 {
-    EnemyManager enemyManager;
     WaveSpawner waveSpawner;
+
 
     [Header("Wave Info")]
     public GameObject enemyPrefab;
@@ -27,6 +27,10 @@ public class WavePiece : MonoBehaviour
     public bool mirrored;
 
     public void SpawnPiece(GameObject waveHolder, Vector2 spawnPosition){
+        
+        waveSpawner = WaveSpawner.Instance;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
         if(mirrored)
             xGap *= -1;
         switch(spawnType){
