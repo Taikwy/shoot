@@ -8,7 +8,8 @@ public class EnemyScript : PoolObject
     public int maxHealth;
     public int currentHealth;
     [HideInInspector] public bool partOfWave;
-    [HideInInspector] public TestWaveHolder waveHolderScript;
+    [HideInInspector] public TestWaveHolder testWaveHolderScript;
+    [HideInInspector] public WaveHolder waveHolderScript;
 
     [Header("Attack Info")]
     public bool counterAttack = false;

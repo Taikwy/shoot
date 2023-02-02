@@ -159,8 +159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalPoolHolder: {fileID: 0}
   rb: {fileID: 3361072793285944912}
-  moveSpeed: 20
-  acceleration: -10
+  moveSpeed: 10
+  acceleration: -12
   ammoType: 
   amount: 0
-  activeTimer: 5
+  activeTimer: 10

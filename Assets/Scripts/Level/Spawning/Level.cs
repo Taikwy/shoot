@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class TestLevel : MonoBehaviour
+public class Level : MonoBehaviour
 {
-    [Header("waves")]
+    // [Header("waves")]
     public List<TestWave> wavesInLevel = new List<TestWave>();
 
-    [Header("enemy prefabs")]
+    // [Header("enemy prefabs")]
     public List<GameObject> enemyPrefabsInLevel = new List<GameObject>();
-    public List<int> numOfEnemyType = new List<int>();
 
-    [Header("scrap prefabs")]
+    // [Header("scrap prefabs")]
     public List<GameObject> scrapPrefabsInLevel = new List<GameObject>();
-    public List<int> numOfScrapType = new List<int>();
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +25,11 @@ public class TestLevel : MonoBehaviour
         scrapPrefabsInLevel = scrapPrefabsInLevel.Distinct().ToList();
 
         for(int i = 0; i < enemyPrefabsInLevel.Count; i++){
-            PoolManager.Instance.CreatePool(enemyPrefabsInLevel[i], numOfEnemyType[i], "enemy");
+            PoolManager.Instance.CreatePool(enemyPrefabsInLevel[i], 50, "enemy");
         }
 
         for(int i = 0; i < scrapPrefabsInLevel.Count; i++){
-            PoolManager.Instance.CreatePool(scrapPrefabsInLevel[i], numOfScrapType[i], "scrap");
+            PoolManager.Instance.CreatePool(scrapPrefabsInLevel[i], 100, "scrap");
         }
     }
 }

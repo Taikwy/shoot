@@ -12,7 +12,7 @@ public class MinorEnemyScript : EnemyScript
         movementPattern = gameObject.GetComponent<MovementPattern>();
         attackPattern = gameObject.GetComponent<AttackPattern>();
 
-        Debug.Log("minor enemy starting");
+        Debug.Log("minor enemy starting " + movementPattern);
         currentHealth = maxHealth;
         movementPattern.Setup();
         attackPattern.Setup();
@@ -20,7 +20,9 @@ public class MinorEnemyScript : EnemyScript
 
     //Reset stuff like animations and whatnot so it can be reused in pool
     public override void OnObjectReuse(){
-        Debug.Log("enemy reusing");
+        movementPattern = gameObject.GetComponent<MovementPattern>();
+        attackPattern = gameObject.GetComponent<AttackPattern>();
+        Debug.Log("enemy reusing " + movementPattern);
         currentHealth = maxHealth;
         movementPattern.Setup();
         attackPattern.Setup();

@@ -2,34 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestWave : MonoBehaviour
+public class Wave : MonoBehaviour
 {
-    TestEnemyManager testEnemyManager;
-    TestWaveSpawner testWaveSpawner;
+    EnemyManager enemyManager;
+    WaveSpawner waveSpawner;
     public GameObject waveHolderPrefab;
 
     [Header("Wave Info")]
     public GameObject enemyPrefab;
-    // public GameObject enemyPrefab2;
-    [HideInInspector]
-    public int numOfEnemiesInWave;
+    [HideInInspector] public int numOfEnemiesInWave;
     
     [Header("Spawning Info")]
     public int numEnemies;
-    [Tooltip("horizontal, vertical, diagonal, vertical stream, diagonal stream")]
-    public string spawnType;
-    public float xGap;
-    public float yGap;
-    public float spawnInterval;
+    public enum SPAWNTYPE{
+        HORIZONTAL,
+        VERTICAL,
+        DIAGONAL,
+        VSTREAM,
+        DSTREAM,
+        STATIC
+    }
+    public SPAWNTYPE spawnType;
+    
+    public float xGap, yGap, spawnInterval;
     public bool mirrored;
 
     void OnTriggerEnter2D(Collider2D otherCollider){
         if(otherCollider.CompareTag("Spawnpoint")){
-            Debug.Log("creating waveholder");
             GameObject waveHolder = Instantiate(waveHolderPrefab);
             waveHolder.name = gameObject.name + " Holder";
 
-            testWaveSpawner = TestWaveSpawner.Instance;
+            waveSpawner = WaveSpawner.Instance;
             SpawnWave(waveHolder, gameObject.transform.position);
 
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -41,22 +44,22 @@ public class TestWave : MonoBehaviour
         if(mirrored)
             xGap *= -1;
         switch(spawnType){
-            case "horizontal":
-                testWaveSpawner.SpawnHorizontalLine(waveHolder, enemyPrefab, numEnemies, xGap, spawnPosition.x);
+            case SPAWNTYPE.HORIZONTAL:
+                waveSpawner.SpawnHorizontalLine(waveHolder, enemyPrefab, numEnemies, xGap, spawnPosition.x);
                 break;
-            case "vertical":
-                testWaveSpawner.SpawnVerticalLine(waveHolder, enemyPrefab, numEnemies, yGap, spawnPosition.x, spawnPosition.y);
+            case SPAWNTYPE.VERTICAL:
+                waveSpawner.SpawnVerticalLine(waveHolder, enemyPrefab, numEnemies, yGap, spawnPosition.x, spawnPosition.y);
                 break;
-            case "diagonal":
-                testWaveSpawner.SpawnDiagonalLine(waveHolder, enemyPrefab, numEnemies, xGap, yGap, spawnPosition.x, spawnPosition.y);
+            case SPAWNTYPE.DIAGONAL:
+                waveSpawner.SpawnDiagonalLine(waveHolder, enemyPrefab, numEnemies, xGap, yGap, spawnPosition.x, spawnPosition.y);
                 break;
-            case "vertical stream":
-                StartCoroutine(testWaveSpawner.SpawnStream(waveHolder, enemyPrefab, numEnemies, 0, spawnInterval, spawnPosition.x, spawnPosition.y));
+            case SPAWNTYPE.VSTREAM:
+                StartCoroutine(waveSpawner.SpawnStream(waveHolder, enemyPrefab, numEnemies, 0, spawnInterval, spawnPosition.x, spawnPosition.y));
                 break;
-            case "diagonal stream":
-                StartCoroutine(testWaveSpawner.SpawnStream(waveHolder, enemyPrefab, numEnemies, xGap, spawnInterval, spawnPosition.x, spawnPosition.y));
+            case SPAWNTYPE.DSTREAM:
+                StartCoroutine(waveSpawner.SpawnStream(waveHolder, enemyPrefab, numEnemies, xGap, spawnInterval, spawnPosition.x, spawnPosition.y));
                 break;
-            case "static":
+            case SPAWNTYPE.STATIC:
                 SpawnStatic(xGap, yGap, spawnPosition.x, spawnPosition.y);
                 break;
             default:
@@ -73,7 +76,7 @@ public class TestWave : MonoBehaviour
         };
         int numEnemies = staticArray.GetLength(0) * staticArray.GetLength(1);
 
-        TestWaveHolder waveHolderScript = gameObject.GetComponent<TestWaveHolder>();
+        WaveHolder waveHolderScript = gameObject.GetComponent<WaveHolder>();
         PoolManager.Instance.CreatePool(enemyPrefab, numEnemies, "enemy");
         
         GameObject enemy;
@@ -82,9 +85,9 @@ public class TestWave : MonoBehaviour
         for(int r = 0; r < staticArray.GetLength(0); r++){
             spawnLocation.x -= (numEnemies - 1) * xGap / 2;
             for(int c = 0; c < staticArray.GetLength(1); c++){
-                enemy = testWaveSpawner.SpawnEnemy(enemyPrefab, spawnLocation, gameObject, true);
+                enemy = waveSpawner.SpawnEnemy(enemyPrefab, spawnLocation, gameObject, true);
                 enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
-                enemyScript.testWaveHolderScript = waveHolderScript;
+                enemyScript.waveHolderScript = waveHolderScript;
                 
                 waveHolderScript.numOfEnemiesInWave++;
                 spawnLocation.x += xGap;
