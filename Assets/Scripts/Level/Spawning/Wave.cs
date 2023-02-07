@@ -37,15 +37,15 @@ public class Wave : MonoBehaviour
             case WavePieceData.SPAWNTYPE.HORIZONTAL:
                 waveSpawner.SpawnHorizontalLine(waveHolder, pieceData);
                 break;
-            // case SPAWNTYPE.VERTICAL:
-            //     waveSpawner.SpawnVerticalLine(waveHolder, enemyPrefab, numEnemies, yGap, spawnPosition.x, spawnPosition.y);
-            //     break;
-            // case SPAWNTYPE.DIAGONAL:
-            //     waveSpawner.SpawnDiagonalLine(waveHolder, enemyPrefab, numEnemies, xGap, yGap, spawnPosition.x, spawnPosition.y);
-            //     break;
-            // case SPAWNTYPE.VSTREAM:
-            //     StartCoroutine(waveSpawner.SpawnStream(waveHolder, enemyPrefab, numEnemies, 0, spawnInterval, spawnPosition.x, spawnPosition.y));
-            //     break;
+            case WavePieceData.SPAWNTYPE.VERTICAL:
+                waveSpawner.SpawnVerticalLine(waveHolder, pieceData);
+                break;
+            case WavePieceData.SPAWNTYPE.DIAGONAL:
+                waveSpawner.SpawnDiagonalLine(waveHolder, pieceData);
+                break;
+            case WavePieceData.SPAWNTYPE.STREAM:
+                StartCoroutine(waveSpawner.SpawnStream(waveHolder, pieceData));
+                break;
             // case SPAWNTYPE.DSTREAM:
             //     StartCoroutine(waveSpawner.SpawnStream(waveHolder, enemyPrefab, numEnemies, xGap, spawnInterval, spawnPosition.x, spawnPosition.y));
             //     break;

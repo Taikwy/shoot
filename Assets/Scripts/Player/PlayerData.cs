@@ -41,8 +41,11 @@ public class PlayerData : ScriptableObject
     
     [Header("abosrbing info")]
     public float absorbMovementSpeed;
+    public float pickupSpeed, absorbSpeed;
 
     [Header("player state info")]
     public bool isInvincible = false;
     public bool healthInvincible, isMoving, isDashing, dashLag, dashInvincible, isShooting, isAbsorbing = false;
+    [Header("player stats info")]
+    public int numScrap;
 }

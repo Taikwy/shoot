@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPoolHolder: {fileID: 0}
-  maxHealth: 10
+  maxHealth: 5
   currentHealth: 0
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}

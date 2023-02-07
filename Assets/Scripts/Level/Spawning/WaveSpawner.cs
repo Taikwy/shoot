@@ -40,26 +40,7 @@ public class WaveSpawner : MonoBehaviour
         return enemy;
     }
 
-
-    // public EnemyScript SetupSpawnedEnemy(GameObject enemy, WavePieceData d){
-    //     EnemyScript enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
-    //     GameObject movementSequence = d.movementSequence;
-    //     GameObject attackSequence = d.attackSequence;
-
-    //     movementSequence = PoolManager.Instance.ReuseObject(d.movementSequence, Vector2.zero, Quaternion.identity);
-    //     // attackSequence = PoolManager.Instance.ReuseObject(d.attackSequence, Vector2.zero, Quaternion.identity);
-
-    //     movementSequence.transform.parent = enemyScript.MovementHolder.transform;
-    //     // attackSequence.transform.parent = enemyScript.AttackHolder.transform;
-        
-    //     enemy.gameObject.GetComponent<MovementPattern>().spawnSequence = movementSequence.GetComponent<MovementSequence>();
-    //     // enemy.gameObject.GetComponent<AttackPattern>().mainSequences.Add(attackSequence.GetComponent<AttackSequence>());
-
-    //     enemyScript.SetupPatterns();
-
-    //     return enemyScript;
-    // }
-
+    //Makes other spawnenemy obsolete pretty much, current one im using
     public GameObject SpawnEnemy(GameObject waveHolder, WavePieceData d, Vector2 spawnLocation, WaveHolder waveHolderScript)
     {
         GameObject enemy = SpawnEnemy(d.enemyPrefab, spawnLocation, waveHolder, true);
@@ -92,15 +73,11 @@ public class WaveSpawner : MonoBehaviour
 
     public void SpawnHorizontalLine(GameObject waveHolder, WavePieceData d){
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
-        
-        // GameObject enemy;
-        // EnemyScript enemyScript;
         Vector2 spawnLocation = new Vector2(d.spawnPosition.x, waveSpawnPoint.position.y);
-
         spawnLocation.x -= (d.numEnemies - 1) * d.xGap / 2;
+
         for(int i = 0; i < d.numEnemies; i++){
             SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);
-
             spawnLocation.x += d.xGap;
         }
         // Debug.Log(xCenterSpawnPoint);
@@ -125,60 +102,43 @@ public class WaveSpawner : MonoBehaviour
         // Debug.Log(xCenterSpawnPoint);
     }
 
-    public void SpawnVerticalLine(GameObject waveHolder, GameObject enemyPrefab, int numEnemies, float yGap, float xCenterSpawnPoint = 0, float yBottomPoint = 0){
+    public void SpawnVerticalLine(GameObject waveHolder, WavePieceData d){
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
-        PoolManager.Instance.CreatePool(enemyPrefab, numEnemies, "enemy");
-        
-        GameObject enemy;
-        EnemyScript enemyScript;
-        Vector2 spawnLocation = new Vector2(xCenterSpawnPoint, yBottomPoint);
-        for(int i = 0; i < numEnemies; i++){
-            enemy = SpawnEnemy(enemyPrefab, spawnLocation, waveHolder, true);
-            enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
-            enemyScript.waveHolderScript = waveHolderScript;
-            
-            waveHolderScript.numOfEnemiesInWave++;
-            spawnLocation.y += yGap;
+        Vector2 spawnLocation = new Vector2(d.spawnPosition.x, waveSpawnPoint.position.y);
+
+        for(int i = 0; i < d.numEnemies; i++){
+            SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);
+            spawnLocation.y += d.yGap;
         }
     }
 
-    public void SpawnDiagonalLine(GameObject waveHolder, GameObject enemyPrefab, int numEnemies, float xGap, float yGap, float xStartPoint = 0, float yBottomPoint = 0){
+    public void SpawnDiagonalLine(GameObject waveHolder, WavePieceData d){
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
-        PoolManager.Instance.CreatePool(enemyPrefab, numEnemies, "enemy");
-        
-        GameObject enemy;
-        EnemyScript enemyScript;
-        Vector2 spawnLocation = new Vector2(xStartPoint, yBottomPoint);
-        for(int i = 0; i < numEnemies; i++){
-            enemy = SpawnEnemy(enemyPrefab, spawnLocation, waveHolder, true);
-            enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
-            enemyScript.waveHolderScript = waveHolderScript;
-            
-            waveHolderScript.numOfEnemiesInWave++;
-            spawnLocation.x += xGap;
-            spawnLocation.y += yGap;
+        Vector2 spawnLocation = new Vector2(d.spawnPosition.x, waveSpawnPoint.position.y);
+
+        for(int i = 0; i < d.numEnemies; i++){
+            SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);
+            spawnLocation.x += d.xGap;
+            spawnLocation.y += d.yGap;
         }
     }
 
-    public IEnumerator SpawnStream(GameObject waveHolder, GameObject enemyPrefab, int numEnemies, float xGap, float spawnInterval, float xCenterSpawnPoint = 0, float yBottomPoint = 0){
+    public IEnumerator SpawnStream(GameObject waveHolder, WavePieceData d){
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
-        PoolManager.Instance.CreatePool(enemyPrefab, numEnemies, "enemy");
+        Vector2 spawnLocation = new Vector2(d.spawnPosition.x, waveSpawnPoint.position.y);
+        // float spawnInterval = d.spawnInterval;
+        // if(d.yGap != 0)
+        //     spawnInterval = 
 
-        GameObject enemy;
-        EnemyScript enemyScript;
-        Vector2 spawnLocation = new Vector2(xCenterSpawnPoint, yBottomPoint);
-        for(int i = 0 ; i < numEnemies; i++){
-            enemy = SpawnEnemy(enemyPrefab, spawnLocation, waveHolder, true);
-            enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
-            enemyScript.waveHolderScript = waveHolderScript;
-            
-            waveHolderScript.numOfEnemiesInWave++;
-            spawnLocation.x += xGap;
-            yield return new WaitForSeconds(spawnInterval);
+
+        for(int i = 0; i < d.numEnemies; i++){
+            SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);
+            spawnLocation.x += d.xGap;
+            yield return new WaitForSeconds(d.spawnInterval);
         }
     }
 
-    public void SpawnStatic(GameObject waveHolder, GameObject enemyPrefab, float xGap, float yGap, float xCenterSpawnPoint = 0, float yBottomSpawnPoint = 0){
+    public void SpawnStatic(GameObject waveHolder, WavePieceData d){
         int[,] staticArray = new int[3,7];
         staticArray = new int[,] {
             {0,0,0,0,0,0,0},
@@ -188,22 +148,15 @@ public class WaveSpawner : MonoBehaviour
         int numEnemies = staticArray.GetLength(0) * staticArray.GetLength(1);
 
         WaveHolder waveHolderScript = gameObject.GetComponent<WaveHolder>();
-        PoolManager.Instance.CreatePool(enemyPrefab, numEnemies, "enemy");
-        
-        GameObject enemy;
-        EnemyScript enemyScript;
-        Vector2 spawnLocation = new Vector2(xCenterSpawnPoint, yBottomSpawnPoint);
+        Vector2 spawnLocation = new Vector2(d.spawnPosition.x, waveSpawnPoint.position.y);
+
+
         for(int r = 0; r < staticArray.GetLength(0); r++){
-            spawnLocation.x -= (numEnemies - 1) * xGap / 2;
+            spawnLocation.x -= (d.numEnemies - 1) * d.xGap / 2;
             for(int c = 0; c < staticArray.GetLength(1); c++){
-                enemy = SpawnEnemy(enemyPrefab, spawnLocation, gameObject, true);
-                enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
-                enemyScript.waveHolderScript = waveHolderScript;
-                
-                waveHolderScript.numOfEnemiesInWave++;
-                spawnLocation.x += xGap;
+                spawnLocation.x += d.xGap;
             }
-            spawnLocation.y += yGap;
+            spawnLocation.y += d.yGap;
         }
     }
 }

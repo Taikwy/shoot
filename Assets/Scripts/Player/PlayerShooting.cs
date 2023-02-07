@@ -10,6 +10,10 @@ public class PlayerShooting : MonoBehaviour
 
     [Header("player data")]
     public PlayerData data;
+    
+    [Header("Absorbing stuff")]
+    public GameObject normalPickupCollider;
+    public GameObject absorbPickupCollider;
 
     [Header("Gun stuff")]
     public GameObject primaryGun;
@@ -47,38 +51,22 @@ public class PlayerShooting : MonoBehaviour
         }
         if(!data.isDashing){
             data.isAbsorbing = Input.GetKey("u");               //is absorbing as long as key is being held
+            if(data.isAbsorbing){
+                normalPickupCollider.SetActive(false);
+                absorbPickupCollider.SetActive(true);
+            }
 
             if(!data.isAbsorbing){
-                // if (Input.GetKey("k")){
-                //     primaryGunScript.Shoot();
-                // }                
-                // if (Input.GetKey("j")){
-                //     currentSpecialScript.Shoot(data.isMoving);
-                //     data.isShooting = true;
-                // }
+                normalPickupCollider.SetActive(true);
+                absorbPickupCollider.SetActive(false);
 
                 primaryGunScript.UpdateShooting();
                 currentSpecialScript.UpdateShooting();
 
                 data.isShooting = Input.GetKey("j") || Input.GetKey("k");
-            }            
+            }
         }
         
-    }
-
-    void OnTriggerEnter2D(Collider2D otherCollider){
-        if(otherCollider.CompareTag("Scrap")){
-            Scrap scrapScript = otherCollider.gameObject.GetComponent<Scrap>();
-            PickupAmmo(scrapScript);
-            if(scrapScript is PoolObject){
-                otherCollider.gameObject.SetActive(false);
-                Debug.Log("picked up");
-            }
-            else{
-                Debug.Log("destroying");
-                Destroy(otherCollider.gameObject);
-            }
-        }
     }
 
     void PickupAmmo(Scrap scrapScript){

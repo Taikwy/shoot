@@ -402,7 +402,7 @@ MonoBehaviour:
   counterAttack: 0
   firingPoint: {fileID: 2410400899228727132}
   firingPoints: []
-  numScraps: 0
+  numScraps: 10
   scrapPrefab: {fileID: 8777868531658017911, guid: d738aa232729135448a78506fe0d4d94, type: 3}
 --- !u!114 &2410400899876572481
 MonoBehaviour:

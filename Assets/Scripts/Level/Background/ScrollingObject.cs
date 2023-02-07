@@ -8,6 +8,8 @@ public class ScrollingObject : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     float width, height;
     float xScrollRate, yScrollRate;
+    Vector2 moveDirection;
+    Vector2 newPosition;
 
     public void Setup(float x, float y){
         width = spriteRenderer.bounds.size.x;
@@ -16,9 +18,17 @@ public class ScrollingObject : MonoBehaviour
         xScrollRate = x;
         yScrollRate = y;
         rb.velocity = new Vector2 (xScrollRate, yScrollRate);
+
+        moveDirection = new Vector2(xScrollRate, yScrollRate);
     }
 
     private void Update(){
+
+    }
+
+    void FixedUpdate(){
+        newPosition = rb.position + moveDirection * Time.deltaTime;
+        rb.MovePosition(newPosition);
         if (Mathf.Abs(transform.position.x)  > width){
             // RepositionBackground(new Vector2(width, 0));
         }

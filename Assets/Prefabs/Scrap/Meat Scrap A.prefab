@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3361072793285944913}
   m_Layer: 0
   m_Name: Meat Scrap A
-  m_TagString: Untagged
+  m_TagString: Scrap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.25
 --- !u!95 &4217999953370475310
 Animator:
   serializedVersion: 4
@@ -159,8 +159,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalPoolHolder: {fileID: 0}
   rb: {fileID: 3361072793285944912}
-  moveSpeed: 10
-  acceleration: -12
+  minScatterSpeed: 5
+  maxScatterSpeed: 60
+  scatterSpeed: 50
+  acceleration: 0.91
   ammoType: 
   amount: 0
-  activeTimer: 10
+  timed: 0
+  activeTimer: 15

@@ -33,27 +33,27 @@ public class WavePiece : MonoBehaviour
 
         if(mirrored)
             xGap *= -1;
-        switch(spawnType){
-            case SPAWNTYPE.HORIZONTAL:
-                waveSpawner.SpawnHorizontalLine(waveHolder, enemyPrefab, numEnemies, xGap, spawnPosition.x);
-                break;
-            case SPAWNTYPE.VERTICAL:
-                waveSpawner.SpawnVerticalLine(waveHolder, enemyPrefab, numEnemies, yGap, spawnPosition.x, spawnPosition.y);
-                break;
-            case SPAWNTYPE.DIAGONAL:
-                waveSpawner.SpawnDiagonalLine(waveHolder, enemyPrefab, numEnemies, xGap, yGap, spawnPosition.x, spawnPosition.y);
-                break;
-            case SPAWNTYPE.VSTREAM:
-                StartCoroutine(waveSpawner.SpawnStream(waveHolder, enemyPrefab, numEnemies, 0, spawnInterval, spawnPosition.x, spawnPosition.y));
-                break;
-            case SPAWNTYPE.DSTREAM:
-                StartCoroutine(waveSpawner.SpawnStream(waveHolder, enemyPrefab, numEnemies, xGap, spawnInterval, spawnPosition.x, spawnPosition.y));
-                break;
-            case SPAWNTYPE.STATIC:
-                waveSpawner.SpawnStatic(waveHolder, enemyPrefab, xGap, yGap, spawnPosition.x, spawnPosition.y);
-                break;
-            default:
-                break;
-        }
+        // switch(spawnType){
+        //     case SPAWNTYPE.HORIZONTAL:
+        //         waveSpawner.SpawnHorizontalLine(waveHolder, enemyPrefab, numEnemies, xGap, spawnPosition.x);
+        //         break;
+        //     case SPAWNTYPE.VERTICAL:
+        //         waveSpawner.SpawnVerticalLine(waveHolder, enemyPrefab, numEnemies, yGap, spawnPosition.x, spawnPosition.y);
+        //         break;
+        //     case SPAWNTYPE.DIAGONAL:
+        //         waveSpawner.SpawnDiagonalLine(waveHolder, enemyPrefab, numEnemies, xGap, yGap, spawnPosition.x, spawnPosition.y);
+        //         break;
+        //     case SPAWNTYPE.VSTREAM:
+        //         StartCoroutine(waveSpawner.SpawnStream(waveHolder, enemyPrefab, numEnemies, 0, spawnInterval, spawnPosition.x, spawnPosition.y));
+        //         break;
+        //     case SPAWNTYPE.DSTREAM:
+        //         StartCoroutine(waveSpawner.SpawnStream(waveHolder, enemyPrefab, numEnemies, xGap, spawnInterval, spawnPosition.x, spawnPosition.y));
+        //         break;
+        //     case SPAWNTYPE.STATIC:
+        //         waveSpawner.SpawnStatic(waveHolder, enemyPrefab, xGap, yGap, spawnPosition.x, spawnPosition.y);
+        //         break;
+        //     default:
+        //         break;
+        // }
     }
 }

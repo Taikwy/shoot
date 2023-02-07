@@ -18,12 +18,14 @@ public class PlayerUI : MonoBehaviour
     public GameObject primaryAmmoDisplay;
     public GameObject specialAmmoDisplay;
     public GameObject infoDisplay;
+    // public GameObject scrapDisplay;
 
     HealthBar healthScript;
     ShieldBar shieldScript;
     ResourceBar primaryAmmoScript;
     ResourceBar specialAmmoScript;
-    DashCDBar dashCooldownScript;
+    PlayerInfo playerInfoScript;
+    // DashCDBar dashCooldownScript;
     
     [Header("info display info")]
 
@@ -44,6 +46,8 @@ public class PlayerUI : MonoBehaviour
         shieldScript = shieldDisplay.GetComponent<ShieldBar>();
         primaryAmmoScript = primaryAmmoDisplay.GetComponent<ResourceBar>();
         specialAmmoScript = specialAmmoDisplay.GetComponent<ResourceBar>();
+
+        playerInfoScript = infoDisplay.GetComponent<PlayerInfo>();
     }
 
     void SetEvents(){
@@ -54,6 +58,8 @@ public class PlayerUI : MonoBehaviour
         PlayerScript.OnHealthChange += healthScript.UpdateHealth;
         PlayerScript.OnShieldChange += shieldScript.UpdateShield;
 
+
+        // PlayerScript.OnInfoChange += playerInfoScript.SetText;
 
         
         // PlayerScript.SetMaxStats += SetMaxHealth;
@@ -80,6 +86,9 @@ public class PlayerUI : MonoBehaviour
 
         primaryAmmoScript.SetCurrentValue(playerShooting.primaryGunScript.currentHeat);
         specialAmmoScript.SetCurrentValue(playerShooting.currentSpecialScript.currentAmmo);
+
+        
+        playerInfoScript.SetText(playerData.numScrap);
     }
 
     public void SetMaxPrimaryAmmo(){

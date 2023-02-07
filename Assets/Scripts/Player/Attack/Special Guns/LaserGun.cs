@@ -98,7 +98,7 @@ public class LaserGun : SpecialGun
             currentLaserSize = laserSizes[index];
 
         }
-        Debug.Log("size " + currentLaserSize);
+        // Debug.Log("size " + currentLaserSize);
 
 
         // RaycastHit2D hit = Physics2D.Raycast(firingPoints[0].transform.position, laserDirection, maxLaserSize, layerMask);

@@ -34,4 +34,9 @@ public class LevelParallax : MonoBehaviour
                 break;
         }
     }
+
+    void Update(){
+        // newPosition = rb.position + moveDirection * moveSpeed * Time.deltaTime;
+        // newPosition += levelScrollSpeed * Time.deltaTime;
+    }
 }

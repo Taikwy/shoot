@@ -16,6 +16,9 @@ public class PlayerScript : MonoBehaviour
     public delegate void ResourceBarAction();
     public static event ResourceBarAction SetMaxStats, OnHealthChange, OnShieldChange;          //assigned in playerui.cs
 
+    public delegate void InfoChange();
+    public static event InfoChange OnInfoChange;
+
     [Header("player data")]
     public PlayerData data;
     // public PlayerData startingData;
@@ -33,6 +36,7 @@ public class PlayerScript : MonoBehaviour
 
         // data.currentPrimaryAmmo = ;
         data.isInvincible = data.healthInvincible= data.isMoving= data.isDashing= data.dashLag= data.dashInvincible= data.isShooting= data.isAbsorbing = false;
+        data.numScrap = 0;
 
         playerMovement.Setup();
         playerShooting.Setup();
@@ -89,6 +93,24 @@ public class PlayerScript : MonoBehaviour
         playerController.UpdateSprite();
     }
 
+    public void RechargeShield(){
+        data.currentShield += data.shieldRechargeRate * Time.deltaTime;
+        if(data.currentShield > data.maxShield){
+            data.currentShield = data.maxShield;
+            shieldRecharging = false;
+        }
+        // Debug.Log(data.currentShield);
+        // OnShieldChange();
+    }
+    public void ResetShield(){
+        data.currentShield += shieldResetRate * Time.deltaTime;
+        if(data.currentShield > data.maxShield){
+            data.currentShield = data.maxShield;
+            shieldResetting = false;
+        }
+        // OnShieldChange();
+    }
+
     //Handles what happens when player encounters damage
     public void TakeDamage(int damage){
         if(!shieldBroken){
@@ -115,37 +137,6 @@ public class PlayerScript : MonoBehaviour
             shieldResetting = true;
 
             shieldResetRate = data.maxShield / data.damageInvincibleTime;
-        }
-    }
-
-    public void RechargeShield(){
-        data.currentShield += data.shieldRechargeRate * Time.deltaTime;
-        if(data.currentShield > data.maxShield){
-            data.currentShield = data.maxShield;
-            shieldRecharging = false;
-        }
-        // Debug.Log(data.currentShield);
-        // OnShieldChange();
-    }
-    public void ResetShield(){
-        data.currentShield += shieldResetRate * Time.deltaTime;
-        if(data.currentShield > data.maxShield){
-            data.currentShield = data.maxShield;
-            shieldResetting = false;
-        }
-        // OnShieldChange();
-    }
-
-    void OnTriggerEnter2D(Collider2D otherCollider){
-        if(otherCollider.CompareTag("Bullet")){
-            if(data.isInvincible){
-                return;
-            }
-            BulletScript bullet = otherCollider.gameObject.GetComponent<BulletScript>();
-            if(bullet.isEnemyBullet){
-                TakeDamage(bullet.damage);
-                bullet.TakeDamage();
-            }
         }
     }
 }
