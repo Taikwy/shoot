@@ -58,7 +58,7 @@ MonoBehaviour:
   maxPasses: 10
   maxTime: 0
   timedSequence: 0
-  relativePositioning: 0
+  relativePositioning: 1
   time: 0
   distance: 0
 --- !u!1001 &7212797571708717256

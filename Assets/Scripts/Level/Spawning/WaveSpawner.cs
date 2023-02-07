@@ -40,41 +40,66 @@ public class WaveSpawner : MonoBehaviour
         return enemy;
     }
 
+
+    // public EnemyScript SetupSpawnedEnemy(GameObject enemy, WavePieceData d){
+    //     EnemyScript enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
+    //     GameObject movementSequence = d.movementSequence;
+    //     GameObject attackSequence = d.attackSequence;
+
+    //     movementSequence = PoolManager.Instance.ReuseObject(d.movementSequence, Vector2.zero, Quaternion.identity);
+    //     // attackSequence = PoolManager.Instance.ReuseObject(d.attackSequence, Vector2.zero, Quaternion.identity);
+
+    //     movementSequence.transform.parent = enemyScript.MovementHolder.transform;
+    //     // attackSequence.transform.parent = enemyScript.AttackHolder.transform;
+        
+    //     enemy.gameObject.GetComponent<MovementPattern>().spawnSequence = movementSequence.GetComponent<MovementSequence>();
+    //     // enemy.gameObject.GetComponent<AttackPattern>().mainSequences.Add(attackSequence.GetComponent<AttackSequence>());
+
+    //     enemyScript.SetupPatterns();
+
+    //     return enemyScript;
+    // }
+
+    public GameObject SpawnEnemy(GameObject waveHolder, WavePieceData d, Vector2 spawnLocation, WaveHolder waveHolderScript)
+    {
+        GameObject enemy = SpawnEnemy(d.enemyPrefab, spawnLocation, waveHolder, true);
+        Debug.Log("spawning " + enemy + " at " + spawnLocation);
+
+        EnemyScript enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
+        enemyScript.waveHolderScript = waveHolderScript;
+        waveHolderScript.numOfEnemiesInWave++;
+
+        GameObject movementSequence = d.movementSequence;
+        GameObject attackSequence = d.attackSequence;
+
+        movementSequence = PoolManager.Instance.ReuseObject(d.movementSequence, Vector2.zero, Quaternion.identity);
+        movementSequence.transform.parent = enemyScript.MovementHolder.transform;        
+        enemy.gameObject.GetComponent<MovementPattern>().spawnSequence = movementSequence.GetComponent<MovementSequence>();
+
+        //If there's no attack sequence, it means it's using the default attacks
+        if(attackSequence != null){
+            attackSequence = PoolManager.Instance.ReuseObject(d.attackSequence, Vector2.zero, Quaternion.identity);
+            attackSequence.transform.parent = enemyScript.AttackHolder.transform;
+            if(enemy.gameObject.GetComponent<AttackPattern>().mainSequences.Count <= 0)
+                enemy.gameObject.GetComponent<AttackPattern>().mainSequences.Add(attackSequence.GetComponent<AttackSequence>());
+            else
+                enemy.gameObject.GetComponent<AttackPattern>().mainSequences[0] = attackSequence.GetComponent<AttackSequence>();
+        }
+
+        enemyScript.SetupPatterns();
+        return enemy;
+    }
+
     public void SpawnHorizontalLine(GameObject waveHolder, WavePieceData d){
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
-        // PoolManager.Instance.CreatePool(d.enemyPrefab, d.numEnemies, "enemy");
-        // if(d.movementSequence)
-        // PoolManager.Instance.CreatePool(d.movementSequence, d.numEnemies, "movement sequence");
-        // if(d.attackSequence)
-        // PoolManager.Instance.CreatePool(d.attackSequence, d.numEnemies, "attack sequence");
         
-        GameObject enemy;
-        EnemyScript enemyScript;
-        GameObject movementSequence, attackSequence;
+        // GameObject enemy;
+        // EnemyScript enemyScript;
         Vector2 spawnLocation = new Vector2(d.spawnPosition.x, waveSpawnPoint.position.y);
 
         spawnLocation.x -= (d.numEnemies - 1) * d.xGap / 2;
         for(int i = 0; i < d.numEnemies; i++){
-            movementSequence = d.movementSequence;
-            // attackSequence = d.attackSequence;
-            enemy = SpawnEnemy(d.enemyPrefab, spawnLocation, waveHolder, true);
-            Debug.Log("spawning " + enemy + " at " + spawnLocation);
-
-            
-            enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
-            enemyScript.waveHolderScript = waveHolderScript;
-            waveHolderScript.numOfEnemiesInWave++;
-
-            movementSequence = PoolManager.Instance.ReuseObject(d.movementSequence, spawnLocation, Quaternion.identity);
-            // attackSequence = PoolManager.Instance.ReuseObject(d.attackSequence, spawnLocation, Quaternion.identity);
-
-            movementSequence.transform.parent = enemyScript.MovementHolder.transform;
-            // attackSequence.transform.parent = enemyScript.AttackHolder.transform;
-            
-            enemy.gameObject.GetComponent<MovementPattern>().spawnSequence = movementSequence.GetComponent<MovementSequence>();
-            // enemy.gameObject.GetComponent<AttackPattern>().mainSequences.Add(attackSequence.GetComponent<AttackSequence>());
-
-            enemyScript.SetupPatterns();
+            SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);
 
             spawnLocation.x += d.xGap;
         }

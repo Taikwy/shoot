@@ -65,7 +65,7 @@ public class PathFollower : MonoBehaviour
         }
 
         
-        Debug.Log("target pos " + currentSegmentPositions[1]);
+        // Debug.Log("target pos " + currentSegmentPositions[1]);
 
         SetPoints();
     }

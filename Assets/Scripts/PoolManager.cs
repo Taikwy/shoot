@@ -18,8 +18,8 @@ public class PoolManager : MonoBehaviour
     }
 
     public Transform bulletPoolsTransform;
-    public Transform enemyPoolsTransform;
-    public Transform scrapPoolsTransform;
+    public Transform enemyPoolsTransform, scrapPoolsTransform;
+    public Transform movementPoolsTransform, attackPoolsTransform;
 
     public Queue<ObjectInstance> CreatePool(GameObject prefab, int poolSize, string poolType = ""){
         int poolKey = prefab.GetInstanceID();
@@ -38,6 +38,12 @@ public class PoolManager : MonoBehaviour
             case "scrap":
                 poolHolder.transform.parent = scrapPoolsTransform;
                 break;
+            case "movement":
+                poolHolder.transform.parent = movementPoolsTransform;
+                break;
+            case "attack":
+                poolHolder.transform.parent = attackPoolsTransform;
+                break;
             default:
                 poolHolder.transform.parent = transform;
                 break;
@@ -46,6 +52,7 @@ public class PoolManager : MonoBehaviour
 
         for(int i = 0; i < poolSize; i++){
             ObjectInstance newObject = new ObjectInstance(Instantiate(prefab) as GameObject);
+            newObject.gameObject.name = prefab.name;
             // newObject.SetActive(false);
             poolDictionary[poolKey].Enqueue(newObject);
             newObject.SetParent(poolHolder);
@@ -71,6 +78,12 @@ public class PoolManager : MonoBehaviour
                 case "scrap":
                     poolHolder = scrapPoolsTransform.Find(prefab.name + " pool").gameObject;
                     break;
+                case "movement":
+                    poolHolder = movementPoolsTransform.Find(prefab.name + " pool").gameObject;
+                    break;
+                case "attack":
+                    poolHolder = attackPoolsTransform.Find(prefab.name + " pool").gameObject;
+                    break;
                 default:
                     poolHolder = transform.Find(prefab.name + " pool").gameObject;
                     break;
@@ -84,6 +97,17 @@ public class PoolManager : MonoBehaviour
             }
         }
         return poolDictionary[poolKey];
+    }
+
+    //Used to add X amount of prefabs to an existing pool
+    public Queue<ObjectInstance> AddToPool(GameObject prefab, int poolSize, string poolType = ""){
+        int poolKey = prefab.GetInstanceID();
+
+        if(poolDictionary.ContainsKey(poolKey)){
+            return IncreasePoolSize(prefab, poolDictionary[poolKey].Count + poolSize, poolType);
+        }
+        Debug.Log("No pool to add to, creating new pool");
+        return CreatePool(prefab, poolSize, poolType);
     }
 
     //For spawning pool objects

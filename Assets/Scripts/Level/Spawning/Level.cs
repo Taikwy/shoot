@@ -26,11 +26,17 @@ public class Level : MonoBehaviour
         for(int i = 0; i < wavesInLevel.Count; i++){
             foreach(WavePieceData data in wavesInLevel[i].wavePieces){
                 enemyPrefabsInLevel.Add(data.enemyPrefab);
+                PoolManager.Instance.AddToPool(data.enemyPrefab, data.numEnemies, "enemy");
+
                 scrapPrefabsInLevel.Add(data.enemyPrefab.GetComponent<EnemyScript>().scrapPrefab);
-                if(data.movementSequence)
-                    movementSequencesInLevel.Add(data.movementSequence);
-                if(data.attackSequence)
-                    attackSequencesInLevel.Add(data.attackSequence);
+                if(data.movementSequence){
+                    PoolManager.Instance.AddToPool(data.movementSequence, data.numEnemies, "movement");
+                    // movementSequencesInLevel.Add(data.movementSequence);
+                }
+                if(data.attackSequence){
+                    PoolManager.Instance.AddToPool(data.attackSequence, data.numEnemies, "attack");
+                    // attackSequencesInLevel.Add(data.attackSequence);
+                }
             }
         }
         enemyPrefabsInLevel = enemyPrefabsInLevel.Distinct().ToList();
@@ -39,17 +45,17 @@ public class Level : MonoBehaviour
         attackSequencesInLevel = attackSequencesInLevel.Distinct().ToList();
 
         for(int i = 0; i < enemyPrefabsInLevel.Count; i++){
-            PoolManager.Instance.CreatePool(enemyPrefabsInLevel[i], 50, "enemy");
+            // PoolManager.Instance.AddToPool(enemyPrefabsInLevel[i], 50, "enemy");
         }
 
         for(int i = 0; i < scrapPrefabsInLevel.Count; i++){
-            PoolManager.Instance.CreatePool(scrapPrefabsInLevel[i], 100, "scrap");
+            PoolManager.Instance.AddToPool(scrapPrefabsInLevel[i], 100, "scrap");
         }
-        for(int i = 0; i < movementSequencesInLevel.Count; i++){
-            PoolManager.Instance.CreatePool(movementSequencesInLevel[i], 100, "movement sequence");
-        }
-        for(int i = 0; i < attackSequencesInLevel.Count; i++){
-            PoolManager.Instance.CreatePool(attackSequencesInLevel[i], 100, "attack sequence");
-        }
+        // for(int i = 0; i < movementSequencesInLevel.Count; i++){
+        //     PoolManager.Instance.AddToPool(movementSequencesInLevel[i], 100, "movement sequence");
+        // }
+        // for(int i = 0; i < attackSequencesInLevel.Count; i++){
+        //     PoolManager.Instance.AddToPool(attackSequencesInLevel[i], 100, "attack sequence");
+        // }
     }
 }
