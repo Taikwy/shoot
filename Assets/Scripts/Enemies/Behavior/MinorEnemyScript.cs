@@ -9,23 +9,28 @@ public class MinorEnemyScript : EnemyScript
     protected AttackPattern attackPattern;
     void Start()
     {
-        movementPattern = gameObject.GetComponent<MovementPattern>();
-        attackPattern = gameObject.GetComponent<AttackPattern>();
+        // movementPattern = gameObject.GetComponent<MovementPattern>();
+        // attackPattern = gameObject.GetComponent<AttackPattern>();
 
-        Debug.Log("minor enemy starting " + movementPattern);
-        currentHealth = maxHealth;
-        movementPattern.Setup();
-        attackPattern.Setup();
+        // Debug.Log("minor enemy starting " + movementPattern);
+        // currentHealth = maxHealth;
+        // movementPattern.Setup();
+        // attackPattern.Setup();
     }
 
     //Reset stuff like animations and whatnot so it can be reused in pool
     public override void OnObjectReuse(){
+        // gameObject.SetActive(false);
         movementPattern = gameObject.GetComponent<MovementPattern>();
         attackPattern = gameObject.GetComponent<AttackPattern>();
-        Debug.Log("enemy reusing " + movementPattern);
+        // Debug.Log("enemy reusing " + movementPattern);
         currentHealth = maxHealth;
+    }
+
+    public override void SetupPatterns(){
         movementPattern.Setup();
         attackPattern.Setup();
+        // gameObject.SetActive(true);
     }
 
     public override void TakeDamage(BulletScript bulletScript)

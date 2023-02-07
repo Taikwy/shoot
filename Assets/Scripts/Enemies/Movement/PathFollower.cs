@@ -64,6 +64,9 @@ public class PathFollower : MonoBehaviour
             currentPointIndex = 0;
         }
 
+        
+        Debug.Log("target pos " + currentSegmentPositions[1]);
+
         SetPoints();
     }
 
@@ -88,6 +91,7 @@ public class PathFollower : MonoBehaviour
     }
     public void SetTargetPos(Vector3 pos){
         targetPosition = pos;
+        Debug.Log("target po " + targetPosition);
     }
 
     public Vector2 FollowPath(float newSpeed){

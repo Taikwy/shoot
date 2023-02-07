@@ -1658,7 +1658,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 289190483}
-  spawnPoint: {fileID: 1461605457}
+  waveSpawnPoint: {fileID: 1461605457}
+  enemyWaveHolders: {fileID: 1909483867}
 --- !u!114 &289190483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3148,9 +3149,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!114 &500523217
 MonoBehaviour:
@@ -3173,7 +3177,6 @@ MonoBehaviour:
   mainSequences: []
   damageSequence: {fileID: 0}
   exitSequence: {fileID: 0}
-  mainSequence: {fileID: 1703595259}
 --- !u!1 &513956653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3414,17 +3417,6 @@ Transform:
   m_Father: {fileID: 3924516676478067723}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!114 &551387648 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8476261491398597937, guid: 0ee7820b03425b3498cc4e0326c9352f, type: 3}
-  m_PrefabInstance: {fileID: 207900712}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bbf69b8c7dbcbb40a07fa1a7df2665c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &552755221
 GameObject:
   m_ObjectHideFlags: 0
@@ -3709,9 +3701,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3581b242902a63748aca535b53945bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wavesInLevel: []
+  wavesInLevel:
+  - {fileID: 1312449956645020618}
   enemyPrefabsInLevel: []
   scrapPrefabsInLevel: []
+  movementSequencesInLevel: []
+  attackSequencesInLevel: []
 --- !u!1 &625272363
 GameObject:
   m_ObjectHideFlags: 0
@@ -5195,17 +5190,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &931376428 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7598002856649208973, guid: ebde3e80ccb7b3d44ae34d9e92e7f0c4, type: 3}
-  m_PrefabInstance: {fileID: 431364480}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb57efe30cc5b27418cce1945023923a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &931376429 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7598002856649208972, guid: ebde3e80ccb7b3d44ae34d9e92e7f0c4, type: 3}
@@ -6522,7 +6506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3474307037630608867, guid: a3fa99bad0daaea4db572e5f0ffb9933, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3474307037630608867, guid: a3fa99bad0daaea4db572e5f0ffb9933, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8057,7 +8041,7 @@ Transform:
   m_GameObject: {fileID: 1461605456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 1000, y: 2, z: 1}
+  m_LocalScale: {x: 500, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1431892958}
@@ -9721,17 +9705,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7598002856649208972, guid: ebde3e80ccb7b3d44ae34d9e92e7f0c4, type: 3}
   m_PrefabInstance: {fileID: 7598002858334648438}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1703595259 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7598002856649208973, guid: ebde3e80ccb7b3d44ae34d9e92e7f0c4, type: 3}
-  m_PrefabInstance: {fileID: 7598002858334648438}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb57efe30cc5b27418cce1945023923a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1725459340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9826,17 +9799,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a915b6d6fcec9894095561145ed7f85e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1743066525 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7598002856649208973, guid: ebde3e80ccb7b3d44ae34d9e92e7f0c4, type: 3}
-  m_PrefabInstance: {fileID: 760562704}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb57efe30cc5b27418cce1945023923a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1788064524
@@ -10059,17 +10021,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8476261491398597942, guid: 0ee7820b03425b3498cc4e0326c9352f, type: 3}
   m_PrefabInstance: {fileID: 1725459340}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1811944948 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8476261491398597937, guid: 0ee7820b03425b3498cc4e0326c9352f, type: 3}
-  m_PrefabInstance: {fileID: 1725459340}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bbf69b8c7dbcbb40a07fa1a7df2665c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1814886283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10349,17 +10300,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1841217602 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3738831738911353063, guid: a78997da3df68144b884a9dd175c571c, type: 3}
-  m_PrefabInstance: {fileID: 1814886283}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f515d217fe71d204e94f324423b7c33b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1846165167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14251,14 +14191,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveHolderPrefab: {fileID: 3061862120054580280, guid: e1c57b5ce465f234c9ef03c7ba42b9c8, type: 3}
-  enemyPrefab: {fileID: 3568952829001208739, guid: 4bba521b4b6772f43813d1bce845bc0d, type: 3}
+  wavePieces:
+  - {fileID: 11400000, guid: f6247b2577206054f98e401325b779a0, type: 2}
+  - {fileID: 11400000, guid: f8e543c7a7193b441b4218b5aca0d974, type: 2}
   numOfEnemiesInWave: 0
-  numEnemies: 5
-  spawnType: 0
-  xGap: 1.5
-  yGap: 0
-  spawnInterval: 0
-  mirrored: 0
 --- !u!4 &1326923440821915320
 Transform:
   m_ObjectHideFlags: 0
@@ -17499,9 +17435,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!114 &2727330476295277363
 MonoBehaviour:
@@ -17567,7 +17506,6 @@ MonoBehaviour:
   mainSequences: []
   damageSequence: {fileID: 0}
   exitSequence: {fileID: 0}
-  mainSequence: {fileID: 1811944948}
 --- !u!1 &2727330476295277366
 GameObject:
   m_ObjectHideFlags: 0
@@ -19689,9 +19627,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!114 &3569691457387512532
 MonoBehaviour:
@@ -19714,7 +19655,6 @@ MonoBehaviour:
   mainSequences: []
   damageSequence: {fileID: 0}
   exitSequence: {fileID: 0}
-  mainSequence: {fileID: 931376428}
 --- !u!114 &3569691457387512533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20903,7 +20843,6 @@ MonoBehaviour:
   - {fileID: 1330599554}
   damageSequence: {fileID: 1518368433}
   exitSequence: {fileID: 5883970266620998525}
-  mainSequence: {fileID: 0}
 --- !u!114 &3924516676478067716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20922,9 +20861,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!114 &3924516676478067717
 MonoBehaviour:
@@ -21281,9 +21223,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!114 &3924788525364007275
 MonoBehaviour:
@@ -21349,7 +21294,6 @@ MonoBehaviour:
   mainSequences: []
   damageSequence: {fileID: 0}
   exitSequence: {fileID: 0}
-  mainSequence: {fileID: 8575596239473462136, guid: 1e474d3a54982524ba085ec406850177, type: 3}
 --- !u!1 &3924788525364007278
 GameObject:
   m_ObjectHideFlags: 0
@@ -21582,9 +21526,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!95 &3976727745002018954
 Animator:
@@ -21703,7 +21650,6 @@ MonoBehaviour:
   mainSequences: []
   damageSequence: {fileID: 0}
   exitSequence: {fileID: 0}
-  mainSequence: {fileID: 8476261490151301592}
 --- !u!114 &3976727745002018959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22419,9 +22365,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!114 &4211619258370222569
 MonoBehaviour:
@@ -22583,7 +22532,6 @@ MonoBehaviour:
   mainSequences: []
   damageSequence: {fileID: 0}
   exitSequence: {fileID: 0}
-  mainSequence: {fileID: 1743066525}
 --- !u!58 &4211619258370222576
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -25825,7 +25773,6 @@ MonoBehaviour:
   mainSequences: []
   damageSequence: {fileID: 442290992}
   exitSequence: {fileID: 0}
-  mainSequence: {fileID: 8575596240498484073}
 --- !u!114 &5095299920954889001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25983,9 +25930,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!4 &5095299921269518740
 Transform:
@@ -29828,7 +29778,6 @@ MonoBehaviour:
   mainSequences: []
   damageSequence: {fileID: 0}
   exitSequence: {fileID: 0}
-  mainSequence: {fileID: 1841217602}
 --- !u!114 &6747435235989029252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29847,9 +29796,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!114 &6747435235989029253
 MonoBehaviour:
@@ -31146,7 +31098,6 @@ MonoBehaviour:
   mainSequences: []
   damageSequence: {fileID: 0}
   exitSequence: {fileID: 0}
-  mainSequence: {fileID: 551387648}
 --- !u!114 &6983268418270411001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31304,9 +31255,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!1 &6983268418519719025
 GameObject:
@@ -31786,7 +31740,6 @@ MonoBehaviour:
   - {fileID: 1467595477}
   damageSequence: {fileID: 0}
   exitSequence: {fileID: 0}
-  mainSequence: {fileID: 1467595477}
 --- !u!1 &7315555072305090690
 GameObject:
   m_ObjectHideFlags: 0
@@ -31901,9 +31854,12 @@ MonoBehaviour:
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 0}
+  AttackHolder: {fileID: 0}
   counterAttack: 0
+  firingPoint: {fileID: 0}
+  firingPoints: []
   numScraps: 0
-  newScrapPrefab: {fileID: 0}
   scrapPrefab: {fileID: 0}
 --- !u!114 &7315555072305090695
 MonoBehaviour:

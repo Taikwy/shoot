@@ -19,7 +19,7 @@ public class MachineGun : SpecialGun
         else
             angleOffset = 0;
             
-        Debug.Log(angleOffset + " " );
+        // Debug.Log(angleOffset + " " );
 
         Quaternion angleDelta = Quaternion.AngleAxis(angleOffset, firingPoints[0].forward);
         Vector2 spawnPos = new Vector2(firingPoints[0].position.x + xOffset, firingPoints[0].position.y);

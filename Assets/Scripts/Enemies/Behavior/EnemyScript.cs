@@ -11,14 +11,19 @@ public class EnemyScript : PoolObject
     [HideInInspector] public TestWaveHolder testWaveHolderScript;
     [HideInInspector] public WaveHolder waveHolderScript;
 
-    [Header("Attack Info")]
+    [Header("Attack and Movement")]
+    public GameObject MovementHolder;
+    public GameObject AttackHolder;
     public bool counterAttack = false;
+    public Transform firingPoint;
+    public List<Transform> firingPoints = new List<Transform>();
 
     [Header("Scrap Info")]
     public float numScraps;
-    public GameObject newScrapPrefab;
     public GameObject scrapPrefab;
 
+    public override void OnObjectRespawn(){}
+    public virtual void SetupPatterns(){}
 
     void OnTriggerEnter2D(Collider2D otherCollider){
         if(otherCollider.CompareTag("Bullet")){
@@ -63,7 +68,7 @@ public class EnemyScript : PoolObject
             direction.Normalize();
             scrapScript.SetData(direction);
         }
-        TestEnemyManager.Instance.DestroyEnemy(gameObject);
+        EnemyManager.Instance.DestroyEnemy(gameObject);
     }
 
     public GameObject DropScrap(){

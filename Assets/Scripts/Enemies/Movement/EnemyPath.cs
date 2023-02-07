@@ -104,7 +104,7 @@ public class EnemyPath : MonoBehaviour
         else{
             currentSegmentIndex++;
             if(currentSegmentIndex > numSegments - 1){
-                Debug.Log(currentSegment.name + " " + numSegments + " " + currentSegmentIndex);
+                // Debug.Log(currentSegment.name + " " + numSegments + " " + currentSegmentIndex);
                 // pathComplete = true;
                 return true;
             }

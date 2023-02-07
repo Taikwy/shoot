@@ -314,7 +314,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3039378921009854136}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -395,10 +395,15 @@ MonoBehaviour:
   maxHealth: 50
   currentHealth: 0
   partOfWave: 0
+  testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
+  MovementHolder: {fileID: 3039378920538925753}
+  AttackHolder: {fileID: 3039378919140585103}
   counterAttack: 0
-  newScrapPrefab: {fileID: 0}
+  firingPoint: {fileID: 3039378919610900553}
+  firingPoints: []
   numScraps: 0
+  scrapPrefab: {fileID: 0}
 --- !u!114 &3039378921009854141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,11 +422,9 @@ MonoBehaviour:
   damaged: 0
   counterAttacking: 0
   exiting: 0
-  mainSequences:
-  - {fileID: 6885917985675679704}
+  mainSequences: []
   damageSequence: {fileID: 3039378919561015988}
   exitSequence: {fileID: 3039378919561015988}
-  mainSequence: {fileID: 0}
 --- !u!114 &3039378921009854142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,17 +557,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ee7820b03425b3498cc4e0326c9352f, type: 3}
---- !u!114 &6885917985675679704 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8476261491398597937, guid: 0ee7820b03425b3498cc4e0326c9352f, type: 3}
-  m_PrefabInstance: {fileID: 3039378919230720745}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bbf69b8c7dbcbb40a07fa1a7df2665c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6885917985675679711 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8476261491398597942, guid: 0ee7820b03425b3498cc4e0326c9352f, type: 3}

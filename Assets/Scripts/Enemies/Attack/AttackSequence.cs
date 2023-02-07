@@ -24,7 +24,9 @@ public class AttackSequence : MonoBehaviour
     public int numBullets = 1;
 
     public virtual void Reset(){
-        firingPoint = firingPoints[0];
+        // firingPoint = firingPoints[0];
+        firingPoint = gameObject.transform.parent.parent.GetComponent<EnemyScript>().firingPoint;
+        firingPoints.Add(firingPoint);
         bulletPrefab = bulletPrefabs[0];
         playerTransform = SingletonManager.Instance.playerScript.transform;
 

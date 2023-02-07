@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbf69b8c7dbcbb40a07fa1a7df2665c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firingPoints:
-  - {fileID: 0}
+  firingPoints: []
   bulletPrefabs:
   - {fileID: 7593482412082234885, guid: 3ea58b6acc759ba499b31c08d681a197, type: 3}
   poolSize: 25

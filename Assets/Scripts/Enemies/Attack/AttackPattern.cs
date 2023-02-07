@@ -16,14 +16,14 @@ public class AttackPattern : MonoBehaviour
 
     public List<AttackSequence> mainSequences = new List<AttackSequence>();
     public AttackSequence damageSequence, exitSequence;
-    [HideInInspector] public AttackSequence mainSequence;
+    // [HideInInspector] public AttackSequence mainSequence;
     protected AttackSequence currentSequence;
     protected List<AttackSequence> currentSequences = new List<AttackSequence>();
     protected List<AttackSequence> tempSequences = new List<AttackSequence>();
 
 
     public virtual void Setup(){
-        Debug.Log("setting attack pattern");
+        // Debug.Log("setting attack pattern");
         canAttack = true;
         damaged = counterAttacking = exiting = false;
         foreach(AttackSequence mainSeq in mainSequences){

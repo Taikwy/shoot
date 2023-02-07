@@ -38,7 +38,7 @@ public class MovementPattern : MonoBehaviour
     bool timedCurrentSequence = false;
 
     public virtual void Setup(bool m = false){
-        Debug.Log("setting movement pattern");
+        // Debug.Log("setting movement pattern");
         movementMirrored = m;
         if(clockwise)
             rotationSpeed = Mathf.Abs(rotationSpeed) * -1;
@@ -83,6 +83,7 @@ public class MovementPattern : MonoBehaviour
             }
         }
         movePosition = currentSequence.Move(movementSpeed);
+        // Debug.Log(gameObject.name + " " + movePosition);
         if(isRotating){            
             rb.rotation += rotationSpeed * Time.deltaTime;
         }

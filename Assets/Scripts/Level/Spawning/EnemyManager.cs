@@ -47,7 +47,7 @@ public class EnemyManager : MonoBehaviour
             enemyToDespawn.transform.parent =  enemyScript.originalPoolHolder;
 
             enemyScript.waveHolderScript.numOfEnemiesInWave--;
-            Debug.Log(enemyScript.waveHolderScript.numOfEnemiesInWave);
+            // Debug.Log(enemyScript.waveHolderScript.numOfEnemiesInWave);
             if(enemyScript.waveHolderScript.numOfEnemiesInWave <= 0)
                 Destroy(enemyScript.waveHolderScript.gameObject);
         }

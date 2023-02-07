@@ -21,4 +21,11 @@ public class WavePieceData : ScriptableObject
     public Vector2 spawnPosition;
     public float xGap, yGap, spawnInterval;
     public bool mirrored;
+
+    public GameObject attackSequence;
+    public GameObject movementSequence;
+
+    // public AttackSequence pieceAttackSequence;
+    // public MovementSequence pieceMovementSequence;
+    
 }
