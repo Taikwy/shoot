@@ -7,6 +7,9 @@ public class EnemyScript : PoolObject
     [Header("Enemy Info")]
     public int maxHealth;
     public int currentHealth;
+    public float contactDOT = 1; 
+    public int contactDamage = 1;
+    Coroutine contactDamageCoroutine = null;
     [HideInInspector] public bool partOfWave;
     [HideInInspector] public TestWaveHolder testWaveHolderScript;
     [HideInInspector] public WaveHolder waveHolderScript;
@@ -33,6 +36,27 @@ public class EnemyScript : PoolObject
                 bulletScript.TakeDamage();
             }
         }
+        if(otherCollider.CompareTag("Player Hurtbox")){
+            PlayerScript player = otherCollider.gameObject.transform.parent.parent.GetComponent<PlayerScript>();
+            // Debug.Log("COLLIDED WITH PALYER!");
+            contactDamageCoroutine = StartCoroutine(DealContactDamage(player));
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D otherCollider){
+        if(otherCollider.CompareTag("Player Hurtbox")){
+            PlayerScript player = otherCollider.gameObject.GetComponent<PlayerScript>();
+            // Debug.Log("UNCOLLIDED WITH PALYER!");
+            StopCoroutine(contactDamageCoroutine);
+        }
+    }
+
+    public IEnumerator DealContactDamage(PlayerScript player){
+        for(int i = 0; i < 9999; i++){
+            // Debug.Log("CURRENTLY COLLIDINBG WITH PALYER!");
+            player.TakeContactDamage(this);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
     }
 
     public virtual void TakeDamage(BulletScript bulletScript){
@@ -58,6 +82,9 @@ public class EnemyScript : PoolObject
     // }
 
     public virtual void OnDeath(){
+        if(contactDamageCoroutine != null)
+            StopCoroutine(contactDamageCoroutine);
+
         GameObject scrap;
         Scrap scrapScript;
         Vector2 direction;

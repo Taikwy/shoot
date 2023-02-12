@@ -12,6 +12,7 @@ TagManager:
   - Gun
   - path point
   - Segment
+  - Player Hurtbox
   layers:
   - Default
   - TransparentFX

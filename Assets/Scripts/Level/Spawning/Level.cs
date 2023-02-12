@@ -5,7 +5,9 @@ using System.Linq;
 
 public class Level : MonoBehaviour
 {
-    // [Header("waves")]
+    public float scrollSpeed;
+    public Vector2 scrollDirection;
+    [Header("wave stuff")]
     public List<Wave> wavesInLevel = new List<Wave>();
 
     // [Header("enemy prefabs")]

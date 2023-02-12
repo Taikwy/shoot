@@ -49,32 +49,52 @@ public class PlayerShooting : MonoBehaviour
 
             currentSpecialScript.equipped = true;
         }
-        if(!data.isDashing){
-            data.isAbsorbing = Input.GetKey("u");               //is absorbing as long as key is being held
-            if(data.isAbsorbing){
-                normalPickupCollider.SetActive(false);
-                absorbPickupCollider.SetActive(true);
-            }
+        // if(!data.isDashing){
+        //     data.isAbsorbing = Input.GetKey("u");               //is absorbing as long as key is being held
+        //     if(data.isAbsorbing){
+        //         normalPickupCollider.SetActive(false);
+        //         absorbPickupCollider.SetActive(true);
+        //     }
 
-            if(!data.isAbsorbing){
+        //     if(!data.isAbsorbing){
+        //         normalPickupCollider.SetActive(true);
+        //         absorbPickupCollider.SetActive(false);
+
+        //         primaryGunScript.UpdateShooting();
+        //         currentSpecialScript.UpdateShooting();
+
+        //         data.isShooting = Input.GetKey("j") || Input.GetKey("k");
+        //     }
+        // }
+
+        if(!data.isDashing){
+            data.isShooting = Input.GetKey("j") || Input.GetKey("k");
+            data.isAbsorbing = Input.GetKey("u") && !data.isShooting;                   //is absorbing as long as key is being held
+
+            if(data.isShooting){
+                data.isAbsorbing = false;
                 normalPickupCollider.SetActive(true);
                 absorbPickupCollider.SetActive(false);
 
                 primaryGunScript.UpdateShooting();
                 currentSpecialScript.UpdateShooting();
+            }
 
-                data.isShooting = Input.GetKey("j") || Input.GetKey("k");
+            if(!data.isShooting){
+                if(data.isAbsorbing){
+                    normalPickupCollider.SetActive(false);
+                    absorbPickupCollider.SetActive(true);
+                }
             }
         }
         
     }
 
-    void PickupAmmo(Scrap scrapScript){
-        if(scrapScript.ammoType == "Primary"){
-            primaryGunScript.RefillAmmo(scrapScript.amount);
-        }
-        if(scrapScript.ammoType == "Special"){
-            currentSpecialScript.RefillAmmo(scrapScript.amount);
+    public void PickupAmmo(Scrap scrapScript){
+        currentSpecialScript.RefillAmmo(scrapScript.equippedAmmo);
+        foreach(SpecialGun specialGunScript in specialGunScripts){
+            if(specialGunScript != currentSpecialScript)
+                specialGunScript.RefillAmmo(scrapScript.subAmmo);
         }
     }
 

@@ -14,7 +14,7 @@ public class PlayerCollision : MonoBehaviour
             }
             BulletScript bullet = otherCollider.gameObject.GetComponent<BulletScript>();
             if(bullet.isEnemyBullet){
-                playerScript.TakeDamage(bullet.damage);
+                playerScript.TakeDamage(bullet);
                 bullet.TakeDamage();
             }
         }
@@ -26,6 +26,7 @@ public class PlayerCollision : MonoBehaviour
 
     void OnPickupScrap(Scrap scrap){
         data.numScrap++;
+        playerScript.playerShooting.PickupAmmo(scrap);
         scrap.OnPickup();
     }
 }

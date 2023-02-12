@@ -68,7 +68,6 @@ GameObject:
   - component: {fileID: 5932676450543302397}
   - component: {fileID: 5932676450543302398}
   - component: {fileID: 5932676450543302399}
-  - component: {fileID: 5932676450543302392}
   - component: {fileID: 5932676450543302393}
   - component: {fileID: 5932676450543302394}
   - component: {fileID: 5932676450543302395}
@@ -188,22 +187,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.55
---- !u!58 &5932676450543302392
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5932676450543302374}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.45
 --- !u!95 &5932676450543302393
 Animator:
   serializedVersion: 4
@@ -237,18 +220,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPoolHolder: {fileID: 0}
-  maxHealth: 50
+  maxHealth: 10
   currentHealth: 0
+  contactDOT: 10
+  contactDamage: 1
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
-  MovementHolder: {fileID: 0}
-  AttackHolder: {fileID: 0}
+  MovementHolder: {fileID: 5932676451276375854}
+  AttackHolder: {fileID: 5932676450663059769}
   counterAttack: 0
-  firingPoint: {fileID: 0}
+  firingPoint: {fileID: 5932676451438202155}
   firingPoints: []
-  numScraps: 0
-  scrapPrefab: {fileID: 0}
+  numScraps: 8
+  scrapPrefab: {fileID: 8777868531658017911, guid: d738aa232729135448a78506fe0d4d94, type: 3}
 --- !u!114 &5932676450543302395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5932676450543302398}
   follower: {fileID: 5932676450543302373}
-  movementSpeed: 0
+  movementSpeed: 1
   movementMirrored: 0
   rotationSpeed: 0
   isRotating: 0

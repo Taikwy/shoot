@@ -7,8 +7,7 @@ public class SpecialGun : Gun
     [Header("reloading Stats")]
     public float maxAmmo;
     [HideInInspector] public float currentAmmo;
-    public float ammoRechargeRate;
-    public float subRechargeRate;
+    public float ammoRechargeRate, subRechargeRate, absorbRechargeBonus;
     public float ammoRechargePause;
     public float ammoRechargeAmount;
 

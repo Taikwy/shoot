@@ -112,7 +112,65 @@ public class PlayerScript : MonoBehaviour
     }
 
     //Handles what happens when player encounters damage
-    public void TakeDamage(int damage){
+    public void TakeDamage(BulletScript bulletScript){
+        if(!shieldBroken){
+            shieldDamageTime = Time.time;
+            // Debug.Log("taking shield damge");
+            data.currentShield -= bulletScript.damage;
+            if(data.currentShield <= 0){
+                Debug.Log("shield broken");
+                data.currentShield = 0;
+                shieldBroken = true;
+                shieldBreakTime = Time.time;
+            }
+        }
+        else{
+            Debug.Log("taking health damge");
+            data.currentHealth --;
+            healthDamageTime = Time.time;
+            data.healthInvincible = true;
+            data.isInvincible = true;
+
+            
+            shieldRecharging = false;
+            shieldBroken = false;
+            shieldResetting = true;
+
+            shieldResetRate = data.maxShield / data.damageInvincibleTime;
+        }
+    }
+    
+    public void TakeContactDamage(EnemyScript enemyScript){
+        if(data.isInvincible)
+            return;
+        if(!shieldBroken){
+            shieldDamageTime = Time.time;
+            // Debug.Log("taking shield damge " + enemyScript.contactDOT * Time.deltaTime );
+            data.currentShield -= enemyScript.contactDOT * Time.deltaTime;
+            if(data.currentShield <= 0){
+                Debug.Log("shield broken");
+                data.currentShield = 0;
+                shieldBroken = true;
+                shieldBreakTime = Time.time;
+            }
+        }
+        else{
+            Debug.Log("taking health damge");
+            data.currentHealth -= enemyScript.contactDamage;
+            healthDamageTime = Time.time;
+            data.healthInvincible = true;
+            data.isInvincible = true;
+
+            
+            shieldRecharging = false;
+            shieldBroken = false;
+            shieldResetting = true;
+
+            shieldResetRate = data.maxShield / data.damageInvincibleTime;
+        }
+    }
+
+    public void TakeDamage(float damage){
         if(!shieldBroken){
             shieldDamageTime = Time.time;
             // Debug.Log("taking shield damge");
@@ -139,4 +197,5 @@ public class PlayerScript : MonoBehaviour
             shieldResetRate = data.maxShield / data.damageInvincibleTime;
         }
     }
+
 }

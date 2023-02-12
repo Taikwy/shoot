@@ -21,9 +21,9 @@ MonoBehaviour:
   startingHealth: 5
   currentHealth: 5
   damageInvincibleTime: 2
-  maxShield: 10
-  startingShield: 10
-  currentShield: 10
+  maxShield: 5
+  startingShield: 5
+  currentShield: 9.516024
   shieldBreakDelay: 3
   shieldRechargeDelay: 1
   shieldRechargeRate: 2
@@ -43,6 +43,8 @@ MonoBehaviour:
   maxPrimaryAmmo: 0
   currentPrimaryAmmo: 0
   absorbMovementSpeed: 10
+  pickupSpeed: 0
+  absorbSpeed: 0
   isInvincible: 0
   healthInvincible: 0
   isMoving: 0
@@ -51,3 +53,4 @@ MonoBehaviour:
   dashInvincible: 0
   isShooting: 0
   isAbsorbing: 0
+  numScrap: 0

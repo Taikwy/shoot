@@ -106,8 +106,7 @@ GameObject:
   - component: {fileID: 3568952829001208746}
   - component: {fileID: 3568952829001208747}
   - component: {fileID: 3568952829001208744}
-  - component: {fileID: 3568952829001208748}
-  - component: {fileID: 3568952829001208749}
+  - component: {fileID: 3039160438309363812}
   - component: {fileID: 3568952829001208742}
   - component: {fileID: 3568952829001208743}
   - component: {fileID: 3568952829001208740}
@@ -128,7 +127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3568952829001208739}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -211,7 +210,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &3568952829001208748
+--- !u!58 &3039160438309363812
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,22 +226,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.55
---- !u!58 &3568952829001208749
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3568952829001208739}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.45
 --- !u!95 &3568952829001208742
 Animator:
   serializedVersion: 4
@@ -278,6 +261,8 @@ MonoBehaviour:
   originalPoolHolder: {fileID: 0}
   maxHealth: 5
   currentHealth: 0
+  contactDOT: 10
+  contactDamage: 1
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
@@ -323,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3568952829001208744}
   follower: {fileID: 3568952829001208738}
-  movementSpeed: 1
+  movementSpeed: 2
   movementMirrored: 0
   rotationSpeed: 0
   isRotating: 0

@@ -13,30 +13,29 @@ public class Scrap : PoolObject
     // [Tooltip("Primary  |  Special")]
     [HideInInspector] public string ammoType;
     
-    [Header("scrap ammo data")]
-    public float amount;
-    public bool timed;
-    public float activeTimer;
-    protected float currentTimer = 0;
+    [Header("scrap ammo info")]
+    public float equippedAmmo;
+    public float subAmmo;
     Vector2 levelScrollSpeed = new Vector2(0, -8);
-    public bool absorbed = false;
+    [HideInInspector] public bool absorbed = false;
     Transform playerTransform;
 
     Vector2 explosionVec, playerVec, scrollVec = new Vector2(0f,0f);
     public virtual void SetData(Vector2 moveDir){
         playerTransform = SingletonManager.Instance.playerScript.gameObject.transform;
         moveDirection = moveDir.normalized;
-        // if(scatterSpeed!=0)
+
+        levelScrollSpeed = SingletonManager.Instance.levelManager.scrollSpeed;
     }
 
     // Update is called once per frame
     void Update(){
         //scrap will only dissapear if its not been absorbed
         if(!absorbed){
-            currentTimer += Time.deltaTime;
-            if(timed && currentTimer >= activeTimer){
-                gameObject.SetActive(false);
-            }
+            // currentTimer += Time.deltaTime;
+            // if(timed && currentTimer >= activeTimer){
+            //     gameObject.SetActive(false);
+            // }
             explosionVec = moveDirection * scatterSpeed * Time.deltaTime;
             scrollVec = levelScrollSpeed * Time.deltaTime;
             
@@ -62,7 +61,7 @@ public class Scrap : PoolObject
 
     //Reset stuff like animations and whatnot so it can be reused in pool
     public override void OnObjectReuse(){
-        currentTimer = 0;
+        // currentTimer = 0;
         absorbed = false;
         // scatterSpeed = 0;
         scatterSpeed = Random.Range(minScatterSpeed, maxScatterSpeed);

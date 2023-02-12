@@ -44,7 +44,7 @@ public class WaveSpawner : MonoBehaviour
     public GameObject SpawnEnemy(GameObject waveHolder, WavePieceData d, Vector2 spawnLocation, WaveHolder waveHolderScript)
     {
         GameObject enemy = SpawnEnemy(d.enemyPrefab, spawnLocation, waveHolder, true);
-        Debug.Log("spawning " + enemy + " at " + spawnLocation);
+        // Debug.Log("spawning " + enemy + " at " + spawnLocation);
 
         EnemyScript enemyScript = enemy.gameObject.GetComponent<EnemyScript>();
         enemyScript.waveHolderScript = waveHolderScript;

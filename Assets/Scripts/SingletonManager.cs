@@ -7,6 +7,7 @@ public class SingletonManager : MonoBehaviour
     // public GameObject player;
     public PlayerScript playerScript;
     public PlayerShooting playerShooting;
+    public LevelManager levelManager;
 
     public static SingletonManager Instance { get; private set; } // static singleton
 
@@ -20,6 +21,6 @@ public class SingletonManager : MonoBehaviour
         // Cache references to all desired variables
         playerScript = FindObjectOfType<PlayerScript>();
         playerShooting = FindObjectOfType<PlayerShooting>();
-        // player = GameObject.FindWithTag("Player");
+        levelManager = FindObjectOfType<LevelManager>();
      }
 }

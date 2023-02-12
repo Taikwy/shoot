@@ -19,6 +19,14 @@ public class BulletCleanup : MonoBehaviour
                 Destroy(otherCollider.gameObject);
             }
         }
+        if(otherCollider.CompareTag("Scrap")){
+            if(otherCollider.gameObject.GetComponent<BulletScript>() is PoolObject){
+                otherCollider.gameObject.SetActive(false);
+            }
+            else{
+                Destroy(otherCollider.gameObject);
+            }
+        }
         
         
     }

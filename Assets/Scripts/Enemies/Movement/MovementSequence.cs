@@ -75,7 +75,7 @@ public class MovementSequence : MonoBehaviour
             currentSegmentIndex = 0;
         }
         
-        Debug.Log("rbpos " + rb.position + " at ");
+        // Debug.Log("rbpos " + rb.position + " at ");
         
         SetCurrentSegment();
         rb.position = follower.startPosition;

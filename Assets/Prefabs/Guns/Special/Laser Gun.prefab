@@ -90,8 +90,8 @@ MonoBehaviour:
   timeSinceShot: 999
   maxAmmo: 2000
   currentAmmo: 0
-  ammoRechargeRate: 150
-  subRechargeRate: 300
+  ammoRechargeRate: 100
+  subRechargeRate: 150
   ammoRechargePause: 3
   ammoRechargeAmount: 0
   bulletPrefabs:

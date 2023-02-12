@@ -223,7 +223,6 @@ GameObject:
   - component: {fileID: 2410400899876572487}
   - component: {fileID: 2410400899876572484}
   - component: {fileID: 2410400899876572485}
-  - component: {fileID: 2410400899876572482}
   - component: {fileID: 2410400899876572483}
   - component: {fileID: 2410400899876572480}
   - component: {fileID: 2410400899876572481}
@@ -342,23 +341,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.9
---- !u!58 &2410400899876572482
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2410400899876572492}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.55
+  m_Radius: 0.7
 --- !u!95 &2410400899876572483
 Animator:
   serializedVersion: 4
@@ -392,8 +375,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPoolHolder: {fileID: 0}
-  maxHealth: 50
+  maxHealth: 10
   currentHealth: 0
+  contactDOT: 10
+  contactDamage: 1
   partOfWave: 0
   testWaveHolderScript: {fileID: 0}
   waveHolderScript: {fileID: 0}
@@ -476,6 +461,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2410400898191050091}
     m_Modifications:
+    - target: {fileID: 8476261491398597937, guid: 0ee7820b03425b3498cc4e0326c9352f, type: 3}
+      propertyPath: burstTimer
+      value: 0.9779917
+      objectReference: {fileID: 0}
     - target: {fileID: 8476261491398597942, guid: 0ee7820b03425b3498cc4e0326c9352f, type: 3}
       propertyPath: m_RootOrder
       value: 0

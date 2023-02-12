@@ -96,7 +96,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8777868531658017911}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -161,9 +161,10 @@ MonoBehaviour:
   rb: {fileID: 3361072793285944912}
   minScatterSpeed: 5
   maxScatterSpeed: 60
-  scatterSpeed: 50
   acceleration: 0.91
+  scatterSpeed: 50
+  absorbSpeed: 0
   ammoType: 
-  amount: 0
-  timed: 0
-  activeTimer: 15
+  equippedAmmo: 10
+  subAmmo: 2
+  absorbed: 0

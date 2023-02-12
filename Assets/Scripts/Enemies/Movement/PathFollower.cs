@@ -91,7 +91,7 @@ public class PathFollower : MonoBehaviour
     }
     public void SetTargetPos(Vector3 pos){
         targetPosition = pos;
-        Debug.Log("target po " + targetPosition);
+        // Debug.Log("target po " + targetPosition);
     }
 
     public Vector2 FollowPath(float newSpeed){

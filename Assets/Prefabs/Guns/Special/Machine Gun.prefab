@@ -57,9 +57,9 @@ MonoBehaviour:
   timeSinceShot: 999
   maxAmmo: 500
   currentAmmo: 0
-  ammoRechargeRate: 75
-  subRechargeRate: 150
-  ammoRechargePause: 1.5
+  ammoRechargeRate: 20
+  subRechargeRate: 50
+  ammoRechargePause: 2
   ammoRechargeAmount: 0
   bulletPrefabs:
   - {fileID: 1753041584503104374, guid: 81d42f57b983b6042bcd1eb13c427da7, type: 3}
