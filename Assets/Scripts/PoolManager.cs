@@ -34,6 +34,7 @@ public class PoolManager : MonoBehaviour
                 break;
             case "enemy":
                 poolHolder.transform.parent = enemyPoolsTransform;
+                Debug.Log("making enemy pool");
                 break;
             case "scrap":
                 poolHolder.transform.parent = scrapPoolsTransform;
@@ -104,9 +105,10 @@ public class PoolManager : MonoBehaviour
         int poolKey = prefab.GetInstanceID();
 
         if(poolDictionary.ContainsKey(poolKey)){
+            // Debug.Log("Adding to pool " + poolSize + " " +  poolType);
             return IncreasePoolSize(prefab, poolDictionary[poolKey].Count + poolSize, poolType);
         }
-        Debug.Log("No pool to add to, creating new pool");
+        // Debug.Log("No pool to add to, creating new pool " + poolSize + " " +  poolType);
         return CreatePool(prefab, poolSize, poolType);
     }
 

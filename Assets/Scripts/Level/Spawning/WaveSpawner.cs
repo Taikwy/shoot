@@ -84,7 +84,7 @@ public class WaveSpawner : MonoBehaviour
         // Debug.Log(xCenterSpawnPoint);
     }
     //Uses a manual position for spawning horizointal line
-    public void SpawnHorizontalLine(GameObject waveHolder, WavePieceData d, Vector2 manualSpawnPos){
+    public void SpawnHorizontalLineManual(GameObject waveHolder, WavePieceData d, Vector2 manualSpawnPos){
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
         Vector2 spawnLocation = new Vector2(manualSpawnPos.x,  waveSpawnPoint.position.y);
         spawnLocation.x -= (d.numEnemies - 1) * d.xGap / 2;
@@ -124,6 +124,16 @@ public class WaveSpawner : MonoBehaviour
             spawnLocation.y += d.yGap;
         }
     }
+    public void SpawnVerticalLineManual(GameObject waveHolder, WavePieceData d, Vector2 manualSpawnPos){
+        WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
+        Vector2 spawnLocation = new Vector2(manualSpawnPos.x, waveSpawnPoint.position.y);
+
+        for(int i = 0; i < d.numEnemies; i++){
+            SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);
+            spawnLocation.y += d.yGap;
+        }
+    }
+
 
     public void SpawnDiagonalLine(GameObject waveHolder, WavePieceData d){
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
@@ -135,14 +145,30 @@ public class WaveSpawner : MonoBehaviour
             spawnLocation.y += d.yGap;
         }
     }
+    public void SpawnDiagonalLineManual(GameObject waveHolder, WavePieceData d, Vector2 manualSpawnPos){
+        WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
+        Vector2 spawnLocation = new Vector2(manualSpawnPos.x, waveSpawnPoint.position.y);
+
+        for(int i = 0; i < d.numEnemies; i++){
+            SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);
+            spawnLocation.x += d.xGap;
+            spawnLocation.y += d.yGap;
+        }
+    }
 
     public IEnumerator SpawnStream(GameObject waveHolder, WavePieceData d){
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
         Vector2 spawnLocation = new Vector2(d.spawnPosition.x, waveSpawnPoint.position.y);
-        // float spawnInterval = d.spawnInterval;
-        // if(d.yGap != 0)
-        //     spawnInterval = 
 
+        for(int i = 0; i < d.numEnemies; i++){
+            SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);
+            spawnLocation.x += d.xGap;
+            yield return new WaitForSeconds(d.spawnInterval);
+        }
+    }
+    public IEnumerator SpawnStreamManual(GameObject waveHolder, WavePieceData d, Vector2 manualSpawnPos){
+        WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
+        Vector2 spawnLocation = new Vector2(manualSpawnPos.x, waveSpawnPoint.position.y);
 
         for(int i = 0; i < d.numEnemies; i++){
             SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);

@@ -28,6 +28,7 @@ public class Level : MonoBehaviour
         for(int i = 0; i < wavesInLevel.Count; i++){
             foreach(WavePieceData data in wavesInLevel[i].wavePieces){
                 enemyPrefabsInLevel.Add(data.enemyPrefab);
+                Debug.Log(data.enemyPrefab + " " + data.numEnemies);
                 PoolManager.Instance.AddToPool(data.enemyPrefab, data.numEnemies, "enemy");
 
                 scrapPrefabsInLevel.Add(data.enemyPrefab.GetComponent<EnemyScript>().scrapPrefab);

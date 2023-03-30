@@ -2133,17 +2133,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382474681}
   m_CullTransparentMesh: 1
---- !u!114 &395033545 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4461792261505740267, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
-  m_PrefabInstance: {fileID: 222319911}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0618a12e65ff2dc48b967fe48d7ee687, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &412567361 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8752544183459294992, guid: ca6dab2fb1b7a954dbf061f84adf1713, type: 3}
@@ -3519,8 +3508,7 @@ MonoBehaviour:
   scrollSpeed: 4
   scrollDirection: {x: 0, y: -1}
   wavesInLevel:
-  - {fileID: 1312449956645020618}
-  - {fileID: 395033545}
+  - {fileID: 1347450896}
   enemyPrefabsInLevel: []
   scrapPrefabsInLevel: []
   movementSequencesInLevel: []
@@ -7394,6 +7382,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4461792261505740264, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
   m_PrefabInstance: {fileID: 1514243422}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1347450896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4461792261505740267, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
+  m_PrefabInstance: {fileID: 1514243422}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0618a12e65ff2dc48b967fe48d7ee687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1380310760
 GameObject:
   m_ObjectHideFlags: 0
@@ -8357,19 +8356,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4461792261505740267, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
       propertyPath: wavePieces.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4461792261505740267, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
       propertyPath: wavePieces.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 4363f1069ac81b1429cf70cb390919ea, type: 2}
+      objectReference: {fileID: 11400000, guid: f0c4dfe8c2531974ea2e77f09349b39f, type: 2}
     - target: {fileID: 4461792261505740267, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
       propertyPath: wavePieces.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 4363f1069ac81b1429cf70cb390919ea, type: 2}
+      objectReference: {fileID: 11400000, guid: f0c4dfe8c2531974ea2e77f09349b39f, type: 2}
     - target: {fileID: 4461792261505740267, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
       propertyPath: wavePieceSpawnPoints.Array.size
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461792261505740267, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
+      propertyPath: wavePieceSpawnPoints.Array.data[0].x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461792261505740267, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
+      propertyPath: wavePieceSpawnPoints.Array.data[1].x
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
@@ -13780,17 +13787,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5057396557047848694, guid: 71e1db86ba34e8040a37a87af6e8478c, type: 3}
   m_PrefabInstance: {fileID: 6060078285198687539}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1312449956645020618 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5057396557047848697, guid: 71e1db86ba34e8040a37a87af6e8478c, type: 3}
-  m_PrefabInstance: {fileID: 6060078285198687539}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0618a12e65ff2dc48b967fe48d7ee687, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1326923440821915320
 Transform:
   m_ObjectHideFlags: 0
