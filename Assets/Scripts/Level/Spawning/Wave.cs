@@ -7,6 +7,8 @@ public class Wave : MonoBehaviour
     EnemyManager enemyManager;
     WaveSpawner waveSpawner;
     public GameObject waveHolderPrefab;
+    public List<bool> wavePieceCustomSpawn = new List<bool>();
+    public List<Vector2> wavePieceSpawnPoints = new List<Vector2>();
     public List<WavePieceData> wavePieces = new List<WavePieceData>();
     [HideInInspector] public int numOfEnemiesInWave;
     
@@ -26,9 +28,15 @@ public class Wave : MonoBehaviour
     }
 
     public void SpawnWave(GameObject waveHolder){
-        foreach(WavePieceData pieceData in wavePieces){
-            SpawnPiece(waveHolder, pieceData);
+        for(int i = 0; i < wavePieces.Count; i++){
+            if(wavePieceSpawnPoints[i].x < 100)
+                SpawnPiece(waveHolder, wavePieces[i], wavePieceSpawnPoints[i]);
+            else
+                SpawnPiece(waveHolder, wavePieces[i]);
         }
+        // foreach(WavePieceData pieceData in wavePieces){
+        //     SpawnPiece(waveHolder, pieceData);
+        // }
     }
 
     public void SpawnPiece(GameObject waveHolder, WavePieceData pieceData){
@@ -53,6 +61,24 @@ public class Wave : MonoBehaviour
             //     waveSpawner.SpawnStatic(waveHolder, enemyPrefab, xGap, yGap, spawnPosition.x, spawnPosition.y);
             //     break;
             // default:
+            //     break;
+        }
+    }
+
+    public void SpawnPiece(GameObject waveHolder, WavePieceData pieceData, Vector2 spawnPos){
+        Debug.Log("spawnign piece w position");
+        switch(pieceData.spawnType){
+            case WavePieceData.SPAWNTYPE.HORIZONTAL:
+                waveSpawner.SpawnHorizontalLine(waveHolder, pieceData, spawnPos);
+                break;
+            // case WavePieceData.SPAWNTYPE.VERTICAL:
+            //     waveSpawner.SpawnVerticalLine(waveHolder, pieceData, spawnPos);
+            //     break;
+            // case WavePieceData.SPAWNTYPE.DIAGONAL:
+            //     waveSpawner.SpawnDiagonalLine(waveHolder, pieceData, spawnPos);
+            //     break;
+            // case WavePieceData.SPAWNTYPE.STREAM:
+            //     StartCoroutine(waveSpawner.SpawnStream(waveHolder, pieceData, spawnPos));
             //     break;
         }
     }

@@ -22,7 +22,11 @@ public class PlayerData : ScriptableObject
     public float startingShield, currentShield;
     public float shieldBreakDelay, shieldRechargeDelay, shieldRechargeRate;
     // public bool shieldRecharging, shieldBroken = false;
-    //public float shieldBombRadius;            //ADD THIS LATER WHEN BOMBS ARE ENABLED
+    //public float shieldBombRadius;            //ADD THIS LATER WHEN BOMBS ARE ENABLED 
+    
+    [Header("bomb info")]
+    public float bombLength;
+
 
     [Header("movement info")]
     public float movementSpeed;
@@ -45,7 +49,7 @@ public class PlayerData : ScriptableObject
 
     [Header("player state info")]
     public bool isInvincible = false;
-    public bool healthInvincible, isMoving, isDashing, dashLag, dashInvincible, isShooting, isAbsorbing = false;
+    public bool healthInvincible, isMoving, isDashing, dashLag, dashInvincible, isShooting, isAbsorbing, isBombing = false;
     [Header("player stats info")]
     public int numScrap;
 }

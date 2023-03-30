@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 344344560380294194}
   - component: {fileID: 2350475367502396144}
   - component: {fileID: 6422218615065254553}
+  - component: {fileID: 523594495958673802}
   m_Layer: 0
   m_Name: Enemy Bullet Small
   m_TagString: Bullet
@@ -148,3 +149,23 @@ MonoBehaviour:
   maxDistance: 0
   currentDistance: 0
   isEnemyBullet: 0
+--- !u!95 &523594495958673802
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4486752582006211004}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6cea7fa1d60bc71448618178920a8771, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

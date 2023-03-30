@@ -25,8 +25,10 @@ public class AttackSequence : MonoBehaviour
 
     public virtual void Reset(){
         // firingPoint = firingPoints[0];
+        firingPoints.Clear();
         firingPoint = gameObject.transform.parent.parent.GetComponent<EnemyScript>().firingPoint;
-        firingPoints.Add(firingPoint);
+        if(firingPoints.Count <= 0)
+            firingPoints.Add(firingPoint);
         bulletPrefab = bulletPrefabs[0];
         playerTransform = SingletonManager.Instance.playerScript.transform;
 
@@ -68,16 +70,8 @@ public class AttackSequence : MonoBehaviour
     IEnumerator BurstFire(){
         // isBursting = true;
         for(int i = 0; i < burstSize; i++){
+            Debug.Log("bursting");
             Shoot();
-            // Debug.Log(shotTimer + " " + shotsTaken + " " + timeBetweenShots);
-            // shotTimer = 0;
-            // if(shotsTaken >= burstSize){
-            //     isBursting = false;
-            //     shotsTaken = 0;
-            //     shotTimer = timeBetweenShots;
-            // }
-            // Debug.Log(shotTimer + " " + shotsTaken  + " afterwards=================================");
-
             yield return new WaitForSeconds(timeBetweenShots);
         }
         // isBursting = false;

@@ -23,10 +23,11 @@ MonoBehaviour:
   damageInvincibleTime: 2
   maxShield: 5
   startingShield: 5
-  currentShield: 9.516024
+  currentShield: 5
   shieldBreakDelay: 3
   shieldRechargeDelay: 1
   shieldRechargeRate: 2
+  bombLength: 0.2
   movementSpeed: 5
   dashDistance: 3
   dashTime: 0.15
@@ -53,4 +54,5 @@ MonoBehaviour:
   dashInvincible: 0
   isShooting: 0
   isAbsorbing: 0
+  isBombing: 0
   numScrap: 0

@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2841517409535664151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9067421320603271687}
+  - component: {fileID: 2323412612616603886}
+  - component: {fileID: 7291417355534251042}
+  m_Layer: 0
+  m_Name: Bomb Radius
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9067421320603271687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2841517409535664151}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3663240657871982108}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &2323412612616603886
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2841517409535664151}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1
+--- !u!114 &7291417355534251042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2841517409535664151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4315d1a64f88cdb41b6ecb7cb929c44b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 48603838ea396a846a44047d5a961f19, type: 2}
+  circleCollider2D: {fileID: 2323412612616603886}
 --- !u!1 &3663240656985718253
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,6 +220,7 @@ Transform:
   - {fileID: 3663240658295036113}
   - {fileID: 3663240657596818874}
   - {fileID: 3663240656985718252}
+  - {fileID: 9067421320603271687}
   m_Father: {fileID: 6357329960284907981}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -420,6 +484,7 @@ MonoBehaviour:
   playerMovement: {fileID: 6357329960284907971}
   playerController: {fileID: 6357329960284907969}
   playerShooting: {fileID: 6357329960284907968}
+  playerBomb: {fileID: 7291417355534251042}
   playerUI: {fileID: 0}
   data: {fileID: 11400000, guid: 48603838ea396a846a44047d5a961f19, type: 2}
   shieldRecharging: 0

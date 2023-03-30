@@ -71,9 +71,22 @@ public class WaveSpawner : MonoBehaviour
         return enemy;
     }
 
+    //Default version for spawning horizontal line
     public void SpawnHorizontalLine(GameObject waveHolder, WavePieceData d){
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
         Vector2 spawnLocation = new Vector2(d.spawnPosition.x, waveSpawnPoint.position.y);
+        spawnLocation.x -= (d.numEnemies - 1) * d.xGap / 2;
+
+        for(int i = 0; i < d.numEnemies; i++){
+            SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);
+            spawnLocation.x += d.xGap;
+        }
+        // Debug.Log(xCenterSpawnPoint);
+    }
+    //Uses a manual position for spawning horizointal line
+    public void SpawnHorizontalLine(GameObject waveHolder, WavePieceData d, Vector2 manualSpawnPos){
+        WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
+        Vector2 spawnLocation = new Vector2(manualSpawnPos.x,  waveSpawnPoint.position.y);
         spawnLocation.x -= (d.numEnemies - 1) * d.xGap / 2;
 
         for(int i = 0; i < d.numEnemies; i++){

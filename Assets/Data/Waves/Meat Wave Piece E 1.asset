@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 679ce2aff1b696745a7bf20a5ebc0400, type: 3}
-  m_Name: Meat Wave Piece C
+  m_Name: Meat Wave Piece E 1
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 5932676450543302374, guid: 24579c820c414c34ebe50d06ecee806b, type: 3}
+  enemyPrefab: {fileID: 3568952829001208739, guid: 4bba521b4b6772f43813d1bce845bc0d, type: 3}
   attackSequence: {fileID: 0}
   movementSequence: {fileID: 1988241474898835439, guid: 0b50c1973bb9bbb4cbaa335342284a8f, type: 3}
-  spawnType: 2
-  numEnemies: 4
-  spawnPosition: {x: -2, y: 0}
-  xGap: -1.5
-  yGap: 1
-  spawnInterval: 0
+  spawnType: 0
+  numEnemies: 3
+  spawnPosition: {x: 0, y: 0}
+  xGap: 1
+  yGap: 0
+  spawnInterval: 1
   mirrored: 0

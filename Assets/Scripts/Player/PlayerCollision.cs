@@ -9,7 +9,7 @@ public class PlayerCollision : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D otherCollider){
         if(otherCollider.CompareTag("Bullet")){
-            if(data.isInvincible){
+            if(data.isInvincible || data.isBombing){
                 return;
             }
             BulletScript bullet = otherCollider.gameObject.GetComponent<BulletScript>();

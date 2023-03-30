@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
     public PlayerMovement playerMovement;
     public PlayerController playerController;
     public PlayerShooting playerShooting;
+    public PlayerBomb playerBomb;
 
     [Header("ui stuffs")]
     public GameObject playerUI;
@@ -35,7 +36,7 @@ public class PlayerScript : MonoBehaviour
         data.currentShield = data.startingShield;
 
         // data.currentPrimaryAmmo = ;
-        data.isInvincible = data.healthInvincible= data.isMoving= data.isDashing= data.dashLag= data.dashInvincible= data.isShooting= data.isAbsorbing = false;
+        data.isInvincible = data.healthInvincible= data.isMoving= data.isDashing= data.dashLag= data.dashInvincible= data.isShooting= data.isAbsorbing = data.isBombing = false;
         data.numScrap = 0;
 
         playerMovement.Setup();
@@ -122,21 +123,11 @@ public class PlayerScript : MonoBehaviour
                 data.currentShield = 0;
                 shieldBroken = true;
                 shieldBreakTime = Time.time;
+                playerBomb.ShieldBomb();
             }
         }
         else{
-            Debug.Log("taking health damge");
-            data.currentHealth --;
-            healthDamageTime = Time.time;
-            data.healthInvincible = true;
-            data.isInvincible = true;
-
-            
-            shieldRecharging = false;
-            shieldBroken = false;
-            shieldResetting = true;
-
-            shieldResetRate = data.maxShield / data.damageInvincibleTime;
+            TakeHealthDamage(1);
         }
     }
     
@@ -152,22 +143,28 @@ public class PlayerScript : MonoBehaviour
                 data.currentShield = 0;
                 shieldBroken = true;
                 shieldBreakTime = Time.time;
+                playerBomb.ShieldBomb();
             }
         }
         else{
-            Debug.Log("taking health damge");
-            data.currentHealth -= enemyScript.contactDamage;
-            healthDamageTime = Time.time;
-            data.healthInvincible = true;
-            data.isInvincible = true;
-
-            
-            shieldRecharging = false;
-            shieldBroken = false;
-            shieldResetting = true;
-
-            shieldResetRate = data.maxShield / data.damageInvincibleTime;
+            TakeHealthDamage(enemyScript.contactDamage);
         }
+    }
+
+    public void TakeHealthDamage(int damage){
+        Debug.Log("taking health damge");
+        data.currentHealth -= damage;
+        healthDamageTime = Time.time;
+        data.healthInvincible = true;
+        data.isInvincible = true;
+
+        shieldRecharging = false;
+        shieldBroken = false;
+        shieldResetting = true;
+
+        shieldResetRate = data.maxShield / data.damageInvincibleTime;
+
+        playerBomb.HealthBomb();
     }
 
     public void TakeDamage(float damage){

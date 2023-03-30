@@ -44,7 +44,14 @@ public class BulletScript : PoolObject
     }
 
     public virtual void TakeDamage(){
+        Debug.Log("taking damage " + currentHealth);
         currentHealth--;
+        if(currentHealth <= 0)
+            gameObject.SetActive(false);
+    }
+
+    public virtual void TakeDamage(int damage){
+        currentHealth-= damage;
         if(currentHealth <= 0)
             gameObject.SetActive(false);
     }
@@ -53,6 +60,7 @@ public class BulletScript : PoolObject
     public override void OnObjectReuse(){
         currentDistance = 0;
         currentTimeAlive = 0;
+        // Debug.Log("reusing");
     }
 
     protected virtual void FixedUpdate()
