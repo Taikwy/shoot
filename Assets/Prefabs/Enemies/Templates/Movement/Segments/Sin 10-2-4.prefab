@@ -102,11 +102,13 @@ MonoBehaviour:
   pointObj: {fileID: 1828483148794942998, guid: cc25a057672eb7e42bf4fb188adb507b, type: 3}
   pointHolder: {fileID: 5843237683874851038}
   totalDistance: 10
-  amplitude: 3
+  amplitude: 2
   numHalfCycles: 4
   numPoints: 48
+  downwards: 1
   rightFirst: 0
   horizontal: 0
+  uselessBool: 0
 --- !u!1 &5843237683874851038
 GameObject:
   m_ObjectHideFlags: 0

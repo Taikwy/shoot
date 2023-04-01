@@ -166,9 +166,20 @@ public class WaveSpawner : MonoBehaviour
             yield return new WaitForSeconds(d.spawnInterval);
         }
     }
-    public IEnumerator SpawnStreamManual(GameObject waveHolder, WavePieceData d, Vector2 manualSpawnPos){
+    public IEnumerator SpawnStreamHalfManual(GameObject waveHolder, WavePieceData d, Vector2 manualSpawnPos){
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
         Vector2 spawnLocation = new Vector2(manualSpawnPos.x, waveSpawnPoint.position.y);
+
+        for(int i = 0; i < d.numEnemies; i++){
+            SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);
+            spawnLocation.x += d.xGap;
+            yield return new WaitForSeconds(d.spawnInterval);
+        }
+    }
+
+    public IEnumerator SpawnStreamFullManual(GameObject waveHolder, WavePieceData d, Vector2 manualSpawnPos){
+        WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
+        Vector2 spawnLocation = new Vector2(manualSpawnPos.x, manualSpawnPos.y);
 
         for(int i = 0; i < d.numEnemies; i++){
             SpawnEnemy(waveHolder, d, spawnLocation, waveHolderScript);

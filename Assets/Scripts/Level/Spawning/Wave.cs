@@ -7,7 +7,6 @@ public class Wave : MonoBehaviour
     EnemyManager enemyManager;
     WaveSpawner waveSpawner;
     public GameObject waveHolderPrefab;
-    public List<bool> wavePieceCustomSpawn = new List<bool>();
     public List<Vector2> wavePieceSpawnPoints = new List<Vector2>();
     public List<WavePieceData> wavePieces = new List<WavePieceData>();
     [HideInInspector] public int numOfEnemiesInWave;
@@ -75,7 +74,7 @@ public class Wave : MonoBehaviour
                 waveSpawner.SpawnDiagonalLineManual(waveHolder, pieceData, spawnPos);
                 break;
             case WavePieceData.SPAWNTYPE.STREAM:
-                StartCoroutine(waveSpawner.SpawnStreamManual(waveHolder, pieceData, spawnPos));
+                StartCoroutine(waveSpawner.SpawnStreamHalfManual(waveHolder, pieceData, spawnPos));
                 break;
         }
     }

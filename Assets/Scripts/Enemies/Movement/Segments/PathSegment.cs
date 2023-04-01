@@ -59,4 +59,9 @@ public class PathSegment : MonoBehaviour
             pathPositions.Add(point.transform.position);
         }
     }    
+
+    public virtual void TogglePoints(){
+        foreach (Transform child in transform)
+            child.gameObject.SetActive(!child.gameObject.activeSelf);
+    }
 }

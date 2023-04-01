@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679ce2aff1b696745a7bf20a5ebc0400, type: 3}
+  m_Name: -Empty Wave Piece
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 0}
+  attackSequence: {fileID: 0}
+  movementSequence: {fileID: 1988241474898835439, guid: 0b50c1973bb9bbb4cbaa335342284a8f, type: 3}
+  spawnType: 0
+  numEnemies: 0
+  spawnPosition: {x: 0, y: 0}
+  xGap: 0
+  yGap: 0
+  spawnInterval: 0
+  mirrored: 0

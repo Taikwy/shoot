@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5127237690532920492}
   - component: {fileID: 7642523372841738822}
   m_Layer: 0
-  m_Name: Empty Movement
+  m_Name: -Empty Movement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

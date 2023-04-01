@@ -21,6 +21,10 @@ public class PathSegmentEditor : Editor
         {
             pathScript.ResetPointsEditor();
         }
+        if(GUILayout.Button("Toggle Point Visibility"))
+        {
+            pathScript.TogglePoints();
+        }
         // PrefabUtility.RecordPrefabInstancePropertyModifications(pathScript.gameObject);
     }
 }

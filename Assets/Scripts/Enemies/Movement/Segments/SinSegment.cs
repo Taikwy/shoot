@@ -15,6 +15,7 @@ public class SinSegment : PathSegment
     public int numHalfCycles, numPoints;
     public bool downwards = true;
     public bool rightFirst, horizontal = false;
+    public bool uselessBool;
     
 
     public override void PopulatePointsEditor(){
@@ -75,4 +76,5 @@ public class SinSegment : PathSegment
         }
         pointHolder.transform.rotation = Quaternion.identity;
     }
+
 }
