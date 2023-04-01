@@ -13,6 +13,7 @@ public class SinSegment : PathSegment
     public float totalDistance;
     public float amplitude;
     public int numHalfCycles, numPoints;
+    public bool downwards = true;
     public bool rightFirst, horizontal = false;
     
 
@@ -43,6 +44,13 @@ public class SinSegment : PathSegment
                 else
                     pointPos.x = amplitude * Mathf.Sin((distFromOrigin + halfCycleDist) * frequency) + holderPos.x;
                 pointPos.y = distFromOrigin + holderPos.y;
+            }
+            
+            // Debug.Log(pointPos);
+            if(downwards){
+                pointPos.y *= -1;
+                
+                // Debug.Log(pointPos.y * -1);
             }
 
             pathPoint = Instantiate(pointObj, pointPos, Quaternion.identity);

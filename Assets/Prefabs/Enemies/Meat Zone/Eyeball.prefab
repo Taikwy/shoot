@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPoolHolder: {fileID: 0}
-  maxHealth: 5
+  maxHealth: 1
   currentHealth: 0
   contactDOT: 10
   contactDamage: 1
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3568952829001208744}
   follower: {fileID: 3568952829001208738}
-  movementSpeed: 2
+  movementSpeed: 3
   movementMirrored: 0
   rotationSpeed: 0
   isRotating: 0
