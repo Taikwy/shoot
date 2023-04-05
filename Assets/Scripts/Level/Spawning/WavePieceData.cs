@@ -14,6 +14,7 @@ public class WavePieceData : ScriptableObject
         VERTICAL,
         DIAGONAL,
         STREAM,
+        MANUALSTREAM,
         VSTREAM,
         DSTREAM,
         STATIC

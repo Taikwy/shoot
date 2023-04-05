@@ -9391,11 +9391,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveHolderPrefab: {fileID: 3061862120054580280, guid: e1c57b5ce465f234c9ef03c7ba42b9c8, type: 3}
   wavePieceSpawnPoints:
-  - {x: 0, y: 0}
-  - {x: 4, y: 0}
+  - {x: -3, y: 0}
+  - {x: 3, y: 0}
   wavePieces:
   - {fileID: 11400000, guid: b2bed7d9c0900d74f9f3abda5d4feae5, type: 2}
-  - {fileID: 11400000, guid: 8968190deb56a944784666547c1977ad, type: 2}
+  - {fileID: 11400000, guid: b2bed7d9c0900d74f9f3abda5d4feae5, type: 2}
   numOfEnemiesInWave: 0
 --- !u!61 &819944945821743545
 BoxCollider2D:

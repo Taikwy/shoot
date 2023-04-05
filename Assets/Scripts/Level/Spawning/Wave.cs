@@ -53,6 +53,9 @@ public class Wave : MonoBehaviour
             case WavePieceData.SPAWNTYPE.STREAM:
                 StartCoroutine(waveSpawner.SpawnStream(waveHolder, pieceData));
                 break;
+            case WavePieceData.SPAWNTYPE.MANUALSTREAM:
+                Debug.Log("Cannot spawn using fullmanualstream without a manual position");
+                break;
             // case SPAWNTYPE.STATIC:
             //     waveSpawner.SpawnStatic(waveHolder, enemyPrefab, xGap, yGap, spawnPosition.x, spawnPosition.y);
             //     break;
@@ -75,6 +78,9 @@ public class Wave : MonoBehaviour
                 break;
             case WavePieceData.SPAWNTYPE.STREAM:
                 StartCoroutine(waveSpawner.SpawnStreamHalfManual(waveHolder, pieceData, spawnPos));
+                break;
+            case WavePieceData.SPAWNTYPE.MANUALSTREAM:
+                StartCoroutine(waveSpawner.SpawnStreamFullManual(waveHolder, pieceData, spawnPos));
                 break;
         }
     }
