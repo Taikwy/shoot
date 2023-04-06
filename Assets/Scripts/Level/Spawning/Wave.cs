@@ -39,50 +39,50 @@ public class Wave : MonoBehaviour
     }
 
     public void SpawnPiece(GameObject waveHolder, WavePieceData pieceData){
-        Debug.Log("spawnign piece");
-        switch(pieceData.spawnType){
-            case WavePieceData.SPAWNTYPE.HORIZONTAL:
-                waveSpawner.SpawnHorizontalLine(waveHolder, pieceData);
-                break;
-            case WavePieceData.SPAWNTYPE.VERTICAL:
-                waveSpawner.SpawnVerticalLine(waveHolder, pieceData);
-                break;
-            case WavePieceData.SPAWNTYPE.DIAGONAL:
-                waveSpawner.SpawnDiagonalLine(waveHolder, pieceData);
-                break;
-            case WavePieceData.SPAWNTYPE.STREAM:
-                StartCoroutine(waveSpawner.SpawnStream(waveHolder, pieceData));
-                break;
-            case WavePieceData.SPAWNTYPE.MANUALSTREAM:
-                Debug.Log("Cannot spawn using fullmanualstream without a manual position");
-                break;
-            // case SPAWNTYPE.STATIC:
-            //     waveSpawner.SpawnStatic(waveHolder, enemyPrefab, xGap, yGap, spawnPosition.x, spawnPosition.y);
-            //     break;
-            // default:
-            //     break;
-        }
+        // Debug.Log("spawnign piece");
+        // switch(pieceData.spawnType){
+        //     case WavePieceData.SPAWNTYPE.HORIZONTAL:
+        //         waveSpawner.SpawnHorizontalLine(waveHolder, pieceData);
+        //         break;
+        //     case WavePieceData.SPAWNTYPE.VERTICAL:
+        //         waveSpawner.SpawnVerticalLine(waveHolder, pieceData);
+        //         break;
+        //     case WavePieceData.SPAWNTYPE.DIAGONAL:
+        //         waveSpawner.SpawnDiagonalLine(waveHolder, pieceData);
+        //         break;
+        //     case WavePieceData.SPAWNTYPE.STREAM:
+        //         StartCoroutine(waveSpawner.SpawnStream(waveHolder, pieceData));
+        //         break;
+        //     case WavePieceData.SPAWNTYPE.MANUALSTREAM:
+        //         Debug.Log("Cannot spawn using fullmanualstream without a manual position");
+        //         break;
+        //     // case SPAWNTYPE.STATIC:
+        //     //     waveSpawner.SpawnStatic(waveHolder, enemyPrefab, xGap, yGap, spawnPosition.x, spawnPosition.y);
+        //     //     break;
+        //     // default:
+        //     //     break;
+        // }
     }
 
     public void SpawnPiece(GameObject waveHolder, WavePieceData pieceData, Vector2 spawnPos){
-        Debug.Log("spawnign piece w position");
-        switch(pieceData.spawnType){
-            case WavePieceData.SPAWNTYPE.HORIZONTAL:
-                waveSpawner.SpawnHorizontalLineManual(waveHolder, pieceData, spawnPos);
-                break;
-            case WavePieceData.SPAWNTYPE.VERTICAL:
-                waveSpawner.SpawnVerticalLineManual(waveHolder, pieceData, spawnPos);
-                break;
-            case WavePieceData.SPAWNTYPE.DIAGONAL:
-                waveSpawner.SpawnDiagonalLineManual(waveHolder, pieceData, spawnPos);
-                break;
-            case WavePieceData.SPAWNTYPE.STREAM:
-                StartCoroutine(waveSpawner.SpawnStreamHalfManual(waveHolder, pieceData, spawnPos));
-                break;
-            case WavePieceData.SPAWNTYPE.MANUALSTREAM:
-                StartCoroutine(waveSpawner.SpawnStreamFullManual(waveHolder, pieceData, spawnPos));
-                break;
-        }
+        // Debug.Log("spawnign piece w position");
+        // switch(pieceData.spawnType){
+        //     case WavePieceData.SPAWNTYPE.HORIZONTAL:
+        //         waveSpawner.SpawnHorizontalLineManual(waveHolder, pieceData, spawnPos);
+        //         break;
+        //     case WavePieceData.SPAWNTYPE.VERTICAL:
+        //         waveSpawner.SpawnVerticalLineManual(waveHolder, pieceData, spawnPos);
+        //         break;
+        //     case WavePieceData.SPAWNTYPE.DIAGONAL:
+        //         waveSpawner.SpawnDiagonalLineManual(waveHolder, pieceData, spawnPos);
+        //         break;
+        //     case WavePieceData.SPAWNTYPE.STREAM:
+        //         StartCoroutine(waveSpawner.SpawnStreamHalfManual(waveHolder, pieceData, spawnPos));
+        //         break;
+        //     case WavePieceData.SPAWNTYPE.MANUALSTREAM:
+        //         StartCoroutine(waveSpawner.SpawnStreamFullManual(waveHolder, pieceData, spawnPos));
+        //         break;
+        // }
     }
 
     public void SpawnPiece(GameObject waveHolder, Vector2 spawnPosition){
