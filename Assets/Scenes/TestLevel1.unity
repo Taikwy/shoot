@@ -464,7 +464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 110628286}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Level Grids
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1112,6 +1112,10 @@ PrefabInstance:
     - target: {fileID: 4461792261505740265, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
       propertyPath: m_Name
       value: Wave 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461792261505740265, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4461792261505740265, guid: cda0105e1dff8bb408a38177dbee9ba7, type: 3}
       propertyPath: m_IsActive
@@ -2512,7 +2516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 533838901}
   - component: {fileID: 533838902}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: level grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2618,6 +2622,10 @@ MonoBehaviour:
   objectTransform: {fileID: 0}
   rb: {fileID: 0}
   follower: {fileID: 0}
+  useDefaultSpeed: 1
+  startingMoveSpeed: 0
+  maxMoveSpeed: 0
+  acceleration: 0
   paths:
   - {fileID: 121619525}
   currentPath: {fileID: 0}
@@ -2678,6 +2686,10 @@ MonoBehaviour:
   objectTransform: {fileID: 0}
   rb: {fileID: 0}
   follower: {fileID: 0}
+  useDefaultSpeed: 1
+  startingMoveSpeed: 0
+  maxMoveSpeed: 0
+  acceleration: 0
   paths:
   - {fileID: 1092706594500959839, guid: 2f76622484b6b9e4a87354896981c6f7, type: 3}
   currentPath: {fileID: 0}
@@ -2716,7 +2728,7 @@ GameObject:
   m_Component:
   - component: {fileID: 623329050}
   - component: {fileID: 623329051}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Meat Level 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3258,7 +3270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 764455081}
   - component: {fileID: 764455082}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Start Point ================
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3448,6 +3460,10 @@ MonoBehaviour:
   objectTransform: {fileID: 0}
   rb: {fileID: 0}
   follower: {fileID: 0}
+  useDefaultSpeed: 1
+  startingMoveSpeed: 0
+  maxMoveSpeed: 0
+  acceleration: 0
   paths:
   - {fileID: 1172706290}
   currentPath: {fileID: 0}
@@ -4014,7 +4030,7 @@ GameObject:
   m_Component:
   - component: {fileID: 916743347}
   - component: {fileID: 916743348}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: level editor bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4219,7 +4235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 943564261}
   - component: {fileID: 943564262}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: level grid (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4352,7 +4368,7 @@ GameObject:
   - component: {fileID: 973956293}
   - component: {fileID: 973956292}
   - component: {fileID: 973956291}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: End Point =================
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5341,7 +5357,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1015
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5911,7 +5927,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1380310761}
   - component: {fileID: 1380310762}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: level grid (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6039,7 +6055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1404377337}
   follower: {fileID: 1404377331}
-  movementSpeed: 6
+  defaultMoveSpeed: 0
   movementMirrored: 0
   rotationSpeed: 0
   isRotating: 0
@@ -6923,6 +6939,10 @@ MonoBehaviour:
   objectTransform: {fileID: 0}
   rb: {fileID: 0}
   follower: {fileID: 0}
+  useDefaultSpeed: 1
+  startingMoveSpeed: 0
+  maxMoveSpeed: 0
+  acceleration: 0
   paths:
   - {fileID: 4896076956139757383, guid: 2282718f01c66a0488916d5b311a09c9, type: 3}
   currentPath: {fileID: 0}
@@ -7098,9 +7118,9 @@ GameObject:
   - component: {fileID: 1637828175}
   - component: {fileID: 1637828174}
   - component: {fileID: 1637828173}
-  m_Layer: 0
-  m_Name: Testing Wave Piece
-  m_TagString: Wave Spawn
+  m_Layer: 10
+  m_Name: Piece A
+  m_TagString: Wave_Spawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7113,8 +7133,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637828171}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 819944945821743540}
@@ -7134,16 +7154,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveHolderPrefab: {fileID: 3061862120054580280, guid: e1c57b5ce465f234c9ef03c7ba42b9c8, type: 3}
   spawnPoint: {x: 0, y: 0}
+  absoluteSpawn: 0
   wavePieceInfo:
     enemyPrefab: {fileID: 3568952829001208739, guid: 4bba521b4b6772f43813d1bce845bc0d, type: 3}
     attackSequence: {fileID: 0}
-    movementSequence: {fileID: 3474307037630608865, guid: 5ec55f2067a98ea488d045d067690fd9, type: 3}
+    movementSequence: {fileID: 4010381687714995650, guid: 9d92f9ca78ae9e64c98aeaccfc06d5d7, type: 3}
     spawnType: 3
-    numEnemies: 0
+    numEnemies: 5
     spawnPosition: {x: 0, y: 0}
     xGap: 0
     yGap: 0
-    spawnInterval: 0.5
+    spawnInterval: 0.25
     mirrored: 0
   numOfEnemiesInWave: 0
 --- !u!212 &1637828174
@@ -7187,8 +7208,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 71891bfe24d956043a57bdc587b0128a, type: 3}
-  m_Color: {r: 0.6476979, g: 0, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 89ae6c4f7c537b74c9dfbd760d4d9869, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -7215,7 +7236,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.0625, y: 0.0625}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.0625, y: 0.0625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -7467,6 +7488,10 @@ MonoBehaviour:
   objectTransform: {fileID: 0}
   rb: {fileID: 0}
   follower: {fileID: 0}
+  useDefaultSpeed: 1
+  startingMoveSpeed: 0
+  maxMoveSpeed: 0
+  acceleration: 0
   paths:
   - {fileID: 625272364}
   currentPath: {fileID: 0}
@@ -8584,7 +8609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1976579361}
   - component: {fileID: 1976579362}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: level grid (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9457,9 +9482,9 @@ GameObject:
   - component: {fileID: 819944945821743545}
   - component: {fileID: 819944945821743542}
   - component: {fileID: 819944945821743543}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Testing Wave
-  m_TagString: Wave Spawn
+  m_TagString: Wave_Spawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10072,6 +10097,10 @@ PrefabInstance:
     - target: {fileID: 5057396557047848698, guid: 71e1db86ba34e8040a37a87af6e8478c, type: 3}
       propertyPath: m_Name
       value: Wave 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057396557047848698, guid: 71e1db86ba34e8040a37a87af6e8478c, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5057396557047848698, guid: 71e1db86ba34e8040a37a87af6e8478c, type: 3}
       propertyPath: m_IsActive

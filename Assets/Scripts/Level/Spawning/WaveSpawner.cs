@@ -28,6 +28,7 @@ public class WaveSpawner : MonoBehaviour
         return enemy;
     }
     
+    //not using this one currently
     public GameObject SpawnEnemy(GameObject enemyPrefab, Vector2 spawnLocation, GameObject waveHolder, bool partOfWave)
     {
         // Debug.Log("Spawning at " + spawnLocation);
@@ -157,7 +158,7 @@ public class WaveSpawner : MonoBehaviour
     }
 
     public IEnumerator SpawnStream(GameObject waveHolder, WavePiece.WavePieceInfo d){
-        Debug.Log("stream");
+        // Debug.Log("stream " + d.numEnemies);
         WaveHolder waveHolderScript = waveHolder.GetComponent<WaveHolder>();
         Vector2 spawnLocation = new Vector2(d.spawnPosition.x, waveSpawnPoint.position.y);
 

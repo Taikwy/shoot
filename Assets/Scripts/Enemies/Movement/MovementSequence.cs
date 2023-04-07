@@ -9,6 +9,10 @@ public class MovementSequence : MonoBehaviour
     public Rigidbody2D rb;
     public PathFollower follower;
 
+    [Header("Manual or not")]
+    public bool useDefaultSpeed = true;
+    public float startingMoveSpeed, maxMoveSpeed, acceleration;
+
     [Header("Path Stuff")]
     public List<EnemyPath> paths = new List<EnemyPath>();
     [HideInInspector] public EnemyPath currentPath;

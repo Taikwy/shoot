@@ -7,7 +7,9 @@ public class WavePiece : MonoBehaviour
     WaveSpawner waveSpawner;
     public GameObject waveHolderPrefab;
     public Vector2 spawnPoint;
-    // public WavePieceData wavePieceData;
+    public bool absoluteSpawn = false;
+
+    [Header("Wave Piece Object")]
     public WavePieceInfo wavePieceInfo;
     [HideInInspector] public int numOfEnemiesInWave;
     
@@ -36,12 +38,18 @@ public class WavePiece : MonoBehaviour
         public int[,] staticArray;
     }
 
+    void Start(){
+        // spawnPoint.x = gameObject.transform.position.x;
+        // if(wavePieceInfo.spawnType != WavePieceInfo.SPAWNTYPE.MANUALSTREAM)
+        //     spawnPoint = gameObject.transform.position;
+    }
+    
     void OnTriggerEnter2D(Collider2D otherCollider){
         if(otherCollider.CompareTag("Spawnpoint")){
             waveSpawner = WaveSpawner.Instance;
 
             GameObject waveHolder = Instantiate(waveHolderPrefab);
-            waveHolder.name = gameObject.name + " Holder";
+            waveHolder.name = gameObject.transform.parent.gameObject.name + " Holder";
             waveHolder.transform.parent = waveSpawner.enemyWaveHolders.gameObject.transform;
 
             // if(wavePieceSpawnPoint.x < 100)
@@ -56,7 +64,7 @@ public class WavePiece : MonoBehaviour
 
     public void SpawnPiece(GameObject waveHolder){
 
-        if(spawnPoint.x < 100){
+        if(absoluteSpawn){
             Debug.Log("spawnign piece as " + wavePieceInfo.spawnType);
             switch(wavePieceInfo.spawnType){
                 case WavePieceInfo.SPAWNTYPE.HORIZONTAL:
@@ -77,7 +85,7 @@ public class WavePiece : MonoBehaviour
             }
         }
         else{
-            Debug.Log("spawnign piece w position");
+            Debug.Log("spawnign piece using piece position");
             switch(wavePieceInfo.spawnType){
                 case WavePieceInfo.SPAWNTYPE.HORIZONTAL:
                     waveSpawner.SpawnHorizontalLineManual(waveHolder, wavePieceInfo, spawnPoint);

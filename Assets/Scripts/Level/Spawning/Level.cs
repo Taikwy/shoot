@@ -26,20 +26,37 @@ public class Level : MonoBehaviour
         movementSequencesInLevel.Clear();
         attackSequencesInLevel.Clear();
         for(int i = 0; i < wavesInLevel.Count; i++){
-            foreach(WavePieceData data in wavesInLevel[i].wavePieces){
-                enemyPrefabsInLevel.Add(data.enemyPrefab);
-                Debug.Log(data.enemyPrefab + " " + data.numEnemies);
-                PoolManager.Instance.AddToPool(data.enemyPrefab, data.numEnemies, "enemy");
+            foreach (Transform childTransform in wavesInLevel[i].transform){
+                WavePiece.WavePieceInfo info = childTransform.gameObject.GetComponent<WavePiece>().wavePieceInfo;
+                enemyPrefabsInLevel.Add(info.enemyPrefab);
+                Debug.Log(info.enemyPrefab + " " + info.numEnemies);
+                PoolManager.Instance.AddToPool(info.enemyPrefab, info.numEnemies, "enemy");
 
-                scrapPrefabsInLevel.Add(data.enemyPrefab.GetComponent<EnemyScript>().scrapPrefab);
-                if(data.movementSequence){
-                    PoolManager.Instance.AddToPool(data.movementSequence, data.numEnemies, "movement");
-                    // movementSequencesInLevel.Add(data.movementSequence);
+                scrapPrefabsInLevel.Add(info.enemyPrefab.GetComponent<EnemyScript>().scrapPrefab);
+                if(info.movementSequence){
+                    PoolManager.Instance.AddToPool(info.movementSequence, info.numEnemies, "movement");
+                    // movementSequencesInLevel.Add(info.movementSequence);
                 }
-                if(data.attackSequence){
-                    PoolManager.Instance.AddToPool(data.attackSequence, data.numEnemies, "attack");
-                    // attackSequencesInLevel.Add(data.attackSequence);
+                if(info.attackSequence){
+                    PoolManager.Instance.AddToPool(info.attackSequence, info.numEnemies, "attack");
+                    // attackSequencesInLevel.Add(info.attackSequence);
                 }
+            }
+
+            foreach(WavePieceData data in wavesInLevel[i].wavePieces){
+                // enemyPrefabsInLevel.Add(data.enemyPrefab);
+                // Debug.Log(data.enemyPrefab + " " + data.numEnemies);
+                // PoolManager.Instance.AddToPool(data.enemyPrefab, data.numEnemies, "enemy");
+
+                // scrapPrefabsInLevel.Add(data.enemyPrefab.GetComponent<EnemyScript>().scrapPrefab);
+                // if(data.movementSequence){
+                //     PoolManager.Instance.AddToPool(data.movementSequence, data.numEnemies, "movement");
+                //     // movementSequencesInLevel.Add(data.movementSequence);
+                // }
+                // if(data.attackSequence){
+                //     PoolManager.Instance.AddToPool(data.attackSequence, data.numEnemies, "attack");
+                //     // attackSequencesInLevel.Add(data.attackSequence);
+                // }
             }
         }
         enemyPrefabsInLevel = enemyPrefabsInLevel.Distinct().ToList();

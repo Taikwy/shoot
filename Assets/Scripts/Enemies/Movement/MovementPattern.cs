@@ -9,11 +9,11 @@ public class MovementPattern : MonoBehaviour
     public PathFollower follower;
     protected Vector2 movePosition;
     [Header("movement sequence stuff")]
-    public float movementSpeed;
+    public float defaultMoveSpeed;
+    protected float currentMoveSpeed, startingMoveSpeed, maxMoveSpeed, acceleration = 0;
     public bool movementMirrored;
     public float rotationSpeed;
-    public bool isRotating;
-    public bool clockwise;
+    public bool isRotating, clockwise;
     [Header("movement state stuff")]
     public bool dropSpawnEnabled = false;
     
@@ -82,7 +82,9 @@ public class MovementPattern : MonoBehaviour
                     break;
             }
         }
-        movePosition = currentSequence.Move(movementSpeed);
+        if(acceleration != 0)
+            UpdateSpeed();
+        movePosition = currentSequence.Move(currentMoveSpeed);
         // Debug.Log(gameObject.name + " " + movePosition);
         if(isRotating){            
             rb.rotation += rotationSpeed * Time.deltaTime;
@@ -113,13 +115,26 @@ public class MovementPattern : MonoBehaviour
     public virtual void SetSequence(MovementSequence newSequence){
         currentSequence = newSequence;
         currentSequence.SetupPath(0);
+
+        if(!currentSequence.useDefaultSpeed){
+            if(currentSequence.maxMoveSpeed >= defaultMoveSpeed)
+                maxMoveSpeed = currentSequence.maxMoveSpeed;
+            else
+                maxMoveSpeed = defaultMoveSpeed;
+                Debug.Log(maxMoveSpeed + " " + defaultMoveSpeed);
+            acceleration = currentSequence.acceleration;
+            currentMoveSpeed = currentSequence.startingMoveSpeed;
+        }
+        else{
+            currentMoveSpeed = defaultMoveSpeed;
+            maxMoveSpeed = defaultMoveSpeed;
+        }
     }
 
     public void UpdateSpeed(){
-        // if(currentSpeed > maxSpeed)
-        //     currentSpeed = maxSpeed;
-        // else
-        //     currentSpeed += acceleration * Time.deltaTime;
+        currentMoveSpeed += acceleration * Time.deltaTime;
+        if(currentMoveSpeed > maxMoveSpeed)
+            currentMoveSpeed = maxMoveSpeed;
     }
 
     protected virtual void EnterSequence(){}
