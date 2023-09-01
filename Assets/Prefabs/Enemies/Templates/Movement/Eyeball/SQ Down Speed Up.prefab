@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3474307037630608867}
   - component: {fileID: 3474307037630608864}
   m_Layer: 0
-  m_Name: SQ Straight Down
+  m_Name: SQ Down Speed Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   useDefaultSpeed: 0
   startingMoveSpeed: 1
   maxMoveSpeed: 0
-  acceleration: 2
+  acceleration: 4
   paths:
   - {fileID: 6755342077163363033}
   currentPath: {fileID: 0}

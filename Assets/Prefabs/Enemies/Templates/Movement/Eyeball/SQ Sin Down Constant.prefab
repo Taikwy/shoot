@@ -2217,7 +2217,7 @@ GameObject:
   - component: {fileID: 4010381687714995648}
   - component: {fileID: 4010381687714995651}
   m_Layer: 0
-  m_Name: SQ Sin Down
+  m_Name: SQ Sin Down Constant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2254,10 +2254,10 @@ MonoBehaviour:
   objectTransform: {fileID: 0}
   rb: {fileID: 0}
   follower: {fileID: 0}
-  useDefaultSpeed: 0
-  startingMoveSpeed: 2
-  maxMoveSpeed: 6
-  acceleration: 4
+  useDefaultSpeed: 1
+  startingMoveSpeed: 0
+  maxMoveSpeed: 0
+  acceleration: 0
   paths:
   - {fileID: 5617461142007856201}
   currentPath: {fileID: 0}
